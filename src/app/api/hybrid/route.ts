@@ -1,23 +1,10 @@
 import {z} from 'zod';
-import {spawn} from 'node:child_process';
+import {ensureHybrid,hybridBase as base} from '../../../lib/hybrid-service.ts';
 import {hybridStore,type StoredHybridRun} from '../../../lib/hybrid-store.ts';
 import {hasSession,localRequest,sameOrigin,demoOwner} from '../../../lib/server.ts';
 
 export const runtime='nodejs';
 export const maxDuration=450;
-const base='http://127.0.0.1:3009';
-const hybridDir=process.env.MERCURY_HYBRID_DIR||process.cwd()+'/services/analysis';
-let starting:Promise<boolean>|undefined;
-async function healthy(){try{const response=await fetch(base+'/api/health',{cache:'no-store',signal:AbortSignal.timeout(1500)});if(!response.ok)return false;const data=await response.json();return data.ready===true&&data.model==='deepseek-flash'&&data.laya?.type==='ready';}catch{return false;}}
-async function ensureHybrid(){
- if(await healthy())return true;
- if(!starting)starting=(async()=>{
-  try{const child=spawn(process.execPath,['server.mjs'],{cwd:hybridDir,env:{NODE_ENV:process.env.NODE_ENV,PATH:process.env.PATH||'/usr/bin:/bin',TZ:'Asia/Hong_Kong',PROTOTYPE_PORT:'3009',DEEPSEEK_API_KEY:process.env.DEEPSEEK_API_KEY||''},detached:true,stdio:'ignore'});child.unref();}catch{return false;}
-  for(let attempt=0;attempt<24;attempt++){await new Promise(resolve=>setTimeout(resolve,1000));if(await healthy())return true;}
-  return false;
- })().finally(()=>{starting=undefined;});
- return starting;
-}
 const inputSchema=z.object({conversationId:z.string().uuid(),question:z.string().trim().min(1).max(2500),previousId:z.string().uuid().optional(),followupIndex:z.number().int().min(0).max(1).optional(),language:z.enum(['en','zh-Hant','zh-Hans']),scope:z.object({bank:z.string().max(80),book:z.string().max(100)}).strict()}).strict();
 const cookie=(value:string|null)=>value?.split(';')[0]||'';
 const authorized=(request:Request)=>localRequest(request)&&hasSession(request);

@@ -26,8 +26,9 @@ export function newSession() {
 export function hasSession(request:Request) {
   const token=request.headers.get('cookie')?.split(';').map(x=>x.trim()).find(x=>x.startsWith('mw_session='))?.slice(11);
   if(!token) return false;
-  const [id,expiry,signature]=token.split('.');
-  if(!id||!expiry||!signature||signature.length!==64||!/^\d+$/.test(expiry)||Number(expiry)<Date.now()) return false;
+  const parts=token.split('.');
+  const [id,expiry,signature]=parts;
+  if(parts.length!==3||!id||!expiry||!signature||!/^[0-9a-f]{64}$/.test(signature)||!/^\d+$/.test(expiry)||!Number.isSafeInteger(Number(expiry))||Number(expiry)<Date.now()) return false;
   const expected=signSession(id+'.'+expiry);
   return timingSafeEqual(Buffer.from(signature),Buffer.from(expected));
 }

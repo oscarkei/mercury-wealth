@@ -25,6 +25,13 @@ test('provider inputs reject unknown scopes, empty messages and external data pr
  assert.equal(requestSchema.safeParse({...input,message:''}).success,false);
  assert.equal(scenarioFor(input).shock,-20);assert.equal(scenarioFor({...input,message:'我股票跌40%',context:'overview'}).shock,-40);
 });
+test('malformed session signatures fail closed without crashing the request',()=>{
+ const valid=newSession(),[id,expiry]=valid.split('.');
+ for(const token of [id+'.'+expiry+'.'+'é'.repeat(64),valid+'.extra',id+'.'+expiry+'.'+'z'.repeat(64),id+'.'+expiry+'.abc']) {
+  assert.equal(hasSession(new Request('http://localhost:3001/api/chat',{headers:{cookie:'mw_session='+token}})),false);
+ }
+ assert.equal(hasSession(new Request('http://localhost:3001/api/chat',{headers:{cookie:'mw_session='+valid}})),true);
+});
 test('Jev uses typed SDK questions and returns a validated dynamic composition',async()=>{
  process.env.TYPESAFE_API_KEY='test-only-not-a-real-key';
  globalThis.fetch=async()=>jevResponse();

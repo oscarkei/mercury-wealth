@@ -42,6 +42,8 @@ Open `http://127.0.0.1:3001/phone?size=actual#chat`. The analysis service listen
 
 This is a local demo with a fixed authorized Okonkwo household capability, not production multi-tenant authentication. Before internet deployment, implement production identity, household authorization, persistent server sessions and private storage controls. Do not expose the local analysis service directly.
 
+A successful Vercel build does not deploy the complete chat runtime. The app currently expects a long-running analysis process on local port 3009, local Python/model files and writable persistent storage. Local API authorization also rejects public-host requests. Automatic analysis startup is disabled inside Vercel functions; hosting the frontend alone cannot enable chat by adding API keys. A hosted version needs an authenticated service boundary and persistent storage before the local-only routes can be replaced.
+
 A direct-share shock does not cover all funds, ETFs, bonds or structured products. Unknown indirect exposure is not zero and calculated direct losses are not a proven lower bound on total losses. Whole-portfolio factor stress testing, bond duration/spread shocks and verified FCN/Accumulator valuation models remain unfinished. A one-off scenario loss is not historical volatility. Existing source replies are not rewritten by this export.
 
 Held-allocation differences are hypothetical snapshot arithmetic. They do not establish executable orders, quantities, transaction costs, suitability or historical performance. Dates and coverage remain visible in the UI.
