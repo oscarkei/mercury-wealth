@@ -4,7 +4,7 @@ import {hybridStore,type StoredHybridRun} from '../../../lib/hybrid-store.ts';
 import {hasSession,localRequest,sameOrigin,demoOwner} from '../../../lib/server.ts';
 
 export const runtime='nodejs';
-export const maxDuration=450;
+export const maxDuration=300;
 const inputSchema=z.object({conversationId:z.string().uuid(),question:z.string().trim().min(1).max(2500),previousId:z.string().uuid().optional(),followupIndex:z.number().int().min(0).max(1).optional(),language:z.enum(['en','zh-Hant','zh-Hans']),scope:z.object({bank:z.string().max(80),book:z.string().max(100)}).strict()}).strict();
 const cookie=(value:string|null)=>value?.split(';')[0]||'';
 const authorized=(request:Request)=>localRequest(request)&&hasSession(request);
