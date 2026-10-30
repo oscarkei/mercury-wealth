@@ -31,6 +31,10 @@ npm run start:mobile
 
 Open `http://127.0.0.1:3001/phone?size=actual#chat`. The analysis service listens on loopback port 3009 and reads the authorized demo portfolio through the app on port 3001. Both processes must be running for connected chat. App configuration may also use local settings created by the existing configuration scripts; no existing user's settings are shipped.
 
+The website root opens the mobile preview; desktop and tablet browsers retain a 390px app viewport inside a phone frame. Phones use the available screen width. Vercel builds use the public mock snapshot instead of calling the local-only holdings/history endpoints. For an equivalent local preview, build with `MERCURY_PUBLIC_MOCK=1`.
+
+`public/demo/portfolio-history.json` contains saved illustrative curves for the committed fictional holdings, reconstructed from observed OpenBB/Cboe closes for MSFT, NVDA, AAPL, AMZN, GOOGL and IVV. It covers 20 June 2025–18 June 2026; unpriced holdings remain flat. It is neither live data nor actual account performance. Scope and displayed holdings must match before a saved curve can render. Regenerate it with `node --experimental-strip-types scripts/build-public-history.mjs /path/to/public-market-history.json`; the input must be a public `market_history` tool result, never a client database export.
+
 ## Supported calculations
 
 - Authorized same-scope holdings snapshots and direct common-share price shocks.

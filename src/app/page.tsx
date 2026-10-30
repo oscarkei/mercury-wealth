@@ -1,2 +1,2 @@
-import WealthPortal from '../components/wealth-portal';
-export default function Page(){return <WealthPortal/>;}
+import {redirect} from 'next/navigation';
+export default function Page(){redirect('/phone?size=fit');}

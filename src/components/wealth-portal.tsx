@@ -1,5 +1,6 @@
 "use client";
 // mercury-localized
+import {usePublicMock} from './mobile-preview-content';
 import {copy,statusText,localize,useAppPreferences,locale} from "../lib/app-preferences";
 import PortfolioScope from "./portfolio-scope";
 import WealthDecision from "./wealth-decision";
@@ -239,6 +240,7 @@ function Badge({
 }
 
 export default function WealthPortal() {
+  const publicMock=usePublicMock();
   const {theme,setTheme,language,setLanguage}=useAppPreferences();
   const clientRecords=useClientRecords();
 
@@ -401,10 +403,17 @@ export default function WealthPortal() {
   }, []);
   useEffect(() => {
     if (location.protocol === "http:" || location.protocol === "https:") {
-      void refreshAI();
+      if(!publicMock)void refreshAI();
       void refreshPortfolio();
     }
   }, []);
+  useEffect(()=>{
+    if(!ready||window.parent===window)return;
+    try{
+      const parent=window.parent;
+      if(parent.location.pathname==='/phone')parent.history.replaceState(null,'',parent.location.pathname+parent.location.search+location.hash);
+    }catch{}
+  },[ready,view,chatOpen,holding]);
   useEffect(() => {
     if (ready) {
       try {
@@ -630,6 +639,7 @@ export default function WealthPortal() {
     };
   }
   async function refreshPortfolio() {
+    if(publicMock){setDatabaseState("local");return;}
     const revision = ++databaseRevision.current;
     setDatabaseState("loading");
     try {
@@ -1472,7 +1482,7 @@ export default function WealthPortal() {
               </h1>
             </div>
           </div>
-          <div className="data-strip"><span>{localize(databaseState==='error'?'Holdings could not be refreshed. Showing the last available snapshot.':databaseState==='loading'?'Updating holdings…':'Valuation date')} · {localize(databaseSnapshot?.asOf||'19 Jun 2026')}</span><button onClick={()=>void refreshPortfolio()}>{localize("Refresh")}</button></div>
+          <div className="data-strip"><span>{publicMock?copy('Demo valuation date','示範估值日期','演示估值日期'):localize(databaseState==='error'?'Holdings could not be refreshed. Showing the last available snapshot.':databaseState==='loading'?'Updating holdings…':'Valuation date')} · {localize(databaseSnapshot?.asOf||'19 Jun 2026')}</span><span>{publicMock?copy("Saved snapshot","已儲存快照","已保存快照"):<button onClick={()=>void refreshPortfolio()}>{localize("Refresh")}</button>}</span></div>
           {["products","documents","insights"].includes(view)&&<PortfolioScope rows={holdings} scope={scope} onChange={setScope} money={money} currency={currency}/>}
           {localize((view === "overview" || view === "portfolio") && (
             <FamilyWorkspace
