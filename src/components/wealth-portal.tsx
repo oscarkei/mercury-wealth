@@ -718,15 +718,15 @@ export default function WealthPortal() {
   }
   const sqliteRestored=useRef(false);
   useEffect(()=>{
-    if(!ready||sqliteRestored.current)return;sqliteRestored.current=true;const revision=aiRevision.current;
+    if(publicMock||!ready||sqliteRestored.current)return;sqliteRestored.current=true;const revision=aiRevision.current;
     void (async()=>{try{await fetch('/api/session',{method:'POST',headers:{'x-mercury-client':'portal'}});const response=await fetch('/api/hybrid?history=1'+(conversationId.current?'&conversationId='+encodeURIComponent(conversationId.current):''));if(!response.ok)return;const data=await response.json() as {conversationId:string|null;turns:{scope:{bank:string;book:string};run:HybridRun}[]};if(aiRevision.current!==revision||!data.conversationId)return;if(!conversationId.current)conversationId.current=data.conversationId;setMessages(old=>{const known=new Set(old.map(m=>m.hybridRunId));const missing=data.turns.filter(t=>!known.has(t.run.id));return [...missing.flatMap(({scope,run}):Message[]=>[{role:'user',text:run.question,scopeKey:JSON.stringify(scope)},{id:run.id,role:'assistant',source:'DeepSeek',text:run.answer,scopeKey:JSON.stringify(scope),hybridRunId:run.id,hybridRun:run,model:'deepseek-flash'}]),...old];});}catch{}})();
-  },[ready]);
+  },[ready,publicMock]);
   const hydratedHybridRuns=useRef(new Set<string>());
   useEffect(()=>{
-    if(!ready)return;
+    if(publicMock||!ready)return;
     const pending=messages.filter(m=>m.hybridRunId&&!m.hybridRun&&!hydratedHybridRuns.current.has(m.hybridRunId)).slice(-10);
     for(const message of pending){const id=message.hybridRunId!;hydratedHybridRuns.current.add(id);void fetch('/api/hybrid?run='+encodeURIComponent(id)+'&conversationId='+encodeURIComponent(conversationId.current||(conversationId.current=uuid())),{headers:{'x-mercury-client':'portal'},credentials:'same-origin'}).then(async response=>response.ok?(await response.json()).run:null).then((run:HybridRun|null)=>{if(run)setMessages(items=>items.map(item=>item.hybridRunId===id?{...item,hybridRun:run}:item));}).catch(()=>{});}
-  },[ready,messages]);
+  },[ready,messages,publicMock]);
   async function sendHybrid(question:string,followupIndex?:number,sourceRunId?:string){
     if(!question.trim()||busy)return;
     const clean=question.trim().slice(0,2500),requestScope=JSON.stringify(scope),previousId=sourceRunId||[...messages].reverse().find(m=>m.scopeKey===requestScope&&m.hybridRunId)?.hybridRunId;

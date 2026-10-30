@@ -1,12 +1,19 @@
 'use client';
 import {useEffect,useState} from 'react';
+import {usePublicMock} from './mobile-preview-content';
 import {clientAPI} from '../lib/client-api';
 import {copy,localize,useAppPreferences} from '../lib/app-preferences';
 export type ClientNotice={id:string;title:string;body:string;category:'products'|'insights'|'documents';destination:string;source:string};
-export function useClientRecords(){const [records,setRecords]=useState<{documents:any[];notifications:{id:string;state:string}[];preferences:{products:boolean;insights:boolean;documents:boolean}}>({documents:[],notifications:[],preferences:{products:true,insights:true,documents:true}}),[error,setError]=useState(false);
- const refresh=async()=>{try{setRecords(await clientAPI({action:'list'}));setError(false);}catch{setError(true);}};
- useEffect(()=>{void refresh();const handler=()=>void refresh();window.addEventListener('mercury-records-changed',handler);return()=>window.removeEventListener('mercury-records-changed',handler);},[]);
- return {records,error,refresh,mark:async(id:string,state:string)=>{try{const notifications=await clientAPI({action:'mark',id,state});setRecords(r=>({...r,notifications}));setError(false);}catch{setError(true);}},preferences:async(value:typeof records.preferences)=>{try{const preferences=await clientAPI({action:'preferences',value});setRecords(r=>({...r,preferences}));setError(false);}catch{setError(true);}}};
+const demoKey='mercury-public-demo-notifications';
+function demoRecords(){
+ const data=JSON.parse(localStorage.getItem(demoKey)||'{}');
+ return {documents:[],notifications:Array.isArray(data.notifications)?data.notifications.filter((n:any)=>typeof n?.id==='string'&&['read','unread','cleared'].includes(n.state)):[],preferences:{products:data.preferences?.products!==false,insights:data.preferences?.insights!==false,documents:data.preferences?.documents!==false}};
+}
+export function useClientRecords(){const publicMock=usePublicMock();const [records,setRecords]=useState<{documents:any[];notifications:{id:string;state:string}[];preferences:{products:boolean;insights:boolean;documents:boolean}}>({documents:[],notifications:[],preferences:{products:true,insights:true,documents:true}}),[error,setError]=useState(false);
+ const saveDemo=(next:typeof records)=>{localStorage.setItem(demoKey,JSON.stringify(next));setRecords(next);setError(false);};
+ const refresh=async()=>{try{setRecords(publicMock?demoRecords():await clientAPI({action:'list'}));setError(false);}catch{setError(true);}};
+ useEffect(()=>{void refresh();const handler=()=>void refresh();window.addEventListener('mercury-records-changed',handler);return()=>window.removeEventListener('mercury-records-changed',handler);},[publicMock]);
+ return {records,error,refresh,mark:async(id:string,state:string)=>{try{if(publicMock){const current=demoRecords();saveDemo({...current,notifications:[...current.notifications.filter((n:{id:string})=>n.id!==id),{id,state}]});return;}const notifications=await clientAPI({action:'mark',id,state});setRecords(r=>({...r,notifications}));setError(false);}catch{setError(true);}},preferences:async(value:typeof records.preferences)=>{try{if(publicMock){saveDemo({...demoRecords(),preferences:value});return;}const preferences=await clientAPI({action:'preferences',value});setRecords(r=>({...r,preferences}));setError(false);}catch{setError(true);}}};
 }
 export default function ClientNotifications({notices,states,error,onMark,onOpen}:{notices:ClientNotice[];states:{id:string;state:string}[];error:boolean;onMark:(id:string,state:string)=>Promise<void>;onOpen:(destination:string)=>void}){
  useAppPreferences();const [filter,setFilter]=useState('all');const state=(id:string)=>states.find(s=>s.id===id)?.state||'unread';

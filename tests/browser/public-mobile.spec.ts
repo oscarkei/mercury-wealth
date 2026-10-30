@@ -5,6 +5,7 @@ test.skip(!base,'Requires a built public mock (MERCURY_PUBLIC_MOCK=1 or VERCEL=1
 test('desktop opens the mobile frame with distinct custodian curves and working Portfolio',async({page})=>{
  await page.setViewportSize({width:1440,height:1100});
  const failed:string[]=[];page.on('response',r=>{if(r.status()>=400&&r.url().startsWith(base!))failed.push(r.url());});
+ const localAPI:string[]=[];page.on('request',r=>{if(new URL(r.url()).pathname.startsWith('/api/'))localAPI.push(r.url());});
  await page.goto(base!);
  await expect(page).toHaveURL(/\/phone\?size=fit/);
  const frame=page.frameLocator('#portal');
@@ -26,12 +27,17 @@ test('desktop opens the mobile frame with distinct custodian curves and working 
  }
  await frame.locator('body').evaluate(()=>scrollTo(0,0));
  await page.screenshot({path:'/private/tmp/mercury-public-mobile-desktop.png'});
+ await frame.getByRole('button',{name:'Notifications',exact:true}).click();
+ await frame.getByRole('button',{name:'Mark read',exact:true}).first().click();
+ await page.keyboard.press('Escape');
  await frame.getByRole('button',{name:'Portfolio',exact:true}).click();
  await expect(frame.locator('.portfolio-overview .wealth-line-stroke')).toBeVisible();
  await expect(page).toHaveURL(/#portfolio$/);
  await page.reload();
  await expect(frame.locator('.portfolio-overview .wealth-line-stroke')).toBeVisible();
+ expect(await frame.locator('body').evaluate(()=>JSON.parse(localStorage.getItem('mercury-public-demo-notifications')||'{}').notifications.some((n:{state:string})=>n.state==='read'))).toBe(true);
  expect(failed).toEqual([]);
+ expect(localAPI).toEqual([]);
 });
 test('a phone uses its full screen without horizontal overflow',async({browser})=>{
  const context=await browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});
