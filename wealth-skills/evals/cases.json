@@ -1,0 +1,495 @@
+{
+  "version": "0.1.0",
+  "status": "acceptance_cases_not_live_results",
+  "fixtures": {
+    "base": {
+      "synthetic": true,
+      "independent_of_current_demo": true,
+      "id": "fixture-base-v1",
+      "household_id": "fixture_household_A",
+      "as_of": "2026-06-19",
+      "base_currency": "USD",
+      "nav": 1000000,
+      "holdings": [
+        {
+          "id": "p_nvda",
+          "instrument": "NVDA",
+          "value": 100000,
+          "category": "equity",
+          "sector": "technology"
+        },
+        {
+          "id": "p_meta",
+          "instrument": "META",
+          "value": 100000,
+          "category": "equity",
+          "sector": "technology"
+        },
+        {
+          "id": "p_techf",
+          "instrument": "TECHF",
+          "value": 200000,
+          "category": "fund",
+          "sector": "technology"
+        },
+        {
+          "id": "p_note",
+          "instrument": "NOTE_FINAL",
+          "value": 50000,
+          "category": "note",
+          "linked_underlying": "NVDA"
+        },
+        {
+          "id": "p_cash",
+          "instrument": "USD_CASH",
+          "value": 550000,
+          "category": "cash"
+        }
+      ],
+      "fund_constituents": {
+        "TECHF": {
+          "as_of": "2026-06-19",
+          "coverage_ratio": 1,
+          "weights": {
+            "NVDA": 0.1,
+            "MSFT": 0.2,
+            "AMD": 0.2,
+            "OTHER_TECH": 0.5
+          }
+        }
+      },
+      "expected": {
+        "direct_nvda_value": 100000,
+        "direct_nvda_weight": 0.1,
+        "indirect_nvda_value": 20000,
+        "known_nvda_equity_value": 120000,
+        "known_nvda_equity_weight": 0.12,
+        "note_linkage_value": 50000,
+        "nvda_equity_shock_minus_20_pnl": -24000,
+        "technology_linear_shock_minus_20_pnl": -80000,
+        "technology_scenario_unpriced_note_value": 50000
+      }
+    },
+    "note_final": {
+      "synthetic": true,
+      "id": "NOTE_FINAL",
+      "terms_version": "test-1",
+      "principal": 50000,
+      "currency": "USD",
+      "initial": 100,
+      "strike": 100,
+      "barrier": 60,
+      "barrier_observation": "final_only",
+      "barrier_comparison": "at_or_above",
+      "coupon": 0,
+      "below_barrier_formula": "principal * terminal / strike",
+      "maturity": "2027-06-19",
+      "expected_terminal_60_redemption": 50000,
+      "expected_terminal_50_redemption": 25000
+    }
+  },
+  "cases": [
+    {
+      "id": "E01",
+      "category": "comparison",
+      "prompt": "Compare NVDA, META and AMD over six months.",
+      "skills": [
+        "mercury-market-research"
+      ],
+      "fixture": "base",
+      "must": [
+        "Resolve the date window using the supplied app date.",
+        "Use the requested universe and common comparison dates."
+      ],
+      "must_not": [
+        "Substitute a default basket.",
+        "Rank non-overlapping periods as identical."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E02",
+      "category": "why",
+      "prompt": "Why? (after E01)",
+      "skills": [
+        "mercury-market-research"
+      ],
+      "fixture": "base",
+      "must": [
+        "Retain E01 assets/window.",
+        "Retrieve available dated company evidence and distinguish inference."
+      ],
+      "must_not": [
+        "Only repeat price returns.",
+        "Claim beat/miss without consensus."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E03",
+      "category": "append",
+      "prompt": "Add MSFT.",
+      "skills": [
+        "mercury-market-research"
+      ],
+      "fixture": "base",
+      "must": [
+        "Keep NVDA/META/AMD and append MSFT.",
+        "Preserve window and convention."
+      ],
+      "must_not": [
+        "Replace the prior universe with MSFT."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E04",
+      "category": "window",
+      "prompt": "Use three months instead.",
+      "skills": [
+        "mercury-market-research"
+      ],
+      "fixture": "base",
+      "must": [
+        "Change only the period.",
+        "Invalidate dependent comparison results."
+      ],
+      "must_not": [
+        "Keep displaying six-month figures under a three-month title."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E05",
+      "category": "direct_exposure",
+      "prompt": "How much direct NVDA exposure do I have?",
+      "skills": [
+        "mercury-client-portfolio"
+      ],
+      "fixture": "base",
+      "must": [
+        "Use fixture base direct value 100000 and weight 0.1 through tool results.",
+        "Identify snapshot date."
+      ],
+      "must_not": [
+        "Include the fund or note in a direct-only figure."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E06",
+      "category": "lookthrough",
+      "prompt": "Include my fund exposure as well.",
+      "skills": [
+        "mercury-client-portfolio"
+      ],
+      "fixture": "base",
+      "must": [
+        "Known NVDA equity value 120000, weight 0.12.",
+        "Keep note linkage separate and do not double count NAV."
+      ],
+      "must_not": [
+        "Treat the note as an equal cash-equity holding."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E07",
+      "category": "ambiguous_note",
+      "prompt": "What if my note falls 40%? (no prior shock context)",
+      "skills": [
+        "mercury-product-scenario"
+      ],
+      "fixture": "base",
+      "must": [
+        "Clarify note market price versus underlying decline.",
+        "Resolve the selected note if needed."
+      ],
+      "must_not": [
+        "Choose one interpretation without context."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E08",
+      "category": "maturity",
+      "prompt": "For NOTE_FINAL, what is redemption if the underlying ends at 60?",
+      "skills": [
+        "mercury-product-scenario"
+      ],
+      "fixture": "base",
+      "must": [
+        "Use fixture note_final exact barrier convention.",
+        "Expected principal redemption is 50000 with coupon zero, from the tool."
+      ],
+      "must_not": [
+        "Assume a different inequality or invent coupons."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E09",
+      "category": "mark",
+      "prompt": "What can I sell that note for today? (maturity engine only)",
+      "skills": [
+        "mercury-product-scenario"
+      ],
+      "fixture": "base",
+      "must": [
+        "Explain current pricing capability is missing.",
+        "Retain any valid maturity analysis as a separate result."
+      ],
+      "must_not": [
+        "Present maturity proceeds as a sale quote."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E10",
+      "category": "scenario_change",
+      "prompt": "Change that underlying shock to 20% down.",
+      "skills": [
+        "mercury-product-scenario"
+      ],
+      "fixture": "base",
+      "must": [
+        "Preserve product, reference price, horizon and path assumptions.",
+        "Create a new scenario revision."
+      ],
+      "must_not": [
+        "Change the notional or product silently."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E11",
+      "category": "benchmark",
+      "prompt": "Use MSCI World instead of the previous benchmark.",
+      "skills": [
+        "mercury-client-portfolio"
+      ],
+      "fixture": "base",
+      "must": [
+        "Keep scope, dates and return convention.",
+        "Invalidate benchmark-dependent results; do not rewrite IPS."
+      ],
+      "must_not": [
+        "Relabel a research choice as the client's assigned mandate."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E12",
+      "category": "performance",
+      "prompt": "What was my actual portfolio return last year? (snapshot only)",
+      "skills": [
+        "mercury-client-portfolio"
+      ],
+      "fixture": "base",
+      "must": [
+        "Identify missing historical valuations/flows/FX/method.",
+        "Offer supported exposure or unrealized P&L separately."
+      ],
+      "must_not": [
+        "Multiply historical stock return by current holdings and call it actual performance."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E13",
+      "category": "missing_terms",
+      "prompt": "Model the selected held note, but its barrier schedule is absent.",
+      "skills": [
+        "mercury-product-scenario"
+      ],
+      "fixture": "base",
+      "must": [
+        "Request or flag the missing schedule for the dependent calculation.",
+        "Do not substitute a different demo product."
+      ],
+      "must_not": [
+        "Invent contract terms."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E14",
+      "category": "numeric_binding",
+      "prompt": "Draft labels an AMD revenue metric as NVDA revenue.",
+      "skills": [
+        "mercury-response-ui"
+      ],
+      "fixture": "base",
+      "must": [
+        "Reject or repair entity mismatch even when numeric value exists.",
+        "Use the correct metric/result reference."
+      ],
+      "must_not": [
+        "Accept the claim merely because it passes JSON Schema."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E15",
+      "category": "refresh_cache",
+      "prompt": "Refresh the market comparison after cached data expires.",
+      "skills": [
+        "mercury-market-research"
+      ],
+      "fixture": "base",
+      "must": [
+        "Bypass stale freshness cache and fetch or report failure.",
+        "Preserve observed-at separately from retrieval time."
+      ],
+      "must_not": [
+        "Silently present old data as refreshed."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E16",
+      "category": "partial_503",
+      "prompt": "Prices succeed; the provider returns 503 during explanation.",
+      "skills": [
+        "mercury-response-ui"
+      ],
+      "fixture": "base",
+      "must": [
+        "Keep prices/chart/result refs.",
+        "Mark explanation incomplete and resume that stage on retry."
+      ],
+      "must_not": [
+        "Lose valid data or claim successful AI explanation."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E17",
+      "category": "restart",
+      "prompt": "Refresh the page and restart the server, then ask about the last scenario.",
+      "skills": [
+        "mercury-product-scenario"
+      ],
+      "fixture": "base",
+      "must": [
+        "Restore conversation, product, shock, dates and result refs from persistent store."
+      ],
+      "must_not": [
+        "Depend on the old process Map or browser text alone."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E18",
+      "category": "long_topic",
+      "prompt": "Run the mixed-topic sequence defined below, then return to the earlier comparison.",
+      "skills": [
+        "mercury-client-portfolio"
+      ],
+      "fixture": "base",
+      "must": [
+        "Resolve the referenced earlier topic after more than ten messages.",
+        "Preserve explicit corrections and current selected scope."
+      ],
+      "must_not": [
+        "Clear all analysis state on account/product/stock events."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E19",
+      "category": "model_switch",
+      "prompt": "Switch the model and continue the same analysis.",
+      "skills": [
+        "mercury-market-research"
+      ],
+      "fixture": "base",
+      "must": [
+        "Retain application state and results.",
+        "Rebuild provider-compatible protocol history."
+      ],
+      "must_not": [
+        "Reset the business conversation or blindly forward incompatible signatures."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    },
+    {
+      "id": "E20",
+      "category": "reset_scope",
+      "prompt": "Reset demo conversation; then select another demo household.",
+      "skills": [
+        "mercury-client-portfolio"
+      ],
+      "fixture": "base",
+      "must": [
+        "Do not restore reset topics.",
+        "Do not reuse household A's private/scope-specific result for household B."
+      ],
+      "must_not": [
+        "Resurrect old analysis through cache or a summary."
+      ],
+      "assessment": "integrated_app_trace_plus_answer_review",
+      "status": "not_run"
+    }
+  ],
+  "mixed_topic_sequence": [
+    "Compare NVDA/META/AMD over six months.",
+    "Why?",
+    "How does that relate to my holdings?",
+    "Include the fund.",
+    "Add MSFT.",
+    "Change the window to three months.",
+    "Use MSCI World as comparison.",
+    "Explain price return versus total return.",
+    "Show my selected note.",
+    "What if its underlying falls 40% at maturity?",
+    "Keep its notional unchanged.",
+    "Change that shock to 20% down.",
+    "Explain the barrier condition.",
+    "What does autocall mean generally?",
+    "Return to my selected note.",
+    "Keep the same maturity.",
+    "Refresh the page.",
+    "Ask about the last note scenario.",
+    "Restart the server.",
+    "Return to the earlier four-stock comparison and summarize my exposure."
+  ],
+  "rubric": {
+    "hard_failures": [
+      "Invented numeric results or mismatched numeric references",
+      "Wrong household/scope",
+      "Unsupported current note price asserted",
+      "Wrong carried-forward product/period/shock",
+      "Completed analysis claimed after failure"
+    ],
+    "quality_axes": [
+      "Question answered",
+      "Client relevance",
+      "Method selection",
+      "Evidence interpretation",
+      "Follow-up continuity",
+      "Concise useful explanation"
+    ],
+    "suggested_scoring": "Score each quality axis 0-2 with written evidence. Do not average away a hard failure.",
+    "latency": "Measure separately; no threshold is claimed as achieved."
+  }
+}

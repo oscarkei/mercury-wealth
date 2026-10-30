@@ -1,0 +1,17 @@
+// Narrow regression guardrails; not a general causal-truth classifier.
+export function evidenceIssues(answer,run){
+ const issues=[];if(run.language==='zh-Hant'&&(answer.match(/美国|经济|数据|价格|预测|实际|观察|风险|产量|供应|库存|市场/g)||[]).length>=4)issues.push({code:'language_changed',message:'The selected language is Traditional Chinese (繁體中文 / zh-Hant), but this draft uses Simplified Chinese extensively. Return the COMPLETE research in Traditional Chinese, keeping all facts and IDs intact.'});let heading='';const year=Number(run.date?.slice(0,4)),month=Number(run.date?.slice(5,7));const lastDay=run.date?new Date(Date.UTC(year,month,0)).getUTCDate():31;
+ for(const line of answer.split('\n')){
+  if(/^#{1,4} /.test(line))heading=line;
+  const clean=line.replace(/\{\{F\d+\}\}/g,'');
+  if(run.date&&Number(run.date.slice(8,10))<lastDay&&new RegExp(`(?:本月|當月|${month}\\s*月).{0,6}(?:全月|整月)(?:平均|產量|數據|口徑|數字)?`).test(clean)&&!/預測|預估|估計|尚未|未完成|不可|不能|並非|不是/.test(clean))issues.push({code:'incomplete_month',message:'The current month is not complete. State the actual through-date and month-to-date/estimate status; do not call it a completed full-month observation. '+line});
+  if(/(?:EIA|BLS|BEA|SEC).{0,8}未公布(?:具體)?(?:數值|數據|數字)/i.test(clean))issues.push({code:'absence_overclaim',message:'Failure to retrieve a number does not prove the agency did not publish it. Say it was not obtained in the consulted source; do not claim the agency never published it. '+line});
+  if(/(?:[12]H\d{2}|\d{4}H[12]|上半年|下半年).{0,35}(?:的季度|季度路徑|quarterly path)/i.test(clean))issues.push({code:'half_year_as_quarter',message:'H1/H2 are half-year periods, not quarters. Preserve the actual forecast target period. '+line});
+  if(/(?:本月|當月|\d{1,2}\s*月)\s*至今/.test(clean)&&!/截至|截止|報導時點|報道時點|未註明|未注明|未明|不明|未提供|through|cutoff/i.test(clean))issues.push({code:'missing_mtd_cutoff',message:'Month-to-date requires a through-date. If the source does not provide one, explicitly label the observation cutoff unspecified; publication date is not automatically the cutoff. '+line});
+  if(/淨\s*LNG\s*出口|LNG\s*淨出口/.test(clean)&&!(run.sources||[]).some(s=>/net (?:LNG|liquefied natural gas) exports|LNG net exports|淨\s*LNG\s*出口|LNG\s*淨出口/i.test((s.content||'')+' '+(s.excerpt||''))))issues.push({code:'unsupported_net_label',message:'The supplied source says LNG exports, not net LNG exports. Do not add a net/gross qualifier without source support; retain the original measure name. '+line});
+  const used=[...line.matchAll(/\{\{(F\d+)\}\}/g)].map(m=>run.facts?.find(f=>f.id===m[1])).filter(Boolean);
+  if(/(?:屬|全部|均為|：|:)\s*預測|forecasts? only/i.test(heading+line)&&used.some(f=>f.data_status?.startsWith('historical'))&&!/歷史|觀察|實際|historical|observed/i.test(line))issues.push({code:'observation_as_forecast',message:'A bound historical observation is presented as a forecast. Label each datum separately and separate historical data from forecast targets/vintages. '+line});
+  if(/(?:第四季|第四季度|Q4|餘下|剩餘).{0,45}(?:必須|必然|一定|勢必|must)/i.test(clean)&&/(?:年|全年|年度).{0,25}(?:預測|目標)|預測.{0,25}(?:全年|年度)/.test(answer)&&!/不能|不可|不足以|無法|未能/.test(clean))issues.push({code:'unsupported_annual_bridge',message:'Do not infer the remaining quarter MUST accelerate from a weekly/annual comparison. A valid bridge requires comparable year-to-date actuals, day weighting and the same vintage; otherwise state a conditional scenario without necessity. '+line});
+ }
+ return issues;
+}

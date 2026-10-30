@@ -1,0 +1,116 @@
+/* Refinement of Mercury's existing mobile system: legibility, hierarchy and touch. */
+.wealth-card-pnl{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:12px 0 2px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.wealth-card-pnl>span{font-size:12px;color:var(--wealth-card-muted)}
+.wealth-card-pnl strong{font-size:15px;color:var(--wealth-card-ink);font-weight:550}
+.wealth-card-pnl small{font-size:12px;margin-left:5px;color:var(--wealth-card-muted)}
+.wealth-line header>small{font-size:11px;opacity:1;color:var(--muted-foreground)}
+.wealth-line-caption{font-size:12px;line-height:1.5}.wealth-line-caption span{opacity:1;color:var(--muted-foreground)}
+.wealth-line-dates{font-size:11px;opacity:1;color:var(--muted-foreground)}
+.wealth-line-periods{gap:6px;margin-top:8px}.wealth-line-periods button{font-size:13px;background:transparent;cursor:pointer}.wealth-line-periods button[aria-pressed=true]{background:var(--surface-raised)}
+.wealth-line>p,.wealth-line-source{font-size:11px!important;line-height:1.6}
+.wealth-line-empty{min-height:320px;font-size:14px}
+.wealth-line.is-compact .wealth-line-empty{min-height:244px}
+.wealth-line.is-compact :is(header>small,.wealth-line-caption span,.wealth-line-dates){color:var(--wealth-card-muted)}
+.wealth-line.is-compact>p{font-size:11px!important;color:var(--wealth-card-muted);margin-top:10px}
+.client-home .wealth-line.is-compact{margin-top:12px;padding-top:12px}
+.client-home .wealth-line.is-compact .wealth-line-svg{height:104px}
+.client-home .wealth-card-value>small{font-size:12px}
+.client-home .wealth-summary-card .wealth-card-cash{min-height:48px;padding-block:12px;margin-top:12px}
+.client-home .wealth-card-cash>span{font-size:12px}
+.wealth-slide-dots{margin-top:0}
+.hybrid-card{padding:18px;border-radius:16px}
+.hybrid-prose,.hybrid-driver{font-size:14px;line-height:1.65}
+.hybrid-card h3{font-size:16px;line-height:1.45}
+.hybrid-row{font-size:13px;line-height:1.5;padding-block:12px}
+.hybrid-note,.hybrid-kicker,.hybrid-status{font-size:12px;line-height:1.6}
+.hybrid-metric{background:var(--surface-raised);padding:12px}
+.hybrid-metric small,.hybrid-metric span{font-size:12px}
+.hybrid-metric strong{font-size:19px;word-break:normal}
+.hybrid-legend div{font-size:12px;gap:6px}.hybrid-legend b{flex-shrink:0}
+.hybrid-dates{font-size:11px}
+.hybrid-secondary,.hybrid-expand,.hybrid-choice,.hybrid-followups button,.hybrid-form button{min-height:44px;font-size:13px;cursor:pointer}
+.hybrid-proposal>p{font-size:14px;line-height:1.65}
+.hybrid-proposal details>summary,.hybrid-original>summary,.hybrid-sources>summary{min-height:44px;display:flex;align-items:center;font-size:12px}
+.hybrid-sources a,.hybrid-sources span{background:var(--surface-raised);font-size:12px;padding:9px 10px}
+.hybrid-sources a{min-height:44px;display:inline-flex;align-items:center}
+.hybrid-form label{font-size:13px}
+.hybrid-warning{font-size:12px}
+.allocation-summary>.primary{background:#1b1d20;color:#fff;border-color:#1b1d20}
+html[data-theme=dark] .allocation-summary>.primary{background:#f2f3f5!important;color:#16181b!important;border-color:#f2f3f5!important}
+@media(max-width:420px){
+ .client-home{gap:26px}
+ .client-home .wealth-summary-card{padding-top:16px}
+ .client-home .wealth-card-value{margin:6px 0}
+ .client-home .wealth-card-value h2{font-size:34px}
+ .client-home .wealth-card-value>div{margin-top:6px}
+ .wealth-card-pnl{margin-top:10px}
+ .portfolio-value-chart:not(.is-compact){padding:20px}
+ .portfolio-overview .wealth-line-svg{height:174px}
+}
+@media(hover:hover) and (pointer:fine){.wealth-line-periods button:not([aria-pressed=true]):hover{background:var(--surface-raised)}}
+@media(max-width:600px){
+ .hybrid-metrics{grid-template-columns:minmax(0,1fr);gap:10px}
+ .hybrid-metric strong{white-space:nowrap;overflow-wrap:normal;font-size:clamp(16px,4.8vw,19px)}
+ .hybrid-allocation{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;gap:18px;margin-block:22px}
+ .hybrid-donut{width:132px;height:132px}.hybrid-donut span{width:86px;height:86px}
+ .hybrid-legend{width:100%;min-width:0}
+ .hybrid-legend div{font-size:13px;line-height:1.5;padding-block:7px;overflow-wrap:normal;word-break:normal}
+ .hybrid-legend b{white-space:nowrap}
+}
+/* 3009 research layout: a question bubble, then unboxed full-width replies. */
+.mercury-research-chat .chat-log{padding:22px 15px 28px}
+.mercury-reply-label{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted-foreground);margin:0 0 12px}
+.mercury-reply-label i{width:5px;height:5px;flex:none;background:var(--primary);border-radius:50%}
+.mercury-research-chat .hybrid-result{gap:14px}
+.mercury-research-chat .hybrid-card{padding:18px;margin:0;border-radius:16px}
+.mercury-research-chat .chat-message.user>p{font-size:14px;line-height:1.7}
+.mercury-research-chat .chat-message.assistant>p{font-size:14px;line-height:1.75}
+/* 3009 presentation parity: retain every supported block and its evidence. */
+.hybrid-component{min-width:0}
+.hybrid-chart{height:auto;min-height:158px}
+.hybrid-chart text{fill:var(--muted-foreground);font-size:9px;font-variant-numeric:tabular-nums}
+.hybrid-section-teaser{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.hybrid-expand{margin-top:8px;border:0;padding:6px 0;background:none;color:var(--primary);text-align:left;min-height:44px}
+.hybrid-prose h4{font-size:15px;line-height:1.5;margin:16px 0 8px}
+.hybrid-bullet{display:flex;gap:8px;margin:8px 0}.hybrid-bullet>span:last-child{min-width:0}
+.hybrid-citation{color:var(--primary);font-size:.85em;text-underline-offset:3px;padding:3px}
+.hybrid-data-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.5}
+.hybrid-data-row>span{min-width:0;overflow-wrap:anywhere}.hybrid-data-row>strong{font-variant-numeric:tabular-nums;text-align:right;max-width:100%;overflow-wrap:anywhere}
+.hybrid-data-row>small{grid-column:1/-1;color:var(--muted-foreground);font-size:12px;line-height:1.6}
+.hybrid-product-row{padding:14px 0;border-bottom:1px solid var(--line)}.hybrid-product-row:last-child{border-bottom:0;padding-bottom:0}
+.hybrid-product-row h4{font-size:14px;line-height:1.5;margin:0 0 10px}.hybrid-product-row small{font-size:12px;color:var(--muted-foreground)}
+.hybrid-driver{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-left:0}
+.hybrid-driver>div{min-width:0}.hybrid-driver .hybrid-prose p:first-child{margin-top:0}
+.hybrid-step{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--surface-raised);flex:none;font-size:12px;font-variant-numeric:tabular-nums}
+.hybrid-result details>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-size:12px;gap:8px;list-style:none}
+.hybrid-result details>summary::after{content:'+';margin-left:auto;color:var(--muted-foreground)}.hybrid-result details[open]>summary::after{content:'−'}
+.hybrid-mix .hybrid-note{margin-top:6px;font-size:12px}.hybrid-weight-track{height:6px;background:var(--surface-raised);border-radius:4px;overflow:hidden}.hybrid-weight-track i{display:block;height:100%;background:var(--primary)}
+.hybrid-record-link{display:inline-flex;align-items:center;min-height:44px;font-size:13px;color:var(--primary);text-underline-offset:3px}
+.hybrid-choices{display:flex;flex-wrap:wrap;gap:8px}
+.hybrid-citation-strip{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12px;color:var(--muted-foreground)}
+.hybrid-citation-strip>a,.hybrid-citation-strip>details{background:var(--surface-raised);border-radius:8px;color:var(--ink);font-size:12px;padding:0 10px;min-height:44px}
+.hybrid-citation-strip>a{display:inline-flex;align-items:center;text-decoration:none}.hybrid-citation-strip details>a{display:block;padding:10px 0;color:var(--ink);font-size:12px;overflow-wrap:anywhere}
+.hybrid-original,.hybrid-diagnostics{border-top:1px solid var(--line)}
+/* Legacy .chat-composer span set a muted foreground on both send and stop. */
+.chat-input-dock .kokonut-composer .send{display:grid;place-items:center;position:relative;overflow:hidden;background:var(--primary);color:var(--on-accent);border:0;padding:0}
+.chat-input-dock .kokonut-composer .send>span{display:grid;place-items:center;color:inherit;line-height:1;width:24px;height:24px}
+.chat-input-dock .kokonut-composer .send svg{color:inherit;flex:none}
+.chat-input-dock .kokonut-composer .send:disabled{opacity:1;background:var(--surface-raised);color:var(--muted-foreground);cursor:default}
+.chat-input-dock .kokonut-composer .send:not(:disabled):active{transform:scale(.96)}
+.hybrid-result button:disabled{cursor:default;opacity:.5}
+@media(max-width:420px){.hybrid-data-row{grid-template-columns:minmax(0,1fr)}.hybrid-data-row>strong{text-align:left}.hybrid-form{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.chat-input-dock .kokonut-composer .send:active{transform:none}}
+/* The lead is an explanation, not another nested card (same hierarchy as 3009). */
+.mercury-research-chat .hybrid-component:first-child[data-component=research_section]>.hybrid-card{border:0;background:transparent;padding:0 2px}
+.mercury-research-chat .hybrid-component:first-child[data-component=research_section] h3{font-size:13px;color:var(--muted-foreground);font-weight:550}
+.mercury-research-chat .hybrid-prose :is(p,h4,strong){color:var(--ink)}
+.insight-metric span{color:var(--muted-foreground);font-size:11px;line-height:1.5}
+.insights-toolbar>span{display:flex;gap:4px;align-items:baseline}
+html[data-theme] .compact-search input{background:transparent!important;color:var(--ink)}
+html[data-theme] .compact-search input::placeholder{color:var(--muted-foreground);opacity:1}
+html[data-theme=dark] .barrier-gauge{background-image:linear-gradient(90deg,#c29470 0%,#c29470 42.5%,#82b8a2 42.5%,#82b8a2 85%,#9db4d7 85%);background-size:100% 8px;background-repeat:no-repeat;background-position:0 12px}
+html[data-theme=dark] .barrier-gauge i{color:var(--ink)}
+html[data-theme=dark] .barrier-gauge i:before{background:var(--muted-foreground)}
+.hybrid-donut span{align-content:center;gap:3px}.hybrid-donut span small{font-size:10px;color:var(--muted-foreground)}.hybrid-donut span b{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+.hybrid-chart-periods{display:flex;gap:6px}.hybrid-chart-periods button{min-height:44px;flex:1;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--ink)}.hybrid-chart-periods button[aria-pressed=true]{background:var(--accent-surface);color:var(--primary)}
+.hybrid-comparison-legend>div{display:grid;grid-template-columns:8px 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:12px}.hybrid-comparison-legend i{height:8px;border-radius:50%}.hybrid-comparison-legend strong{font-variant-numeric:tabular-nums}.hybrid-professional-chart{min-width:0}

@@ -1,0 +1,166 @@
+{
+  "version": "0.1.0",
+  "reviewed_code_root": "work/clean-chat",
+  "note": "Source registration is not upstream readiness. Advertise only tools currently available at runtime. No capabilities are enabled by this manifest.",
+  "tools": [
+    {
+      "id": "market_history",
+      "status": "registered_in_inspected_source",
+      "enablement": "runtime_required",
+      "input": "ResearchPlan",
+      "output": "ResearchData",
+      "source": "src/lib/research-engine.ts",
+      "limits": "Public US multi-asset history; inspect price adjustments and source coverage.",
+      "reviewed_as_of": "2026-10-28",
+      "live_verified": false
+    },
+    {
+      "id": "optimize_allocation",
+      "status": "registered_in_inspected_source",
+      "enablement": "runtime_required",
+      "input": "ResearchPlan",
+      "output": "ResearchData",
+      "source": "src/lib/research-loop.ts",
+      "limits": "Illustrative model allocation only; not held-client rebalance execution.",
+      "reviewed_as_of": "2026-10-28",
+      "live_verified": false
+    },
+    {
+      "id": "fed_rates",
+      "status": "registered_in_inspected_source",
+      "enablement": "runtime_required",
+      "input": "FedPlan",
+      "output": "FedData",
+      "source": "src/lib/fed-data.ts",
+      "limits": "Observed NY Fed rate data.",
+      "reviewed_as_of": "2026-10-28",
+      "live_verified": false
+    },
+    {
+      "id": "fed_markets",
+      "status": "registered_in_inspected_source",
+      "enablement": "runtime_required",
+      "input": "FedPlan",
+      "output": "FedData",
+      "source": "src/lib/fed-data.ts",
+      "limits": "Kalshi quote snapshots, not CME FedWatch.",
+      "reviewed_as_of": "2026-10-28",
+      "live_verified": false
+    },
+    {
+      "id": "yahoo_finance",
+      "status": "registered_in_inspected_source",
+      "enablement": "runtime_required",
+      "input": "StockQuery",
+      "output": "StockAnalysis",
+      "source": "src/lib/stock-engine.ts",
+      "limits": "Single-stock price/volume; current provider scope applies.",
+      "reviewed_as_of": "2026-10-28",
+      "live_verified": false
+    },
+    {
+      "id": "company_news",
+      "status": "registered_in_inspected_source",
+      "enablement": "runtime_required",
+      "input": "CompanyQuery",
+      "output": "EvidenceItem[]",
+      "source": "src/lib/company-research-engine.ts",
+      "limits": "Headline/excerpt coverage may be partial.",
+      "reviewed_as_of": "2026-10-28",
+      "live_verified": false
+    },
+    {
+      "id": "company_filings",
+      "status": "registered_in_inspected_source",
+      "enablement": "runtime_required",
+      "input": "CompanyQuery",
+      "output": "EvidenceItem[]",
+      "source": "src/lib/company-research-engine.ts",
+      "limits": "SEC metadata does not imply full filing text.",
+      "reviewed_as_of": "2026-10-28",
+      "live_verified": false
+    },
+    {
+      "id": "financial_facts",
+      "status": "registered_in_inspected_source",
+      "enablement": "runtime_required",
+      "input": "CompanyQuery",
+      "output": "EvidenceItem[]",
+      "source": "src/lib/company-research-engine.ts",
+      "limits": "Verify issuer, metric and period.",
+      "reviewed_as_of": "2026-10-28",
+      "live_verified": false
+    },
+    {
+      "id": "portfolio_context",
+      "status": "registered_in_inspected_source",
+      "enablement": "runtime_required",
+      "input": "ServerScope",
+      "output": "FamilySnapshot",
+      "source": "src/lib/portfolio-context-server.ts",
+      "limits": "Existing tool keeps facts server-only; sending selected demo facts to the model needs an explicit integration change.",
+      "reviewed_as_of": "2026-10-28",
+      "live_verified": false
+    },
+    {
+      "id": "portfolio_exposure",
+      "status": "registered_in_inspected_source",
+      "enablement": "runtime_required",
+      "input": "SnapshotAndSymbols",
+      "output": "PortfolioImpact",
+      "source": "src/lib/portfolio-impact.ts",
+      "limits": "Direct matching only; no look-through, note delta or historical portfolio P&L.",
+      "reviewed_as_of": "2026-10-28",
+      "live_verified": false
+    },
+    {
+      "id": "product_terms",
+      "status": "planned_adapter",
+      "enabled": false,
+      "purpose": "Resolve an exact accepted product version",
+      "requirements": "productById in src/lib/structured-products.ts covers a small demo catalog; held-instrument adapter required."
+    },
+    {
+      "id": "product_payoff",
+      "status": "planned_adapter",
+      "enabled": false,
+      "purpose": "Evaluate a supported path/terminal maturity scenario",
+      "requirements": "evaluateProduct/projectedPayoff in src/lib/structured-products.ts and accumulatorModel in src/lib/accumulator-model.ts; wrap and validate actual supported terms."
+    },
+    {
+      "id": "portfolio_lookthrough",
+      "status": "planned_adapter",
+      "enabled": false,
+      "purpose": "Calculate dated fund constituent exposures",
+      "requirements": "Needs constituent input, stable instrument resolution and coverage accounting."
+    },
+    {
+      "id": "portfolio_scenario",
+      "status": "planned_adapter",
+      "enabled": false,
+      "purpose": "Calculate a scoped portfolio scenario",
+      "requirements": "Needs coverage-aware linear shocks and separate supported nonlinear pricing/payoff adapters."
+    },
+    {
+      "id": "portfolio_performance",
+      "status": "planned_adapter",
+      "enabled": false,
+      "purpose": "Calculate return/risk with a stated method",
+      "requirements": "A TWR workbench exists, but no unified portfolio-performance chat tool was verified."
+    },
+    {
+      "id": "portfolio_drift",
+      "status": "planned_adapter",
+      "enabled": false,
+      "purpose": "Compare allocation with confirmed targets",
+      "requirements": "Needs IPS/model targets, grouping rules and shared denominator."
+    },
+    {
+      "id": "simulate_rebalance",
+      "status": "planned_adapter",
+      "enabled": false,
+      "purpose": "Compare illustrative current/proposed portfolios",
+      "requirements": "Needs constraints, costs and applicable analytics; must not mutate holdings."
+    }
+  ]
+}

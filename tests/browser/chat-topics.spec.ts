@@ -1,0 +1,10 @@
+import {test,expect} from '@playwright/test';
+import {resolve} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const url=pathToFileURL(resolve('../Mercury Wealth Interactive Demo.html')).href;
+for(const height of [540,844])test(`one toolbar and two sourced topics fit a ${height}px phone`,async({page})=>{
+ await page.setViewportSize({width:390,height});await page.goto(url+'#chat');const chat=page.getByRole('dialog',{name:'Ask Mercury',exact:true});await expect(chat.locator('.chat-toolbar')).toHaveCount(1);await expect(chat.locator('.chat-header,.chat-return,.chat-welcome,.prompt-grid')).toHaveCount(0);await expect(chat.locator('.chat-topic')).toHaveCount(2);await expect(chat).not.toContainText('My allocation');await expect(chat).not.toContainText('Your wealth, in context');await expect(chat.getByRole('button',{name:'Close chat'})).toBeFocused();
+ const toolbar=(await chat.locator('.chat-toolbar').boundingBox())!;expect(toolbar.height).toBeLessThanOrEqual(66);const composer=(await chat.locator('.chat-composer').boundingBox())!;expect(composer.y+composer.height).toBeLessThanOrEqual(height);expect(await chat.evaluate(el=>el.scrollWidth<=el.clientWidth)).toBe(true);
+ await chat.getByRole('button',{name:'What is next for rates?'}).click();await expect(chat.getByRole('textbox',{name:'Your message'})).toHaveValue(/current Fed rates/);await chat.getByRole('button',{name:'AI stocks: who is leading?'}).click();await expect(chat.getByRole('textbox',{name:'Your message'})).toHaveValue(/NVDA, MSFT and GOOGL/);await expect(chat.locator('.chat-message')).toHaveCount(0);await expect(chat.getByRole('textbox',{name:'Your message'})).toBeFocused();await expect(chat.getByRole('link',{name:/UBS CIO/})).toHaveAttribute('href',/ubs.com.*20102026/);await expect(chat.getByRole('link',{name:/Fed calendar/})).toHaveAttribute('href','https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm');
+ await chat.getByRole('button',{name:'Close chat'}).click();await page.getByRole('button',{name:'Ask Mercury',exact:true}).click();await expect(chat.getByRole('textbox',{name:'Your message'})).toHaveValue(/NVDA, MSFT and GOOGL/);
+});

@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "name": "mercury-wealth-skill-library",
+  "version": "0.4.0",
+  "status": "integrated",
+  "language": "en,zh-Hant,zh-Hans",
+  "target": "Mercury Wealth app orchestrator",
+  "provider_policy": "deepseek_flash_only_no_fallback",
+  "shared": [
+    "shared/analyst-policy.md",
+    "shared/memory-cache.md"
+  ],
+  "tool_map": "shared/tool-map.json",
+  "contract": "contracts/analysis-contract.json",
+  "evaluations": "evals/cases.json",
+  "provenance": "provenance.json",
+  "skills": [
+    {
+      "id": "mercury-client-portfolio",
+      "path": "skills/mercury-client-portfolio/SKILL.md",
+      "description": "Client holdings, exposure, concentration, IPS and benchmark context",
+      "tools": [
+        "portfolio_context",
+        "portfolio_exposure"
+      ],
+      "planned_tools": [
+        "portfolio_lookthrough",
+        "portfolio_performance",
+        "portfolio_drift",
+        "simulate_rebalance"
+      ]
+    },
+    {
+      "id": "mercury-market-research",
+      "path": "skills/mercury-market-research/SKILL.md",
+      "description": "Public asset comparisons, why questions, company and sector research",
+      "tools": [
+        "market_history",
+        "yahoo_finance",
+        "company_news",
+        "financial_facts",
+        "company_filings",
+        "fed_rates",
+        "fed_markets",
+        "optimize_allocation"
+      ],
+      "planned_tools": []
+    },
+    {
+      "id": "mercury-product-scenario",
+      "path": "skills/mercury-product-scenario/SKILL.md",
+      "description": "Verified product terms and coverage-aware scenario analysis",
+      "tools": [
+        "portfolio_context"
+      ],
+      "planned_tools": [
+        "product_terms",
+        "product_payoff",
+        "portfolio_scenario"
+      ]
+    },
+    {
+      "id": "mercury-response-ui",
+      "path": "skills/mercury-response-ui/SKILL.md",
+      "description": "Evidence-bound answers and approved UI selection",
+      "tools": [],
+      "planned_tools": []
+    },
+    {
+      "id": "mercury-interactive-wealth-ui",
+      "path": "skills/mercury-interactive-wealth-ui/SKILL.md",
+      "description": "Evidence-bound component selection, necessary inputs, proposals, product scenarios and stopping rules",
+      "tools": [],
+      "planned_tools": []
+    }
+  ]
+}

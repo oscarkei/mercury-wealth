@@ -1,0 +1,122 @@
+[
+  {
+    "package": "react",
+    "version": "19.3.1",
+    "license": "MIT",
+    "notices": [
+      "docs/ui-licenses/react-LICENSE"
+    ]
+  },
+  {
+    "package": "react-dom",
+    "version": "19.3.1",
+    "license": "MIT",
+    "notices": [
+      "docs/ui-licenses/react-dom-LICENSE"
+    ]
+  },
+  {
+    "package": "next",
+    "version": "16.4.3",
+    "license": "MIT",
+    "notices": [
+      "docs/ui-licenses/next-license.md"
+    ]
+  },
+  {
+    "package": "@json-render/core",
+    "version": "0.21.3",
+    "license": "Apache-2.0",
+    "notices": [
+      "docs/ui-licenses/json-render-core-LICENSE"
+    ]
+  },
+  {
+    "package": "@json-render/react",
+    "version": "0.21.3",
+    "license": "Apache-2.0",
+    "notices": [
+      "docs/ui-licenses/json-render-react-LICENSE"
+    ]
+  },
+  {
+    "package": "class-variance-authority",
+    "version": "0.7.1",
+    "license": "Apache-2.0",
+    "notices": [
+      "docs/ui-licenses/class-variance-authority-LICENSE"
+    ]
+  },
+  {
+    "package": "clsx",
+    "version": "2.1.1",
+    "license": "MIT",
+    "notices": [
+      "docs/ui-licenses/clsx-license"
+    ]
+  },
+  {
+    "package": "tailwind-merge",
+    "version": "3.7.0",
+    "license": "MIT",
+    "notices": [
+      "docs/ui-licenses/tailwind-merge-LICENSE.md"
+    ]
+  },
+  {
+    "package": "tailwindcss",
+    "version": "4.3.3",
+    "license": "MIT",
+    "notices": [
+      "docs/ui-licenses/tailwindcss-LICENSE"
+    ]
+  },
+  {
+    "package": "tw-animate-css",
+    "version": "1.4.0",
+    "license": "MIT",
+    "notices": [
+      "docs/ui-licenses/tw-animate-css-LICENSE"
+    ]
+  },
+  {
+    "package": "lucide-react",
+    "version": "1.61.0",
+    "license": "ISC",
+    "notices": [
+      "docs/ui-licenses/lucide-react-LICENSE"
+    ]
+  },
+  {
+    "package": "motion",
+    "version": "14.6.0",
+    "license": "MIT",
+    "notices": [
+      "docs/ui-licenses/motion-LICENSE.md"
+    ]
+  },
+  {
+    "package": "radix-ui",
+    "version": "1.8.1",
+    "license": "MIT",
+    "notices": [
+      "docs/ui-licenses/radix-ui-LICENSE"
+    ]
+  },
+  {
+    "package": "recharts",
+    "version": "3.10.1",
+    "license": "MIT",
+    "notices": [
+      "docs/ui-licenses/recharts-LICENSE"
+    ]
+  },
+  {
+    "package": "lightweight-charts",
+    "version": "5.2.1",
+    "license": "Apache-2.0",
+    "notices": [
+      "docs/ui-licenses/lightweight-charts-LICENSE"
+    ]
+  }
+]

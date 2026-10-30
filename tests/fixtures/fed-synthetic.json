@@ -1,0 +1,130 @@
+{
+  "rates": {
+    "refRates": [
+      {
+        "effectiveDate": "2026-10-22",
+        "type": "EFFR",
+        "percentRate": 3.88,
+        "targetRateFrom": 3.75,
+        "targetRateTo": 4
+      },
+      {
+        "effectiveDate": "2026-09-16",
+        "type": "EFFR",
+        "percentRate": 3.63,
+        "targetRateFrom": 3.5,
+        "targetRateTo": 3.75
+      }
+    ]
+  },
+  "markets": {
+    "events": [
+      {
+        "event_ticker": "KXFEDDECISION-26OCT",
+        "series_ticker": "KXFEDDECISION",
+        "mutually_exclusive": true,
+        "strike_date": "2026-10-28T18:00:00Z",
+        "markets": [
+          {
+            "ticker": "KXFEDDECISION-26OCT-C26",
+            "status": "active",
+            "yes_bid_dollars": "0",
+            "yes_ask_dollars": "0.01",
+            "yes_bid_size_fp": "0",
+            "yes_ask_size_fp": "100",
+            "volume_24h_fp": "25"
+          },
+          {
+            "ticker": "KXFEDDECISION-26OCT-C25",
+            "status": "active",
+            "yes_bid_dollars": "0",
+            "yes_ask_dollars": "0.01",
+            "yes_bid_size_fp": "0",
+            "yes_ask_size_fp": "100",
+            "volume_24h_fp": "25"
+          },
+          {
+            "ticker": "KXFEDDECISION-26OCT-H0",
+            "status": "active",
+            "yes_bid_dollars": "0.93",
+            "yes_ask_dollars": "0.94",
+            "yes_bid_size_fp": "100",
+            "yes_ask_size_fp": "100",
+            "volume_24h_fp": "25"
+          },
+          {
+            "ticker": "KXFEDDECISION-26OCT-H25",
+            "status": "active",
+            "yes_bid_dollars": "0.06",
+            "yes_ask_dollars": "0.07",
+            "yes_bid_size_fp": "100",
+            "yes_ask_size_fp": "100",
+            "volume_24h_fp": "25"
+          },
+          {
+            "ticker": "KXFEDDECISION-26OCT-H26",
+            "status": "active",
+            "yes_bid_dollars": "0",
+            "yes_ask_dollars": "0.01",
+            "yes_bid_size_fp": "0",
+            "yes_ask_size_fp": "100",
+            "volume_24h_fp": "25"
+          }
+        ]
+      },
+      {
+        "event_ticker": "KXFEDDECISION-26DEC",
+        "series_ticker": "KXFEDDECISION",
+        "mutually_exclusive": true,
+        "strike_date": "2026-12-09T19:00:00Z",
+        "markets": [
+          {
+            "ticker": "KXFEDDECISION-26DEC-C26",
+            "status": "active",
+            "yes_bid_dollars": "0",
+            "yes_ask_dollars": "0.01",
+            "yes_bid_size_fp": "0",
+            "yes_ask_size_fp": "100",
+            "volume_24h_fp": "25"
+          },
+          {
+            "ticker": "KXFEDDECISION-26DEC-C25",
+            "status": "active",
+            "yes_bid_dollars": "0.01",
+            "yes_ask_dollars": "0.02",
+            "yes_bid_size_fp": "100",
+            "yes_ask_size_fp": "100",
+            "volume_24h_fp": "25"
+          },
+          {
+            "ticker": "KXFEDDECISION-26DEC-H0",
+            "status": "active",
+            "yes_bid_dollars": "0.23",
+            "yes_ask_dollars": "0.24",
+            "yes_bid_size_fp": "100",
+            "yes_ask_size_fp": "100",
+            "volume_24h_fp": "25"
+          },
+          {
+            "ticker": "KXFEDDECISION-26DEC-H25",
+            "status": "active",
+            "yes_bid_dollars": "0.74",
+            "yes_ask_dollars": "0.75",
+            "yes_bid_size_fp": "100",
+            "yes_ask_size_fp": "100",
+            "volume_24h_fp": "25"
+          },
+          {
+            "ticker": "KXFEDDECISION-26DEC-H26",
+            "status": "active",
+            "yes_bid_dollars": "0.04",
+            "yes_ask_dollars": "0.05",
+            "yes_bid_size_fp": "100",
+            "yes_ask_size_fp": "100",
+            "volume_24h_fp": "25"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,251 @@
+{
+  "version": "1",
+  "extensionId": "rev4_okonkwo_fcn_v1",
+  "sourceImportId": "vercel_4e1ec38630b41010012b",
+  "sourceAssetSha256": "4e1ec38630b41010012b596acd088bae5645c1f6433fc6d8496641d30d0d1085",
+  "asOf": "2026-06-19",
+  "instrument": {
+    "id": "inst_sn_fcn_ustech",
+    "typeId": "itype_struct_note",
+    "name": "UBS Fixed Coupon Note on NVDA/MSFT 2026",
+    "shortName": "FCN US Tech 2026",
+    "primaryIsin": "XS2700077889",
+    "primaryTicker": "UBS-FCN-USTECH",
+    "exchangeId": null,
+    "accessRouteId": "ar_otc",
+    "currencyId": "ccy_usd",
+    "issuerId": "issuer_ubs_ag",
+    "minLotSize": 1,
+    "status": "Active",
+    "productRiskRating": 6,
+    "riskRatingScale": "PRIIPs SRI 1–7",
+    "isCiesPermissible": false,
+    "ciesAssetCategory": "Not Permissible",
+    "esgScore": null,
+    "lastPrice": {
+      "amount": 99.8,
+      "currency": "USD"
+    },
+    "lastPriceAt": "2026-06-19T16:00:00+08:00",
+    "factsheetDocumentId": null
+  },
+  "terms": {
+    "instrumentId": "inst_sn_fcn_ustech",
+    "productType": "Fixed Coupon Note",
+    "underlyingRef": "Worst-of NVIDIA Corp (NVDA) / Microsoft Corp (MSFT)",
+    "strikePct": 65,
+    "barrierPct": 0,
+    "barrierType": "None",
+    "capitalProtectionPct": 0,
+    "couponCondition": "Pays 0.83% monthly (9.93% p.a.) guaranteed coupon regardless of underlying level",
+    "participationRate": 100,
+    "issuerCreditId": "issuer_ubs_ag",
+    "maturityDate": "2026-11-04",
+    "payoffType": "Guaranteed-coupon worst-of daily-callable FCN",
+    "tradeDate": "2026-05-04",
+    "issueDate": "2026-05-11",
+    "settlementType": "physical",
+    "couponKind": "guaranteed",
+    "couponPerAnnumPct": 9.93,
+    "couponBarrierPct": null,
+    "couponMemory": false,
+    "proRataOnCall": true,
+    "autocallStyle": "daily-close",
+    "autocallLevelPct": 95,
+    "autocallWindowStart": "2026-07-06",
+    "autocallWindowEnd": "2026-11-02",
+    "knockInBarrierPct": null,
+    "knockInStyle": null,
+    "accumDirection": null,
+    "accumKoBarrierPct": null,
+    "accumKoDirection": null,
+    "accumSharesPerDay": null,
+    "accumGearing": null,
+    "accumGuaranteedPeriods": null,
+    "accumSettlementFrequency": null
+  },
+  "underlyings": [
+    {
+      "id": "spu_fcn_ustech_nvda",
+      "noteInstrumentId": "inst_sn_fcn_ustech",
+      "underlyingInstrumentId": "inst_nvda",
+      "initialFixing": {
+        "amount": 135.46,
+        "currency": "USD"
+      },
+      "weight": null,
+      "strikePctOverride": null,
+      "symbol": "NVDA",
+      "sourcePrice": 131.4
+    },
+    {
+      "id": "spu_fcn_ustech_msft",
+      "noteInstrumentId": "inst_sn_fcn_ustech",
+      "underlyingInstrumentId": "inst_msft",
+      "initialFixing": {
+        "amount": 442.35,
+        "currency": "USD"
+      },
+      "weight": null,
+      "strikePctOverride": null,
+      "symbol": "MSFT",
+      "sourcePrice": 451.2
+    }
+  ],
+  "holdingId": "pos_okonkwo_global__fcn_ustech_rev4",
+  "bookId": "pf_okonkwo_global",
+  "accountId": "acct_okonkwo_ubs",
+  "notional": 200000,
+  "quantity": 2000,
+  "costUSD": 199600.0,
+  "valuationUSD": 199600.0,
+  "funding": {
+    "positionId": "pos_okonkwo_global__cash_usd",
+    "beforeUSD": 380000,
+    "afterUSD": 180400.0
+  },
+  "limitations": [
+    "Imported fictional product terms, not an issuer-signed term sheet.",
+    "Coupon prose states 0.83% monthly while the annual field is 9.93%; precise coupon totals are withheld.",
+    "Daily autocall and physical settlement require a full path and settlement conventions; terminal-only outcomes are conditional on no earlier call."
+  ],
+  "datasets": {
+    "positions": [
+      {
+        "id": "pos_okonkwo_global__fcn_ustech_rev4",
+        "portfolioId": "pf_okonkwo_global",
+        "sleeveId": "sl_okonkwo_global_thematic",
+        "instrumentId": "inst_sn_fcn_ustech",
+        "quantity": 2000,
+        "averageCost": {
+          "amount": 99.8,
+          "currency": "USD"
+        },
+        "costCurrency": "USD",
+        "valuedAt": "2026-06-19"
+      },
+      {
+        "id": "pos_okonkwo_global__cash_usd",
+        "portfolioId": "pf_okonkwo_global",
+        "sleeveId": "sl_okonkwo_global_thematic",
+        "instrumentId": "inst_cash_usd",
+        "quantity": 180400.0,
+        "averageCost": {
+          "amount": 1,
+          "currency": "USD"
+        },
+        "costCurrency": "USD",
+        "valuedAt": "2026-06-19"
+      }
+    ],
+    "derivedPositionValuations": [
+      {
+        "id": "pos_okonkwo_global__fcn_ustech_rev4",
+        "portfolioId": "pf_okonkwo_global",
+        "sleeveId": "sl_okonkwo_global_thematic",
+        "instrumentId": "inst_sn_fcn_ustech",
+        "quantity": 2000,
+        "averageCost": {
+          "amount": 99.8,
+          "currency": "USD"
+        },
+        "costCurrency": "USD",
+        "valuedAt": "2026-06-19",
+        "marketValue": {
+          "amount": 199600.0,
+          "currency": "USD"
+        },
+        "marketValueBase": {
+          "amount": 199600.0,
+          "currency": "USD"
+        },
+        "unrealizedPnl": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "unrealizedPnlPct": 0
+      },
+      {
+        "id": "pos_okonkwo_global__cash_usd",
+        "portfolioId": "pf_okonkwo_global",
+        "sleeveId": "sl_okonkwo_global_thematic",
+        "instrumentId": "inst_cash_usd",
+        "quantity": 180400.0,
+        "averageCost": {
+          "amount": 1,
+          "currency": "USD"
+        },
+        "costCurrency": "USD",
+        "valuedAt": "2026-06-19",
+        "marketValue": {
+          "amount": 180400.0,
+          "currency": "USD"
+        },
+        "marketValueBase": {
+          "amount": 180400.0,
+          "currency": "USD"
+        },
+        "unrealizedPnl": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "unrealizedPnlPct": 0
+      }
+    ],
+    "transactions": [
+      {
+        "id": "tx_okonkwo_fcn_rev4",
+        "portfolioId": "pf_okonkwo_global",
+        "accountId": "acct_okonkwo_ubs",
+        "instrumentId": "inst_sn_fcn_ustech",
+        "typeId": "tt_buy",
+        "tradeDate": "2026-06-19",
+        "settlementDate": "2026-06-19",
+        "quantity": 2000,
+        "price": {
+          "amount": 99.8,
+          "currency": "USD"
+        },
+        "grossAmount": {
+          "amount": 199600.0,
+          "currency": "USD"
+        },
+        "netAmount": {
+          "amount": 199600.0,
+          "currency": "USD"
+        },
+        "feesTotal": {
+          "amount": 0,
+          "currency": "USD"
+        },
+        "currencyId": "ccy_usd",
+        "fxRate": 1,
+        "amountBase": {
+          "amount": 199600.0,
+          "currency": "USD"
+        },
+        "orderId": null,
+        "corporateActionId": null,
+        "counterparty": "UBS AG",
+        "status": "Settled",
+        "narrative": "Rev4 fictional snapshot extension: cash-funded FCN at source mock price; not an executed trade.",
+        "source": "Mercury Rev4 demo extension"
+      }
+    ],
+    "documents": [
+      {
+        "id": "doc_okonkwo_fcn_rev4_terms",
+        "subjectType": "Instrument",
+        "subjectId": "inst_sn_fcn_ustech",
+        "type": "Termsheet",
+        "title": "UBS FCN US Tech — imported terms reference v1",
+        "period": null,
+        "status": "Ready",
+        "format": "JSON",
+        "fileRef": "mercury:terms:rev4_okonkwo_fcn_v1",
+        "generatedAt": "2026-06-19T00:00:00Z",
+        "generatedBy": "Mercury demo extension"
+      }
+    ]
+  }
+}

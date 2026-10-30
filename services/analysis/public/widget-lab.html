@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Mercury · Widget 手機對照</title>
+  <link rel="stylesheet" href="/widget-lab.css"><script src="/widget-lab.js" type="module"></script>
+</head>
+<body>
+  <main class="lab-shell">
+    <header class="lab-head"><a href="/" aria-label="返回 Mercury 對話">←</a><div><strong>Widget 手機對照</strong><small>3009 獨立試版 · 3001 不變</small></div><button id="theme" aria-label="切換明暗模式">◐</button></header>
+    <div class="lab-scroll">
+      <div class="intro"><span class="eyebrow">OPENBB WORKSPACE PATTERN STUDY</span><h1>同一份數據，<br>兩種呈現。</h1><p>試用 OpenBB widget 常見的圖表、指標和參數連動方式，對照 Mercury 現有手機卡片。這是 Mercury 實作的試版，並非嵌入 OpenBB Workspace。</p></div>
+      <nav class="cases" aria-label="對照內容"><button data-case="price" aria-current="true">價格圖</button><button data-case="metric">指標</button><button data-case="allocation">配置</button><button data-case="proposal">方案</button></nav>
+      <div class="mode" role="group" aria-label="呈現方式"><button data-mode="current" aria-pressed="true">目前 Mercury</button><button data-mode="pattern" aria-pressed="false">Widget 規格試版</button></div>
+      <div id="result" aria-live="polite"><p class="loading">載入資料中…</p></div>
+      <section class="assessment"><h2>測試重點</h2><div id="assessment"></div><p class="fine">數據沿用 3009 已保存的公開價格研究、現有只讀 demo 持倉與顧問方案紀錄。價格非即時；方案當日配置不可當作現時或成交後持倉。</p></section>
+      <details class="method"><summary>OpenBB 規格與實作邊界</summary><p>OpenBB 的 widget 由數據 endpoint、類型、參數及顯示設定組成。這頁只借用相關互動概念；無 OpenBB Workspace 登入、Widget Library 或其正式渲染器。</p><p>2026-10-31 實際檢查：原 Workspace 入口轉往 BrightQuery「Coming Soon」，所以目前無法對其正式手機 widget 做操作測試。</p><a href="https://docs.openbb.co/workspace/developers/json-specs/widgets-json-reference" target="_blank" rel="noopener noreferrer">官方 widget 規格 ↗</a><a href="https://workspace.brightquery.com/" target="_blank" rel="noopener noreferrer">目前 Workspace 入口 ↗</a></details>
+    </div>
+  </main>
+</body>
+</html>

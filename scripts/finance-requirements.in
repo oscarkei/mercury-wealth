@@ -1,0 +1,13 @@
+# Calculation libraries, without optional MCP/server extras.
+quantstats==0.0.86
+financetoolkit==2.3.0
+fastapi==0.162.0
+uvicorn==0.54.0
+# API integration verification.
+httpx==0.28.1
+bt==1.4.1
+riskfolio-lib==7.4.0
+openbb-core==2.0.1
+openbb-cboe==2.0.0
+openbb-fred==2.0.0
+openbb-ecb==2.0.0

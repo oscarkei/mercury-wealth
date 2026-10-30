@@ -1,0 +1,3794 @@
+{
+  "% from initial fixing ·": [
+    "%（相對初始定價）·",
+    "%（相对初始定价）·"
+  ],
+  "% of initial": [
+    "%（相對初始水平）",
+    "%（相对初始水平）"
+  ],
+  "% of post-cost capital ·": [
+    "%（扣除成本後本金）·",
+    "%（扣除成本后本金）·"
+  ],
+  "% p.a.": [
+    "% 年息",
+    "% 年息"
+  ],
+  "%) net": [
+    "%）淨額",
+    "%）净额"
+  ],
+  "(source terms)": [
+    "（來源條款）",
+    "（来源条款）"
+  ],
+  "0% · total underlying loss": [
+    "0% · 相關資產全額虧損",
+    "0% · 相关资产全额亏损"
+  ],
+  "01 / HOLD": [
+    "01 / 持有",
+    "01 / 持有"
+  ],
+  "02 / CALENDAR": [
+    "02 / 定期再平衡",
+    "02 / 定期再平衡"
+  ],
+  "03 / DRIFT BAND": [
+    "03 / 偏離幅度",
+    "03 / 偏离幅度"
+  ],
+  "100% · unchanged": [
+    "100% · 不變",
+    "100% · 不变"
+  ],
+  "16 Feb 2027 · Thematic Equity · UBS": [
+    "2027 年 2 月 16 日 · 主題股票 · UBS",
+    "2027 年 2 月 16 日 · 主题股票 · UBS"
+  ],
+  "19 Jun 2026": [
+    "2026 年 6 月 19 日",
+    "2026 年 6 月 19 日"
+  ],
+  "19 Jun 2026 · Demo holdings ·": [
+    "2026 年 6 月 19 日 · 示範持倉 ·",
+    "2026 年 6 月 19 日 · 示范持仓 ·"
+  ],
+  "24h volume:": [
+    "24 小時成交量：",
+    "24 小时成交量："
+  ],
+  "2× gearing increases purchase obligations below strike. Seed terms do not fully specify guarantee / KO precedence.": [
+    "低於行使價時，2 倍槓桿會增加買入責任。來源條款未完整說明保證期與敲出條件的優先次序。",
+    "低于行使价时，2 倍杠杆会增加买入责任。来源条款未完整说明保证期与敲出条件的优先次序。"
+  ],
+  "2× shares": [
+    "2 倍股數",
+    "2 倍股数"
+  ],
+  "4 asset classes": [
+    "4 個資產類別",
+    "4 个资产类别"
+  ],
+  "40 shares daily; doubles below the 88% strike. Inspect the full terms before interpreting the knock-out.": [
+    "每日買入 40 股；低於 88% 行使水平時加倍。判斷敲出條件前請查看完整條款。",
+    "每日买入 40 股；低于 88% 行使水平时加倍。判断敲出条件前请查看完整条款。"
+  ],
+  "6 months": [
+    "6 個月",
+    "6 个月"
+  ],
+  "6-month scenario": [
+    "6 個月情境",
+    "6 个月情境"
+  ],
+  "60% final": [
+    "最終 60%",
+    "最终 60%"
+  ],
+  "; independent prices need not total 100%.": [
+    "；獨立報價的總和不一定為 100%。",
+    "；独立报价的总和不一定为 100%。"
+  ],
+  "A QUESTION FOR YOUR FAMILY": [
+    "家庭財富問題",
+    "家庭财富问题"
+  ],
+  "A shared starting allocation makes the rules comparable.": [
+    "相同起始配置令不同規則可以比較。",
+    "相同起始配置令不同规则可以比较。"
+  ],
+  "A strategy needs": [
+    "每個策略都需要",
+    "每个策略都需要"
+  ],
+  "A wider lens.": [
+    "看清財富全貌。",
+    "看清财富全貌。"
+  ],
+  "AAPL Accumulator": [
+    "AAPL 累積股票合約",
+    "AAPL 累积股票合约"
+  ],
+  "AAPL accumulation": [
+    "AAPL 累積買入",
+    "AAPL 累积买入"
+  ],
+  "ACCUMULATED HOLDINGS": [
+    "累積持倉",
+    "累积持仓"
+  ],
+  "ADVISER REVIEW": [
+    "顧問審閱",
+    "顾问审阅"
+  ],
+  "AI can make mistakes · Check source data": [
+    "AI 可能出錯 · 請核對來源資料",
+    "AI 可能出错 · 请核对来源资料"
+  ],
+  "AI connection failed.": [
+    "AI 連線失敗。",
+    "AI 连线失败。"
+  ],
+  "AI model": [
+    "AI 模型",
+    "AI 模型"
+  ],
+  "AI request cancelled.": [
+    "AI 請求已取消。",
+    "AI 请求已取消。"
+  ],
+  "AI stocks: who is leading?": [
+    "AI 股票：誰表現領先？",
+    "AI 股票：谁表现领先？"
+  ],
+  "ASSET OVERVIEW": [
+    "資產總覽",
+    "资产总览"
+  ],
+  "ASSISTANT": [
+    "助理",
+    "助理"
+  ],
+  "Above strike · 40 shares / day": [
+    "高於行使價 · 每日 40 股",
+    "高于行使价 · 每日 40 股"
+  ],
+  "Account and support": [
+    "帳戶及支援",
+    "帐户及支援"
+  ],
+  "Account currency": [
+    "帳戶貨幣",
+    "帐户货币"
+  ],
+  "Account for the cash flows.": [
+    "分清資金流與投資回報。",
+    "分清资金流与投资回报。"
+  ],
+  "Accounts": [
+    "帳戶",
+    "帐户"
+  ],
+  "Accounts & Books": [
+    "帳戶及投資組合",
+    "帐户及投资组合"
+  ],
+  "Accounts & custodians": [
+    "帳戶及託管銀行",
+    "帐户及托管银行"
+  ],
+  "Accumulated cost": [
+    "累積買入成本",
+    "累积买入成本"
+  ],
+  "Accumulated shares": [
+    "累積股數",
+    "累积股数"
+  ],
+  "Accumulation cost and marked value over the scenario": [
+    "情境中的累積成本與估值",
+    "情境中的累积成本与估值"
+  ],
+  "Accumulator scenario": [
+    "累積股票合約情境",
+    "累积股票合约情境"
+  ],
+  "Accumulator · Held": [
+    "累積股票合約 · 已持有",
+    "累积股票合约 · 已持有"
+  ],
+  "Across both custodians": [
+    "涵蓋兩間託管銀行",
+    "涵盖两间托管银行"
+  ],
+  "Actual EFFR, not a forecast. Period ends at the latest published observation.": [
+    "實際有效聯邦基金利率，並非預測。期間截至最新公佈數據。",
+    "实际有效联邦基金利率，并非预测。期间截至最新公布数据。"
+  ],
+  "Actual effective federal funds rate over": [
+    "期間實際有效聯邦基金利率",
+    "期间实际有效联邦基金利率"
+  ],
+  "Actual rate history": [
+    "實際利率歷史",
+    "实际利率历史"
+  ],
+  "Add period": [
+    "新增期間",
+    "新增期间"
+  ],
+  "All assets": [
+    "所有資產",
+    "所有资产"
+  ],
+  "All books": [
+    "所有投資組合",
+    "所有投资组合"
+  ],
+  "All companies": [
+    "所有公司",
+    "所有公司"
+  ],
+  "All custodians": [
+    "所有託管銀行",
+    "所有托管银行"
+  ],
+  "All external deposits and withdrawals are included.": [
+    "已包括所有外部入金及提款。",
+    "已包括所有外部入金及提款。"
+  ],
+  "All insights": [
+    "所有洞察",
+    "所有洞察"
+  ],
+  "All matching holdings shown": [
+    "已顯示所有相關持倉",
+    "已显示所有相关持仓"
+  ],
+  "All owners": [
+    "所有持有人",
+    "所有持有人"
+  ],
+  "All portfolios": [
+    "所有投資組合",
+    "所有投资组合"
+  ],
+  "All underlyings start at 100. The displayed paths are hypothetical observations, not market prices. The worst performer determines each condition. Coupons stop after early redemption.": [
+    "所有相關資產的起始水平為 100。圖中路徑屬假設觀察值，並非市場價格。各條件由表現最差的資產決定，提前贖回後停止派息。",
+    "所有相关资产的起始水平为 100。图中路径属假设观察值，并非市场价格。各条件由表现最差的资产决定，提前赎回后停止派息。"
+  ],
+  "Allocation": [
+    "資產配置",
+    "资产配置"
+  ],
+  "Allocation breakdown": [
+    "配置明細",
+    "配置明细"
+  ],
+  "Allocation drift (pp)": [
+    "配置偏離（百分點）",
+    "配置偏离（百分点）"
+  ],
+  "Allocation grouping": [
+    "配置分組",
+    "配置分组"
+  ],
+  "Alternatives": [
+    "另類投資",
+    "另类投资"
+  ],
+  "Annual coupon": [
+    "年票息",
+    "年票息"
+  ],
+  "Any cut": [
+    "任何減息",
+    "任何减息"
+  ],
+  "Any hike": [
+    "任何加息",
+    "任何加息"
+  ],
+  "Appearance": [
+    "外觀",
+    "外观"
+  ],
+  "Approximate price change": [
+    "約略價格變動",
+    "约略价格变动"
+  ],
+  "Are documents signed?": [
+    "文件是否已簽署？",
+    "文件是否已签署？"
+  ],
+  "Ask": [
+    "提問",
+    "提问"
+  ],
+  "Ask Mercury": [
+    "問 Mercury",
+    "问 Mercury"
+  ],
+  "Ask about your wealth. Close to return to": [
+    "提問財富相關問題。關閉後返回",
+    "提问财富相关问题。关闭后返回"
+  ],
+  "Asset": [
+    "資產",
+    "资产"
+  ],
+  "Asset / metric": [
+    "資產／指標",
+    "资产／指标"
+  ],
+  "Asset categories": [
+    "資產分類",
+    "资产分类"
+  ],
+  "Asset class": [
+    "資產類別",
+    "资产类别"
+  ],
+  "Asset mix": [
+    "資產組合",
+    "资产组合"
+  ],
+  "Asset value": [
+    "資產市值",
+    "资产市值"
+  ],
+  "Asset-class proxies, with uninvested cash.": [
+    "以資產類別代表工具計算，包括未投資現金。",
+    "以资产类别代表工具计算，包括未投资现金。"
+  ],
+  "Assumptions and source": [
+    "假設及來源",
+    "假设及来源"
+  ],
+  "Aug": [
+    "8 月",
+    "8 月"
+  ],
+  "Aug 1": [
+    "8 月 1 日",
+    "8 月 1 日"
+  ],
+  "Autocall": [
+    "自動提前贖回",
+    "自动提前赎回"
+  ],
+  "Autocalled": [
+    "已提前贖回",
+    "已提前赎回"
+  ],
+  "Autocalled at month": [
+    "提前贖回月份",
+    "提前赎回月份"
+  ],
+  "Autocalled in month": [
+    "提前贖回月份",
+    "提前赎回月份"
+  ],
+  "Awaiting signature": [
+    "待簽署",
+    "待签署"
+  ],
+  "Back to": [
+    "返回",
+    "返回"
+  ],
+  "Back to Portal ↗": [
+    "返回主頁 ↗",
+    "返回主页 ↗"
+  ],
+  "Backtest failed.": [
+    "回測失敗。",
+    "回测失败。"
+  ],
+  "Balances from the imported 19 June demonstration snapshot.": [
+    "結餘來自已匯入的 6 月 19 日示範快照。",
+    "结余来自已汇入的 6 月 19 日示范快照。"
+  ],
+  "Bars: (bid + ask) ÷ 2. Dark marks: bid/ask range. Quotes are not normalized.": [
+    "橫條：（買價＋賣價）÷ 2。深色標記為買賣價範圍。報價未作歸一化。",
+    "横条：（买价＋卖价）÷ 2。深色标记为买卖价范围。报价未作归一化。"
+  ],
+  "Base case": [
+    "基準情境",
+    "基准情境"
+  ],
+  "Base-case net return": [
+    "基準情境淨回報",
+    "基准情境净回报"
+  ],
+  "Below strike": [
+    "低於行使價",
+    "低于行使价"
+  ],
+  "Below strike · 80 shares / day": [
+    "低於行使價 · 每日 80 股",
+    "低于行使价 · 每日 80 股"
+  ],
+  "Below the 60% final barrier, capital follows the final worst-underlying level. Coupons are conditional and have no memory.": [
+    "低於 60% 最終障礙水平時，本金按表現最差資產的最終水平計算。票息有條件，且不累積補派。",
+    "低于 60% 最终障碍水平时，本金按表现最差资产的最终水平计算。票息有条件，且不累积补派。"
+  ],
+  "Below the 80% strike, capital is reduced in proportion to the final worst-underlying level / strike.": [
+    "低於 80% 行使水平時，本金按最差資產最終水平除以行使水平的比例減少。",
+    "低于 80% 行使水平时，本金按最差资产最终水平除以行使水平的比例减少。"
+  ],
+  "Bid": [
+    "買價",
+    "买价"
+  ],
+  "Bonds · China fixed income fund": [
+    "債券 · 中國固定收益基金",
+    "债券 · 中国固定收益基金"
+  ],
+  "Book": [
+    "投資組合",
+    "投资组合"
+  ],
+  "Books": [
+    "投資組合",
+    "投资组合"
+  ],
+  "Book cost": [
+    "帳面成本",
+    "帐面成本"
+  ],
+  "Book cost ·": [
+    "帳面成本 ·",
+    "帐面成本 ·"
+  ],
+  "Bring the right context.": [
+    "帶入相關背景。",
+    "带入相关背景。"
+  ],
+  "Built-in demo snapshot": [
+    "內置示範快照",
+    "内置示范快照"
+  ],
+  "Buy": [
+    "買入",
+    "买入"
+  ],
+  "CALCULATION WORKBENCH · ILLUSTRATIVE INPUTS": [
+    "計算工作區 · 示範輸入",
+    "计算工作区 · 示范输入"
+  ],
+  "Calculate TWR": [
+    "計算時間加權回報",
+    "计算时间加权回报"
+  ],
+  "Calculate time-weighted return from supplied NAV and external deposits or withdrawals. The example separates investment performance from new money.": [
+    "根據資產淨值及外部入金或提款計算時間加權回報。示範會分開投資表現與新增資金。",
+    "根据资产净值及外部入金或提款计算时间加权回报。示范会分开投资表现与新增资金。"
+  ],
+  "Calculated locally ·": [
+    "本機計算 ·",
+    "本机计算 ·"
+  ],
+  "Calculating…": [
+    "計算中…",
+    "计算中…"
+  ],
+  "Calculation details": [
+    "計算詳情",
+    "计算详情"
+  ],
+  "Calculation failed.": [
+    "計算失敗。",
+    "计算失败。"
+  ],
+  "Calculation unavailable.": [
+    "暫時無法計算。",
+    "暂时无法计算。"
+  ],
+  "Calendar frequency": [
+    "定期頻率",
+    "定期频率"
+  ],
+  "Called": [
+    "已贖回",
+    "已赎回"
+  ],
+  "Capital at risk": [
+    "本金面對風險",
+    "本金面对风险"
+  ],
+  "Capital payoff": [
+    "本金回款",
+    "本金回款"
+  ],
+  "Capital redemption at maturity, conditional on no earlier autocall. Coupons shown separately.": [
+    "假設未提前贖回時的到期本金回款；票息另列。",
+    "假设未提前赎回时的到期本金回款；票息另列。"
+  ],
+  "Capital returned": [
+    "本金回款",
+    "本金回款"
+  ],
+  "Capture what you would like to discuss. Your draft stays in this browser until you choose how to share it.": [
+    "記錄你想討論的內容。草稿保留在此瀏覽器，直至你選擇分享方式。",
+    "记录你想讨论的内容。草稿保留在此浏览器，直至你选择分享方式。"
+  ],
+  "Cash": [
+    "現金",
+    "现金"
+  ],
+  "Cash & events": [
+    "現金及事件",
+    "现金及事件"
+  ],
+  "Cash across your books": [
+    "各組合現金",
+    "各组合现金"
+  ],
+  "Cash balance": [
+    "現金結餘",
+    "现金结余"
+  ],
+  "Cash by book": [
+    "按組合列出現金",
+    "按组合列出现金"
+  ],
+  "Cash flow may be year to date; quarterly and annual figures are labelled separately. No analyst consensus or earnings-surprise estimate is supplied.": [
+    "現金流可能為年初至今數字；季度及年度數據會分開標示。未提供分析師共識或盈利驚喜估計。",
+    "现金流可能为年初至今数字；季度及年度数据会分开标示。未提供分析师共识或盈利惊喜估计。"
+  ],
+  "Cash reserve": [
+    "現金儲備",
+    "现金储备"
+  ],
+  "Cash reserve (%)": [
+    "現金儲備（%）",
+    "现金储备（%）"
+  ],
+  "Cash target": [
+    "現金目標",
+    "现金目标"
+  ],
+  "Cash-flow-adjusted TWR index, starting at 100": [
+    "扣除資金流影響的時間加權回報指數，由 100 開始",
+    "扣除资金流影响的时间加权回报指数，由 100 开始"
+  ],
+  "Cboe quote page": [
+    "Cboe 報價頁",
+    "Cboe 报价页"
+  ],
+  "Change": [
+    "變動",
+    "变动"
+  ],
+  "Change the model assumptions": [
+    "修改模型假設",
+    "修改模型假设"
+  ],
+  "Chart breakdown": [
+    "圖表明細",
+    "图表明细"
+  ],
+  "Chart metric": [
+    "圖表指標",
+    "图表指标"
+  ],
+  "Charts are available. The explanation did not complete.": [
+    "圖表已備妥，解釋尚未完成。",
+    "图表已备妥，解释尚未完成。"
+  ],
+  "Chat": [
+    "對話",
+    "对话"
+  ],
+  "Choose AI model": [
+    "選擇 AI 模型",
+    "选择 AI 模型"
+  ],
+  "Choose custodian": [
+    "選擇託管銀行",
+    "选择托管银行"
+  ],
+  "Choose custodians and books": [
+    "選擇託管銀行及投資組合",
+    "选择托管银行及投资组合"
+  ],
+  "Choose the accounts included in your view.": [
+    "選擇此畫面涵蓋的戶口。",
+    "选择此画面涵盖的户口。"
+  ],
+  "Clear all": [
+    "清除全部",
+    "清除全部"
+  ],
+  "Clear filters": [
+    "清除篩選",
+    "清除筛选"
+  ],
+  "Clear search": [
+    "清除搜尋",
+    "清除搜索"
+  ],
+  "Client profile": [
+    "客戶資料",
+    "客户资料"
+  ],
+  "Close": [
+    "關閉",
+    "关闭"
+  ],
+  "Close USD": [
+    "收市價（美元）",
+    "收市价（美元）"
+  ],
+  "Close chat": [
+    "關閉對話",
+    "关闭对话"
+  ],
+  "Close dialog": [
+    "關閉視窗",
+    "关闭视窗"
+  ],
+  "Closing NAV": [
+    "期末資產淨值",
+    "期末资产净值"
+  ],
+  "Combined family view": [
+    "家庭綜合總覽",
+    "家庭综合总览"
+  ],
+  "Company event timeline": [
+    "公司事件時間線",
+    "公司事件时间线"
+  ],
+  "Company evidence and financial details": [
+    "公司資料及財務詳情",
+    "公司资料及财务详情"
+  ],
+  "Company or US ticker": [
+    "公司名稱或美股代號",
+    "公司名称或美股代号"
+  ],
+  "Company or ticker, e.g. AAPL": [
+    "公司名稱或股票代號，例如 AAPL",
+    "公司名称或股票代号，例如 AAPL"
+  ],
+  "Company research": [
+    "公司研究",
+    "公司研究"
+  ],
+  "Comparable reported periods. Publication date is separate from the reporting period.": [
+    "採用可比較的報告期間；公佈日期與報告期間分開列示。",
+    "采用可比较的报告期间；公布日期与报告期间分开列示。"
+  ],
+  "Compare NVDA, MSFT and GOOGL over the last 3 months. Show price charts and source dates.": [
+    "比較 NVDA、MSFT 及 GOOGL 過去 3 個月表現，顯示價格圖及來源日期。",
+    "比较 NVDA、MSFT 及 GOOGL 过去 3 个月表现，显示价格图及来源日期。"
+  ],
+  "Compare holding your allocation with calendar and drift-band rebalancing. Every result includes trading costs and the decisions behind it.": [
+    "比較維持配置、定期再平衡及偏離幅度再平衡。每個結果均包括交易成本及相關決策。",
+    "比较维持配置、定期再平衡及偏离幅度再平衡。每个结果均包括交易成本及相关决策。"
+  ],
+  "Compare strategies": [
+    "比較策略",
+    "比较策略"
+  ],
+  "Compare the outcomes": [
+    "比較結果",
+    "比较结果"
+  ],
+  "Compare upcoming decisions": [
+    "比較未來決策",
+    "比较未来决策"
+  ],
+  "Comparison evidence": [
+    "比較依據",
+    "比较依据"
+  ],
+  "Connected to Supabase. Holdings remain demonstration data.": [
+    "已連接資料來源；持倉仍屬示範資料。",
+    "已连接资料来源；持仓仍属示范资料。"
+  ],
+  "Connected · demo snapshot": [
+    "已連接 · 示範快照",
+    "已连接 · 示范快照"
+  ],
+  "Connection": [
+    "連線",
+    "连线"
+  ],
+  "Constant-price path after the guarantee period. Illustrative, not a contract valuation.": [
+    "保證期後採用固定價格路徑，僅供情境說明，並非合約估值。",
+    "保证期后采用固定价格路径，仅供情境说明，并非合约估值。"
+  ],
+  "Contact Tan Wei-Jie": [
+    "聯絡 Tan Wei-Jie",
+    "联络 Tan Wei-Jie"
+  ],
+  "Contact support": [
+    "聯絡支援",
+    "联络支援"
+  ],
+  "Contact your adviser": [
+    "聯絡顧問",
+    "联络顾问"
+  ],
+  "Context:": [
+    "背景：",
+    "背景："
+  ],
+  "Controls change the chart. Use “Explain this selection” for a new explanation matching your selection.": [
+    "控制項會更新圖表。選擇「解釋目前選項」可取得符合所選內容的新解釋。",
+    "控制项会更新图表。选择“解释目前选项”可取得符合所选内容的新解释。"
+  ],
+  "Conversation": [
+    "對話",
+    "对话"
+  ],
+  "Conversation controls": [
+    "對話設定",
+    "对话设定"
+  ],
+  "Corp.": [
+    "公司",
+    "公司"
+  ],
+  "Corporate": [
+    "公司",
+    "公司"
+  ],
+  "Cost": [
+    "成本",
+    "成本"
+  ],
+  "Cost & market value": [
+    "成本及市值",
+    "成本及市值"
+  ],
+  "Cost of current positions, not lifetime deposits. Historical NAV is not available.": [
+    "目前持倉成本，並非歷來入金總額。尚未有歷史資產淨值。",
+    "目前持仓成本，并非历来入金总额。尚未有历史资产净值。"
+  ],
+  "Coupon": [
+    "票息",
+    "票息"
+  ],
+  "Coupon p.a.": [
+    "年票息",
+    "年票息"
+  ],
+  "Coupon paid": [
+    "已付票息",
+    "已付票息"
+  ],
+  "Coupons received": [
+    "已收票息",
+    "已收票息"
+  ],
+  "Coverage & limitations": [
+    "涵蓋範圍及限制",
+    "涵盖范围及限制"
+  ],
+  "Custodian": [
+    "託管銀行",
+    "托管银行"
+  ],
+  "Custodians & books": [
+    "託管銀行及投資組合",
+    "托管银行及投资组合"
+  ],
+  "Custody account": [
+    "託管帳戶",
+    "托管帐户"
+  ],
+  "DATA & CONNECTIONS": [
+    "資料及連線",
+    "资料及连线"
+  ],
+  "Daily closing prices, not adjusted total returns. The latest daily bar may be in progress. Range ends at the latest available observation.": [
+    "每日收市價，並非經調整的總回報。最新日線可能尚未完成，期間截至最新可取得數據。",
+    "每日收市价，并非经调整的总回报。最新日线可能尚未完成，期间截至最新可取得数据。"
+  ],
+  "Daily price level": [
+    "每日價格水平",
+    "每日价格水平"
+  ],
+  "Daily shares": [
+    "每日股數",
+    "每日股数"
+  ],
+  "Daily trading volume": [
+    "每日成交量",
+    "每日成交量"
+  ],
+  "Daily underlying level": [
+    "每日相關資產水平",
+    "每日相关资产水平"
+  ],
+  "Dark": [
+    "深色",
+    "深色"
+  ],
+  "Data source": [
+    "資料來源",
+    "资料来源"
+  ],
+  "Database unavailable. Displaying the built-in sample.": [
+    "資料來源暫時無法取得，現顯示內置示範資料。",
+    "资料来源暂时无法取得，现显示内置示范资料。"
+  ],
+  "Date": [
+    "日期",
+    "日期"
+  ],
+  "Decision / trades": [
+    "決策／交易",
+    "决策／交易"
+  ],
+  "Decisions & trade ledger": [
+    "決策及交易紀錄",
+    "决策及交易纪录"
+  ],
+  "DeepSeek Flash is not configured. Start Mercury with your DeepSeek key and try again.": [
+    "分析服務尚未就緒，請稍後重試。",
+    "分析服务尚未就绪，请稍后重试。"
+  ],
+  "DeepSeek Flash selected the tasks.": [
+    "已選擇分析工作。",
+    "已选择分析工作。"
+  ],
+  "Define the policy": [
+    "設定策略規則",
+    "设定策略规则"
+  ],
+  "Demo balance · 19 Jun 2026. Future product settlements are not available cash.": [
+    "示範結餘 · 2026 年 6 月 19 日。未來產品交收款項並非可用現金。",
+    "示范结余 · 2026 年 6 月 19 日。未来产品交收款项并非可用现金。"
+  ],
+  "Demo data reset. Ready for your next presentation.": [
+    "本機示範狀態已重設。",
+    "本机示范状态已重设。"
+  ],
+  "Demo terms · Capital at risk · Levels shown as % of initial price.": [
+    "示範條款 · 本金有風險 · 水平以初始價格百分比列示。",
+    "示范条款 · 本金有风险 · 水平以初始价格百分比列示。"
+  ],
+  "Demonstration account": [
+    "示範帳戶",
+    "示范帐户"
+  ],
+  "Device management, identity verification and remote sign-out are not connected in this local demo.": [
+    "本機示範尚未接通裝置管理、身份驗證及遠端登出功能。",
+    "本机示范尚未接通装置管理、身份验证及远端登出功能。"
+  ],
+  "Dip & recover": [
+    "先跌後回升",
+    "先跌后回升"
+  ],
+  "Direct exposure to researched stocks:": [
+    "研究股票的直接持倉敞口：",
+    "研究股票的直接持仓敞口："
+  ],
+  "Direct value": [
+    "直接持倉市值",
+    "直接持仓市值"
+  ],
+  "Discuss": [
+    "討論",
+    "讨论"
+  ],
+  "Discuss this holding": [
+    "討論此持倉",
+    "讨论此持仓"
+  ],
+  "Discuss this outcome": [
+    "討論此結果",
+    "讨论此结果"
+  ],
+  "Dismiss": [
+    "關閉提示",
+    "关闭提示"
+  ],
+  "Display conversion uses fixed demo FX: USD 1 = HKD 7.80 / GBP 0.77. Product contracts retain their currency.": [
+    "顯示換算使用固定示範匯率：USD 1 = HKD 7.80 / GBP 0.77。產品合約保留原有貨幣。",
+    "显示换算使用固定示范汇率：USD 1 = HKD 7.80 / GBP 0.77。产品合约保留原有货币。"
+  ],
+  "Display currency": [
+    "顯示貨幣",
+    "显示货币"
+  ],
+  "Displayed close-to-close change": [
+    "所示收市價變動",
+    "所示收市价变动"
+  ],
+  "Document action": [
+    "文件待辦",
+    "文件待办"
+  ],
+  "Documents": [
+    "文件",
+    "文件"
+  ],
+  "Documents & saved items": [
+    "文件及已儲存項目",
+    "文件及已保存项目"
+  ],
+  "Download analysis JSON ↓": [
+    "下載分析 JSON ↓",
+    "下载分析 JSON ↓"
+  ],
+  "Download comparison JSON ↓": [
+    "下載比較 JSON ↓",
+    "下载比较 JSON ↓"
+  ],
+  "Download result ↓": [
+    "下載結果 ↓",
+    "下载结果 ↓"
+  ],
+  "Downside at a glance": [
+    "下行情境概覽",
+    "下行情境概览"
+  ],
+  "Draft for Tan Wei-Jie": [
+    "給 Tan Wei-Jie 的草稿",
+    "给 Tan Wei-Jie 的草稿"
+  ],
+  "Drafts stay in this browser. Saving does not send a message, request a quote or submit a trade.": [
+    "草稿保留在此瀏覽器。儲存不代表發送訊息、要求報價或提交交易。",
+    "草稿保留在此浏览器。保存不代表发送讯息、要求报价或提交交易。"
+  ],
+  "Drift band (percentage points)": [
+    "偏離幅度（百分點）",
+    "偏离幅度（百分点）"
+  ],
+  "EXPLAINER": [
+    "解說",
+    "解说"
+  ],
+  "Each meeting compares its decision with the rate immediately before that meeting. These are not cumulative rate-path probabilities.": [
+    "每次會議的決策均與該次會議前的利率比較，並非累積利率路徑概率。",
+    "每次会议的决策均与该次会议前的利率比较，并非累积利率路径概率。"
+  ],
+  "Each period factor = (closing NAV − end flow) ÷ (opening NAV + start flow). Total TWR = product of those factors − 1. Results are not annualized.": [
+    "每期因子＝（期末資產淨值－期末資金流）÷（期初資產淨值＋期初資金流）。總時間加權回報＝各期因子乘積－1。結果未作年化。",
+    "每期因子＝（期末资产净值－期末资金流）÷（期初资产净值＋期初资金流）。总时间加权回报＝各期因子乘积－1。结果未作年化。"
+  ],
+  "Early redemption": [
+    "提前贖回",
+    "提前赎回"
+  ],
+  "Early redemption triggered.": [
+    "已觸發提前贖回。",
+    "已触发提前赎回。"
+  ],
+  "Effective Fed funds rate": [
+    "有效聯邦基金利率",
+    "有效联邦基金利率"
+  ],
+  "End": [
+    "結束",
+    "结束"
+  ],
+  "End close": [
+    "期末收市價",
+    "期末收市价"
+  ],
+  "End date": [
+    "結束日期",
+    "结束日期"
+  ],
+  "Equities": [
+    "股票",
+    "股票"
+  ],
+  "Equity positions and equity funds, across all three books. No target allocation is linked.": [
+    "股票持倉及股票基金配置；尚未連結目標配置。",
+    "股票持仓及股票基金配置；尚未连结目标配置。"
+  ],
+  "Equity · S&P 500 ETF": [
+    "股票 · 標普 500 ETF",
+    "股票 · 标普 500 ETF"
+  ],
+  "Estimated risk contributions": [
+    "估算風險貢獻",
+    "估算风险贡献"
+  ],
+  "Estimated trading cost": [
+    "估算交易成本",
+    "估算交易成本"
+  ],
+  "Events & published evidence": [
+    "事件及公開資料",
+    "事件及公开资料"
+  ],
+  "Evidence & freshness": [
+    "資料依據及更新時間",
+    "资料依据及更新时间"
+  ],
+  "Evidence company": [
+    "資料所屬公司",
+    "资料所属公司"
+  ],
+  "Evidence cutoff:": [
+    "資料截止時間：",
+    "资料截止时间："
+  ],
+  "Exact comparison figures": [
+    "精確比較數字",
+    "精确比较数字"
+  ],
+  "Example · Not held": [
+    "範例 · 未持有",
+    "范例 · 未持有"
+  ],
+  "Example · not held": [
+    "範例 · 未持有",
+    "范例 · 未持有"
+  ],
+  "Expected return": [
+    "預期回報",
+    "预期回报"
+  ],
+  "Explain": [
+    "解釋",
+    "解释"
+  ],
+  "Explain my AAPL accumulator": [
+    "解釋我持有的 AAPL 累積股票合約",
+    "解释我持有的 AAPL 累积股票合约"
+  ],
+  "Explain my portfolio allocation": [
+    "解釋我的組合配置",
+    "解释我的组合配置"
+  ],
+  "Explain the Fed decision pricing for": [
+    "解釋聯儲局決策的市場定價：",
+    "解释联储局决策的市场定价："
+  ],
+  "Explain the latest official Fed rate and its recent history.": [
+    "解釋最新官方聯儲局利率及近期變化。",
+    "解释最新官方联储局利率及近期变化。"
+  ],
+  "Explain this": [
+    "解釋內容",
+    "解释内容"
+  ],
+  "Explain this chart": [
+    "解釋此圖表",
+    "解释此图表"
+  ],
+  "Explain this selection": [
+    "解釋目前選項",
+    "解释目前选项"
+  ],
+  "Explain this structured product scenario": [
+    "解釋此結構產品情境",
+    "解释此结构产品情境"
+  ],
+  "Explore a product": [
+    "查看產品",
+    "查看产品"
+  ],
+  "Explore a scenario": [
+    "探索情境",
+    "探索情境"
+  ],
+  "Explore rate sensitivity": [
+    "查看利率敏感度",
+    "查看利率敏感度"
+  ],
+  "Explore the product visually": [
+    "以圖表了解產品",
+    "以图表了解产品"
+  ],
+  "Explore · 3": [
+    "探索 · 3",
+    "探索 · 3"
+  ],
+  "Export draft": [
+    "匯出草稿",
+    "汇出草稿"
+  ],
+  "Export sample terms": [
+    "匯出範例條款",
+    "汇出范例条款"
+  ],
+  "FIELD NOTES / 0": [
+    "研究筆記 / 0",
+    "研究笔记 / 0"
+  ],
+  "Family overview": [
+    "家庭總覽",
+    "家庭总览"
+  ],
+  "Fed analysis": [
+    "聯儲局分析",
+    "联储局分析"
+  ],
+  "Fed calendar · checked 27 Oct 2026": [
+    "聯儲局日程 · 2026 年 10 月 27 日核對",
+    "联储局日程 · 2026 年 10 月 27 日核对"
+  ],
+  "Fed meeting": [
+    "聯儲局會議",
+    "联储局会议"
+  ],
+  "Fed rates & expectations": [
+    "聯儲局利率及預期",
+    "联储局利率及预期"
+  ],
+  "Fee basis: unspecified. Use NAV reflecting the chosen fee basis before comparing results. Actual Lim, Okonkwo and Zhang performance is not calculated from the current-holdings snapshot.": [
+    "費用基準未指定。比較前請使用反映所選費用基準的資產淨值。此計算不會從目前持倉快照推算 Lim、Okonkwo 或 Zhang 的實際表現。",
+    "费用基准未指定。比较前请使用反映所选费用基准的资产净值。此计算不会从目前持仓快照推算 Lim、Okonkwo 或 Zhang 的实际表现。"
+  ],
+  "Fetched from source": [
+    "已從來源取得",
+    "已从来源取得"
+  ],
+  "Fictional position. Fund look-through, live prices and cost-basis details are not connected.": [
+    "示範持倉。基金穿透資料、即時價格及成本明細尚未接通。",
+    "示范持仓。基金穿透资料、即时价格及成本明细尚未接通。"
+  ],
+  "Filed": [
+    "提交日期",
+    "提交日期"
+  ],
+  "Filter evidence": [
+    "篩選資料",
+    "筛选资料"
+  ],
+  "Filter holdings": [
+    "篩選持倉",
+    "筛选持仓"
+  ],
+  "Filters": [
+    "篩選",
+    "筛选"
+  ],
+  "Final barrier": [
+    "最終障礙水平",
+    "最终障碍水平"
+  ],
+  "Final worst-underlying level → capital returned (% of notional). Excludes coupons.": [
+    "最差資產最終水平 → 本金回款（佔名義本金百分比），不包括票息。",
+    "最差资产最终水平 → 本金回款（占名义本金百分比），不包括票息。"
+  ],
+  "Financial research analysis": [
+    "金融研究分析",
+    "金融研究分析"
+  ],
+  "Fixed income": [
+    "固定收益",
+    "固定收益"
+  ],
+  "Fixed monthly coupon = notional × annual coupon / 12. No autocall and no separate knock-in. At maturity, if the final worst-underlying level is at least 80%, return principal in full; otherwise return notional × final worst level / 80.": [
+    "固定月票息＝名義本金×年票息÷12。沒有自動贖回或獨立敲入條件。到期時，若最差資產水平至少為 80%，全額退回本金；否則回款＝名義本金×最差資產最終水平÷80。",
+    "固定月票息＝名义本金×年票息÷12。没有自动赎回或独立敲入条件。到期时，若最差资产水平至少为 80%，全额退回本金；否则回款＝名义本金×最差资产最终水平÷80。"
+  ],
+  "Flow at end": [
+    "期末資金流",
+    "期末资金流"
+  ],
+  "Flow at start": [
+    "期初資金流",
+    "期初资金流"
+  ],
+  "Flows occur only at period boundaries; other flows require splitting the period.": [
+    "資金流只發生於期初或期末；其他時間的資金流需要分拆期間。",
+    "资金流只发生于期初或期末；其他时间的资金流需要分拆期间。"
+  ],
+  "Follow system": [
+    "跟隨系統",
+    "跟随系统"
+  ],
+  "For adviser review": [
+    "供顧問審閱",
+    "供顾问审阅"
+  ],
+  "Full sample terms": [
+    "完整範例條款",
+    "完整范例条款"
+  ],
+  "Full tenor": [
+    "完整年期",
+    "完整年期"
+  ],
+  "Funds / structured products requiring separate look-through:": [
+    "需要另行穿透分析的基金／結構產品：",
+    "需要另行穿透分析的基金／结构产品："
+  ],
+  "Gemini selected:": [
+    "已選擇：",
+    "已选择："
+  ],
+  "Global": [
+    "全球",
+    "全球"
+  ],
+  "Gold · Physical gold ETC": [
+    "黃金 · 實物黃金 ETC",
+    "黄金 · 实物黄金 ETC"
+  ],
+  "Guaranteed periods": [
+    "保證期間",
+    "保证期间"
+  ],
+  "HOLDING DETAILS /": [
+    "持倉詳情 /",
+    "持仓详情 /"
+  ],
+  "Held product": [
+    "持有產品",
+    "持有产品"
+  ],
+  "Held to maturity": [
+    "持有至到期",
+    "持有至到期"
+  ],
+  "Held ·": [
+    "已持有 ·",
+    "已持有 ·"
+  ],
+  "Held · simplified daily purchases": [
+    "已持有 · 簡化每日買入",
+    "已持有 · 简化每日买入"
+  ],
+  "Help & About": [
+    "說明及關於",
+    "说明及关于"
+  ],
+  "Hide": [
+    "隱藏",
+    "隐藏"
+  ],
+  "Historical NAV & cash flows needed": [
+    "需要歷史資產淨值及資金流",
+    "需要历史资产净值及资金流"
+  ],
+  "Historical NAV and complete external flows are not available for Okonkwo. The cost / market value view shows the unrealised change on current holdings, not a time-weighted return.": [
+    "尚未有 Okonkwo 完整歷史資產淨值及外部資金流。成本／市值畫面顯示目前持倉的未實現變動，並非時間加權回報。",
+    "尚未有 Okonkwo 完整历史资产净值及外部资金流。成本／市值画面显示目前持仓的未实现变动，并非时间加权回报。"
+  ],
+  "Historical price comparison": [
+    "歷史價格比較",
+    "历史价格比较"
+  ],
+  "History snapshots and model runs are stored locally for recall. Supabase market-history persistence is not enabled in this release.": [
+    "歷史快照及模型結果會儲存在本機以供重用；此版本未啟用雲端市場歷史儲存。",
+    "历史快照及模型结果会保存在本机以供重用；此版本未启用云端市场历史保存。"
+  ],
+  "Hold": [
+    "持有",
+    "持有"
+  ],
+  "Holdings": [
+    "持倉",
+    "持仓"
+  ],
+  "Holdings & ownership": [
+    "持倉及擁有權",
+    "持仓及拥有权"
+  ],
+  "Holdings could not be refreshed. Showing the last available snapshot.": [
+    "無法更新持倉，現顯示上次可用快照。",
+    "无法更新持仓，现显示上次可用快照。"
+  ],
+  "Home": [
+    "主頁",
+    "主页"
+  ],
+  "How are returns calculated?": [
+    "回報如何計算？",
+    "回报如何计算？"
+  ],
+  "How far does the allocation drift?": [
+    "配置偏離了多少？",
+    "配置偏离了多少？"
+  ],
+  "How the payoff works": [
+    "回款計算方式",
+    "回款计算方式"
+  ],
+  "I can explain your portfolio, review cash events or help you explore a structured-product scenario. Ask naturally, or use “Discuss” on any insight to bring its context into the conversation.": [
+    "你可以查詢組合、現金事件或結構產品情境。直接提問，或在洞察中點選「討論」，將相關背景帶入對話。",
+    "你可以查询组合、现金事件或结构产品情境。直接提问，或在洞察中点选“讨论”，将相关背景带入对话。"
+  ],
+  "I have complete valuations for every period.": [
+    "我已提供每個期間的完整估值。",
+    "我已提供每个期间的完整估值。"
+  ],
+  "IN FOCUS": [
+    "焦點",
+    "焦点"
+  ],
+  "Illustrative bond duration": [
+    "示範債券存續期",
+    "示范债券存续期"
+  ],
+  "Illustrative capital": [
+    "示範本金",
+    "示范本金"
+  ],
+  "Illustrative difference": [
+    "示範差額",
+    "示范差额"
+  ],
+  "Illustrative fixed-rate bond sensitivity. This does not value your holdings.": [
+    "固定利率債券敏感度示範，並非你的持倉估值。",
+    "固定利率债券敏感度示范，并非你的持仓估值。"
+  ],
+  "Illustrative outcome, not an expected-return forecast.": [
+    "示範結果，並非預期回報預測。",
+    "示范结果，并非预期回报预测。"
+  ],
+  "Illustrative product · Not a live security": [
+    "示範產品 · 並非實際證券",
+    "示范产品 · 并非实际证券"
+  ],
+  "Illustrative rate change": [
+    "示範利率變動",
+    "示范利率变动"
+  ],
+  "Included in market value": [
+    "已包括在市值內",
+    "已包括在市值内"
+  ],
+  "Increase": [
+    "增加",
+    "增加"
+  ],
+  "Index 100 at the first shared observation. Tap a ticker to show or hide its line.": [
+    "首個共同觀察日的指數為 100。點選股票代號可顯示或隱藏曲線。",
+    "首个共同观察日的指数为 100。点选股票代号可显示或隐藏曲线。"
+  ],
+  "Index 100 is starting capital before initial trading costs. Price returns only; these generated mock series exclude income and tax.": [
+    "指數 100 為扣除初始交易成本前的本金。僅計算價格回報；此生成示範數據不包括收入及稅項。",
+    "指数 100 为扣除初始交易成本前的本金。仅计算价格回报；此生成示范数据不包括收入及税项。"
+  ],
+  "Indicative midpoint": [
+    "參考中間價",
+    "参考中间价"
+  ],
+  "Initial": [
+    "初始",
+    "初始"
+  ],
+  "Initial USD 226.87; strike 88%; knock-out at 105%. 40 shares/day, doubled strictly below strike. The same price applies on each simulated day. KO is checked before purchase; simulation starts after any guaranteed period. No pre-existing shares, fees, FX, financing or settlement cash flows. Contract-specific guarantee and observation rules require the full term sheet.": [
+    "初始價格 USD 226.87；行使水平 88%；敲出水平 105%。每日 40 股，嚴格低於行使價時加倍。每個模擬日使用相同價格，買入前先檢查敲出條件；模擬由保證期後開始。不包括原有股數、費用、匯率、融資及交收資金流。合約的保證及觀察規則須參照完整條款。",
+    "初始价格 USD 226.87；行使水平 88%；敲出水平 105%。每日 40 股，严格低于行使价时加倍。每个模拟日使用相同价格，买入前先检查敲出条件；模拟由保证期后开始。不包括原有股数、费用、汇率、融资及交收资金流。合约的保证及观察规则须参照完整条款。"
+  ],
+  "Initial chart:": [
+    "初始圖表：",
+    "初始图表："
+  ],
+  "Initial fixing": [
+    "初始定價",
+    "初始定价"
+  ],
+  "Initial level 100%.": [
+    "初始水平 100%。",
+    "初始水平 100%。"
+  ],
+  "Initial setup": [
+    "初始設定",
+    "初始设定"
+  ],
+  "Input coverage": [
+    "輸入資料涵蓋範圍",
+    "输入资料涵盖范围"
+  ],
+  "Insights": [
+    "洞察",
+    "洞察"
+  ],
+  "Insights & actions": [
+    "洞察及待辦",
+    "洞察及待办"
+  ],
+  "Inspect a hypothetical monthly observation": [
+    "查看假設每月觀察值",
+    "查看假设每月观察值"
+  ],
+  "Inspect book values": [
+    "查看組合市值",
+    "查看组合市值"
+  ],
+  "Inspect observation": [
+    "查看觀察值",
+    "查看观察值"
+  ],
+  "Inspect trading day": [
+    "查看交易日",
+    "查看交易日"
+  ],
+  "Inspect trading observation": [
+    "查看交易觀察值",
+    "查看交易观察值"
+  ],
+  "Interactive TWR workbench input": [
+    "時間加權回報互動輸入",
+    "时间加权回报互动输入"
+  ],
+  "Interactive daily closing price chart. Tap a date or use the observation slider below to inspect values.": [
+    "每日收市價互動圖表。點選日期或使用下方滑桿查看數值。",
+    "每日收市价互动图表。点选日期或使用下方滑杆查看数值。"
+  ],
+  "Interactive historical price comparison": [
+    "互動歷史價格比較",
+    "互动历史价格比较"
+  ],
+  "Interactive three-strategy comparison chart": [
+    "三種策略互動比較圖",
+    "三种策略互动比较图"
+  ],
+  "Investment book": [
+    "投資組合",
+    "投资组合"
+  ],
+  "Issuer": [
+    "發行商",
+    "发行商"
+  ],
+  "Issuer default can cause total loss. Early exit requires a market valuation.": [
+    "發行商違約可能導致全額損失。提前退出需要市場估值。",
+    "发行商违约可能导致全额损失。提前退出需要市场估值。"
+  ],
+  "Issuer performance is assumed. Fees, taxes and interim market valuation are excluded. Issuer default can cause total loss. This independent sample engine is not a connection to Mercury’s existing product engine.": [
+    "假設發行商履約；不包括費用、稅項及中途市場估值。發行商違約可能導致全額損失。此為獨立範例計算，未連接既有產品引擎。",
+    "假设发行商履约；不包括费用、税项及中途市场估值。发行商违约可能导致全额损失。此为独立范例计算，未连接既有产品引擎。"
+  ],
+  "Jan": [
+    "1 月",
+    "1 月"
+  ],
+  "Jul": [
+    "7 月",
+    "7 月"
+  ],
+  "Jun": [
+    "6 月",
+    "6 月"
+  ],
+  "KO": [
+    "敲出",
+    "敲出"
+  ],
+  "KO / autocall": [
+    "敲出／自動贖回",
+    "敲出／自动赎回"
+  ],
+  "Kalshi contract quotes are neither CME FedWatch probabilities nor an official Fed forecast. Midpoints are indicative; fees, spreads and liquidity matter.": [
+    "Kalshi 合約報價並非 CME FedWatch 概率或聯儲局官方預測。中間價僅供參考，須考慮費用、買賣差價及流動性。",
+    "Kalshi 合约报价并非 CME FedWatch 概率或联储局官方预测。中间价仅供参考，须考虑费用、买卖差价及流动性。"
+  ],
+  "Kalshi decision quotes": [
+    "Kalshi 決策合約報價",
+    "Kalshi 决策合约报价"
+  ],
+  "Kalshi retrieved:": [
+    "Kalshi 取得時間：",
+    "Kalshi 取得时间："
+  ],
+  "Keep exploring": [
+    "繼續探索",
+    "继续探索"
+  ],
+  "Keep liquid": [
+    "保留流動資金",
+    "保留流动资金"
+  ],
+  "Knock-in": [
+    "敲入",
+    "敲入"
+  ],
+  "Knock-out": [
+    "敲出",
+    "敲出"
+  ],
+  "Knock-out · no further shares": [
+    "已敲出 · 停止累積股數",
+    "已敲出 · 停止累积股数"
+  ],
+  "Language": [
+    "語言",
+    "语言"
+  ],
+  "Language and currency are independent. Existing conversations and analysis are preserved.": [
+    "語言與貨幣分開設定，現有對話及分析會保留。",
+    "语言与货币分开设定，现有对话及分析会保留。"
+  ],
+  "Largest value": [
+    "市值由大至小",
+    "市值由大至小"
+  ],
+  "Last 10 displayed observations": [
+    "最近顯示的 10 個觀察值",
+    "最近显示的 10 个观察值"
+  ],
+  "Later prices do not change an already-redeemed note.": [
+    "後續價格不會改變已贖回票據的結果。",
+    "后续价格不会改变已赎回票据的结果。"
+  ],
+  "Laya composed:": [
+    "畫面組合：",
+    "画面组合："
+  ],
+  "Ledger strategy": [
+    "紀錄策略",
+    "纪录策略"
+  ],
+  "Light": [
+    "淺色",
+    "浅色"
+  ],
+  "Linked TWR": [
+    "連乘時間加權回報",
+    "连乘时间加权回报"
+  ],
+  "Links open the provider quote pages; historical observations above come from the recorded OpenBB / Cboe tool snapshot. Adjustments and dividends are unverified.": [
+    "連結會開啟供應商報價頁；上述歷史觀察值來自已記錄的 OpenBB／Cboe 工具快照。價格調整及股息尚未核實。",
+    "连结会开启供应商报价页；上述历史观察值来自已记录的 OpenBB／Cboe 工具快照。价格调整及股息尚未核实。"
+  ],
+  "Liquidity": [
+    "流動資金",
+    "流动资金"
+  ],
+  "Load example": [
+    "載入範例",
+    "载入范例"
+  ],
+  "Local": [
+    "本機",
+    "本机"
+  ],
+  "MACRO INTELLIGENCE": [
+    "宏觀洞察",
+    "宏观洞察"
+  ],
+  "MERCURY RESEARCH BRIEF": [
+    "MERCURY 研究摘要",
+    "MERCURY 研究摘要"
+  ],
+  "METHOD & DATA": [
+    "方法及資料",
+    "方法及资料"
+  ],
+  "MOCK PRICE DATA": [
+    "示範價格資料",
+    "示范价格资料"
+  ],
+  "MODEL ONLY · Equal-weight reference · Client suitability not assessed": [
+    "僅供模型分析 · 等權重基準 · 未評估客戶適合性",
+    "仅供模型分析 · 等权重基准 · 未评估客户适合性"
+  ],
+  "MONTH": [
+    "月份",
+    "月份"
+  ],
+  "Main navigation": [
+    "主導航",
+    "主导航"
+  ],
+  "Mar": [
+    "3 月",
+    "3 月"
+  ],
+  "Marked value": [
+    "估值",
+    "估值"
+  ],
+  "Market charts by": [
+    "市場圖表提供者：",
+    "市场图表提供者："
+  ],
+  "Market quotes unavailable.": [
+    "暫時無法取得市場報價。",
+    "暂时无法取得市场报价。"
+  ],
+  "Market recovery": [
+    "市場回升",
+    "市场回升"
+  ],
+  "Market research": [
+    "市場研究",
+    "市场研究"
+  ],
+  "Market sell-off": [
+    "市場下跌",
+    "市场下跌"
+  ],
+  "Market value": [
+    "市值",
+    "市值"
+  ],
+  "Market value includes cash flows. Investment growth requires complete valuations and external flows. Missing history is never inferred from a current snapshot.": [
+    "市值包括資金流影響。投資增長需要完整估值及外部資金流，不會由目前快照推算缺失歷史。",
+    "市值包括资金流影响。投资增长需要完整估值及外部资金流，不会由目前快照推算缺失历史。"
+  ],
+  "Market value ·": [
+    "市值 ·",
+    "市值 ·"
+  ],
+  "Matching account details": [
+    "相關帳戶詳情",
+    "相关帐户详情"
+  ],
+  "Maturity": [
+    "到期",
+    "到期"
+  ],
+  "Max drawdown": [
+    "最大回撤",
+    "最大回撤"
+  ],
+  "Maximum asset weight (%)": [
+    "單一資產權重上限（%）",
+    "单一资产权重上限（%）"
+  ],
+  "May": [
+    "5 月",
+    "5 月"
+  ],
+  "Measure returns.": [
+    "衡量投資回報。",
+    "衡量投资回报。"
+  ],
+  "Meeting": [
+    "會議",
+    "会议"
+  ],
+  "Meeting comparison outcome": [
+    "會議比較結果",
+    "会议比较结果"
+  ],
+  "Meeting outcome pricing": [
+    "會議結果定價",
+    "会议结果定价"
+  ],
+  "Mercury editorial perspective": [
+    "Mercury 編輯觀點",
+    "Mercury 编辑观点"
+  ],
+  "Mercury summaries · Published research, not a live feed": [
+    "Mercury 摘要 · 已發表研究，並非即時資訊",
+    "Mercury 摘要 · 已发表研究，并非即时资讯"
+  ],
+  "Mid": [
+    "中間價",
+    "中间价"
+  ],
+  "Midpoints total": [
+    "中間價總和",
+    "中间价总和"
+  ],
+  "Minimum cash target (%)": [
+    "最低現金目標（%）",
+    "最低现金目标（%）"
+  ],
+  "Minimum historical CVaR": [
+    "最低歷史條件風險值",
+    "最低历史条件风险值"
+  ],
+  "Minimum variance": [
+    "最小方差",
+    "最小方差"
+  ],
+  "Mobile navigation": [
+    "手機導航",
+    "手机导航"
+  ],
+  "Model assumptions": [
+    "模型假設",
+    "模型假设"
+  ],
+  "Modified duration": [
+    "修正存續期",
+    "修正存续期"
+  ],
+  "Month": [
+    "月份",
+    "月份"
+  ],
+  "Monthly": [
+    "每月",
+    "每月"
+  ],
+  "Monthly, non-memory coupons are paid only when the worst performer is at or above 70% of its initial level. Starting in month 3, a level of 100% or more causes autocall: return of principal plus coupons due up to that month. At final maturity only, a worst level below 60% reduces capital to notional × final worst level / 100. Otherwise principal is returned in full. A dip below 60% before maturity does not itself trigger a loss under these illustrative European-barrier terms.": [
+    "當最差資產達初始水平 70% 或以上時，才派發每月非累積票息。由第 3 個月起，達 100% 或以上會自動贖回，退回本金及截至該月的應付票息。僅在最終到期時，若最差水平低於 60%，本金回款為名義本金×最差最終水平÷100；否則全額退回本金。此示範採歐式障礙條款，到期前跌穿 60% 本身不會觸發損失。",
+    "当最差资产达初始水平 70% 或以上时，才派发每月非累积票息。由第 3 个月起，达 100% 或以上会自动赎回，退回本金及截至该月的应付票息。仅在最终到期时，若最差水平低于 60%，本金回款为名义本金×最差最终水平÷100；否则全额退回本金。此示范采欧式障碍条款，到期前跌穿 60% 本身不会触发损失。"
+  ],
+  "More": [
+    "更多",
+    "更多"
+  ],
+  "NAV change, including flows": [
+    "資產淨值變動（包括資金流）",
+    "资产净值变动（包括资金流）"
+  ],
+  "NY Fed EFFR source ↗": [
+    "紐約聯儲有效利率來源 ↗",
+    "纽约联储有效利率来源 ↗"
+  ],
+  "NY Fed rates": [
+    "紐約聯儲利率",
+    "纽约联储利率"
+  ],
+  "NY Fed retrieved:": [
+    "紐約聯儲資料取得時間：",
+    "纽约联储资料取得时间："
+  ],
+  "Name A–Z": [
+    "名稱 A–Z",
+    "名称 A–Z"
+  ],
+  "Narrow your list. Your account selection stays the same.": [
+    "篩選持倉列表，戶口選擇維持不變。",
+    "筛选持仓列表，户口选择维持不变。"
+  ],
+  "Net external flows": [
+    "外部資金淨流入",
+    "外部资金净流入"
+  ],
+  "No approved Okonkwo proposal is linked. Prepare a brief with the objectives of each book for your adviser.": [
+    "尚未連結已批准的 Okonkwo 方案。可按各組合目標準備顧問討論摘要。",
+    "尚未连结已批准的 Okonkwo 方案。可按各组合目标准备顾问讨论摘要。"
+  ],
+  "No approved adviser proposal is linked. Compare completed research models or prepare a discussion brief.": [
+    "尚未連結已批准的顧問方案。可比較已完成的研究模型或準備討論摘要。",
+    "尚未连结已批准的顾问方案。可比较已完成的研究模型或准备讨论摘要。"
+  ],
+  "No approved allocation target or proposal is linked to the Okonkwo snapshot.": [
+    "Okonkwo 快照尚未連結已批准的配置目標或方案。",
+    "Okonkwo 快照尚未连结已批准的配置目标或方案。"
+  ],
+  "No available quotes for the requested meeting. Choose an available meeting above.": [
+    "未有該次會議的可用報價，請選擇上方其他會議。",
+    "未有该次会议的可用报价，请选择上方其他会议。"
+  ],
+  "No comparable financial facts were available.": [
+    "未有可比較的財務資料。",
+    "未有可比较的财务资料。"
+  ],
+  "No coupon": [
+    "沒有票息",
+    "没有票息"
+  ],
+  "No direct holding": [
+    "沒有直接持倉",
+    "没有直接持仓"
+  ],
+  "No explanation returned.": [
+    "未能取得解釋。",
+    "未能取得解释。"
+  ],
+  "No fixed coupon": [
+    "沒有固定票息",
+    "没有固定票息"
+  ],
+  "No held product": [
+    "未有持有產品",
+    "未有持有产品"
+  ],
+  "No held structured product in this scope": [
+    "此範圍未持有結構產品",
+    "此范围未持有结构产品"
+  ],
+  "No history": [
+    "未有歷史資料",
+    "未有历史资料"
+  ],
+  "No matching holdings": [
+    "沒有符合條件的持倉",
+    "没有符合条件的持仓"
+  ],
+  "No orders are created or executed.": [
+    "不會建立或執行交易指令。",
+    "不会建立或执行交易指令。"
+  ],
+  "No retained news or filing events matched this observation window. This does not mean no events occurred.": [
+    "已保存的新聞及公告中，未有符合此觀察期間的事件；不代表期間內沒有事件發生。",
+    "已保存的新闻及公告中，未有符合此观察期间的事件；不代表期间内没有事件发生。"
+  ],
+  "No trades required": [
+    "無需交易",
+    "无需交易"
+  ],
+  "No verified held FCN terms are linked. Example notes are available in Explore.": [
+    "尚未連結已核實的持有 FCN 條款。可於探索頁查看範例票據。",
+    "尚未连结已核实的持有 FCN 条款。可于探索页查看范例票据。"
+  ],
+  "None": [
+    "無",
+    "无"
+  ],
+  "Nothing saved yet": [
+    "暫無已儲存項目",
+    "暂无已保存项目"
+  ],
+  "Notification preferences": [
+    "通知偏好",
+    "通知偏好"
+  ],
+  "Notifications": [
+    "通知",
+    "通知"
+  ],
+  "Notional": [
+    "名義本金",
+    "名义本金"
+  ],
+  "Nov": [
+    "11 月",
+    "11 月"
+  ],
+  "OBSERVED MARKET DATA": [
+    "市場觀察資料",
+    "市场观察资料"
+  ],
+  "OKONKWO FAMILY": [
+    "OKONKWO 家庭",
+    "OKONKWO 家庭"
+  ],
+  "ONE FAMILY. CONNECTED.": [
+    "家庭財富，一覽無遺。",
+    "家庭财富，一览无遗。"
+  ],
+  "Objective": [
+    "目標",
+    "目标"
+  ],
+  "Observation:": [
+    "觀察值：",
+    "观察值："
+  ],
+  "Oct": [
+    "10 月",
+    "10 月"
+  ],
+  "Oct 1": [
+    "10 月 1 日",
+    "10 月 1 日"
+  ],
+  "Official FOMC calendar ↗": [
+    "FOMC 官方日程 ↗",
+    "FOMC 官方日程 ↗"
+  ],
+  "Official rate history is unavailable.": [
+    "暫時無法取得官方利率歷史。",
+    "暂时无法取得官方利率历史。"
+  ],
+  "Official rates unavailable. No substitute rate is shown.": [
+    "暫時無法取得官方利率，不會顯示替代數值。",
+    "暂时无法取得官方利率，不会显示替代数值。"
+  ],
+  "Official rates · Market-implied pricing": [
+    "官方利率 · 市場隱含定價",
+    "官方利率 · 市场隐含定价"
+  ],
+  "Okonkwo Family": [
+    "Okonkwo 家庭",
+    "Okonkwo 家庭"
+  ],
+  "Okonkwo demo": [
+    "Okonkwo 示範帳戶",
+    "Okonkwo 示范帐户"
+  ],
+  "Okonkwo holds the CCB AAPL Accumulator in the Thematic Equity book at UBS. Strike 88%, knock-out 105%, no knock-in or fixed coupon. Daily purchases double from 40 to 80 shares below strike. Expected return depends on the full price path and settlement terms.": [
+    "Okonkwo 在 UBS 主題股票組合持有建行 AAPL 累積股票合約。行使水平 88%，敲出水平 105%，沒有敲入或固定票息。低於行使價時，每日買入由 40 股加倍至 80 股。回報取決於完整價格路徑及交收條款。",
+    "Okonkwo 在 UBS 主题股票组合持有建行 AAPL 累积股票合约。行使水平 88%，敲出水平 105%，没有敲入或固定票息。低于行使价时，每日买入由 40 股加倍至 80 股。回报取决于完整价格路径及交收条款。"
+  ],
+  "One-sided quote; the midpoint is indicative.": [
+    "單邊報價；中間價僅供參考。",
+    "单边报价；中间价仅供参考。"
+  ],
+  "Open Strategy Lab from the local Mercury server.": [
+    "請從本機 Mercury 開啟策略工作區。",
+    "请从本机 Mercury 开启策略工作区。"
+  ],
+  "Open allocation and holdings": [
+    "查看配置及持倉",
+    "查看配置及持仓"
+  ],
+  "Open profile and more": [
+    "開啟個人資料及更多選項",
+    "开启个人资料及更多选项"
+  ],
+  "Open review": [
+    "開啟審閱",
+    "开启审阅"
+  ],
+  "Open the sample product terms and explore its observation schedule, coupons and downside.": [
+    "開啟範例產品條款，了解觀察日程、票息及下行情境。",
+    "开启范例产品条款，了解观察日程、票息及下行情境。"
+  ],
+  "Open this scenario": [
+    "開啟此情境",
+    "开启此情境"
+  ],
+  "Open this workbench from the local Mercury server.": [
+    "請從本機 Mercury 開啟此工作區。",
+    "请从本机 Mercury 开启此工作区。"
+  ],
+  "OpenBB / Cboe source documentation ↗": [
+    "OpenBB／Cboe 來源文件 ↗",
+    "OpenBB／Cboe 来源文件 ↗"
+  ],
+  "Opening NAV": [
+    "期初資產淨值",
+    "期初资产净值"
+  ],
+  "Original investment": [
+    "原始投資",
+    "原始投资"
+  ],
+  "Outcome": [
+    "結果",
+    "结果"
+  ],
+  "Overview": [
+    "總覽",
+    "总览"
+  ],
+  "Owner": [
+    "持有人",
+    "持有人"
+  ],
+  "POSSIBLE EXPLANATION": [
+    "可能原因",
+    "可能原因"
+  ],
+  "PRODUCT SCENARIO": [
+    "產品情境",
+    "产品情境"
+  ],
+  "PRODUCT VISUALIZER": [
+    "產品圖解",
+    "产品图解"
+  ],
+  "Path-dependent": [
+    "取決於價格路徑",
+    "取决于价格路径"
+  ],
+  "Period": [
+    "期間",
+    "期间"
+  ],
+  "Physical · monthly": [
+    "實物交收 · 每月",
+    "实物交收 · 每月"
+  ],
+  "Please help complete my verified client profile and historical NAV / cash-flow records.": [
+    "請協助補齊已核實的客戶資料、歷史資產淨值及資金流紀錄。",
+    "请协助补齐已核实的客户资料、历史资产净值及资金流纪录。"
+  ],
+  "Please review the Okonkwo Family allocation and confirm the objectives for each investment book.": [
+    "請審閱 Okonkwo 家庭配置，並確認各投資組合的目標。",
+    "请审阅 Okonkwo 家庭配置，并确认各投资组合的目标。"
+  ],
+  "Portal ↗": [
+    "主頁 ↗",
+    "主页 ↗"
+  ],
+  "Portfolio": [
+    "投資組合",
+    "投资组合"
+  ],
+  "Portfolio engine": [
+    "組合計算引擎",
+    "组合计算引擎"
+  ],
+  "Portfolio exposure analysis": [
+    "組合敞口分析",
+    "组合敞口分析"
+  ],
+  "Portfolio index": [
+    "組合指數",
+    "组合指数"
+  ],
+  "Portfolio snapshot:": [
+    "組合快照：",
+    "组合快照："
+  ],
+  "Portfolio view": [
+    "組合視圖",
+    "组合视图"
+  ],
+  "Portfolio weight": [
+    "組合佔比",
+    "组合占比"
+  ],
+  "Preferences": [
+    "偏好設定",
+    "偏好设定"
+  ],
+  "Preferences could not be saved. Please retry.": [
+    "未能儲存偏好設定，請重試。",
+    "未能保存偏好设定，请重试。"
+  ],
+  "Prepare a data request": [
+    "準備資料要求",
+    "准备资料要求"
+  ],
+  "Prepare a specialist brief": [
+    "準備專家討論摘要",
+    "准备专家讨论摘要"
+  ],
+  "Prepare adviser brief": [
+    "準備顧問摘要",
+    "准备顾问摘要"
+  ],
+  "Prepare adviser review": [
+    "準備顧問審閱",
+    "准备顾问审阅"
+  ],
+  "Preparing your explanation…": [
+    "正在準備解釋…",
+    "正在准备解释…"
+  ],
+  "Price": [
+    "價格",
+    "价格"
+  ],
+  "Price + volume": [
+    "價格及成交量",
+    "价格及成交量"
+  ],
+  "Private office": [
+    "私人財富辦公室",
+    "私人财富办公室"
+  ],
+  "Product events": [
+    "產品事件",
+    "产品事件"
+  ],
+  "Product scenario ·": [
+    "產品情境 ·",
+    "产品情境 ·"
+  ],
+  "Product scenarios": [
+    "產品情境",
+    "产品情境"
+  ],
+  "Product simulations are illustrative. Holdings use the 19 June imported demo snapshot.": [
+    "產品模擬僅供說明。持倉採用 6 月 19 日已匯入的示範快照。",
+    "产品模拟仅供说明。持仓采用 6 月 19 日已汇入的示范快照。"
+  ],
+  "Product studio": [
+    "產品工作區",
+    "产品工作区"
+  ],
+  "Product watch": [
+    "產品觀察",
+    "产品观察"
+  ],
+  "Products": [
+    "產品",
+    "产品"
+  ],
+  "Profile": [
+    "個人資料",
+    "个人资料"
+  ],
+  "Profile editing and identity verification are not available in this demo.": [
+    "此示範尚未提供個人資料編輯及身份驗證。",
+    "此示范尚未提供个人资料编辑及身份验证。"
+  ],
+  "Proposed": [
+    "假設方案",
+    "假设方案"
+  ],
+  "Proposed risk estimate": [
+    "方案風險估算",
+    "方案风险估算"
+  ],
+  "Proxies:": [
+    "代表工具：",
+    "代表工具："
+  ],
+  "Public market research": [
+    "公開市場研究",
+    "公开市场研究"
+  ],
+  "Purchase cost": [
+    "買入成本",
+    "买入成本"
+  ],
+  "Purchase obligation": [
+    "買入責任",
+    "买入责任"
+  ],
+  "Purchase strike": [
+    "買入行使水平",
+    "买入行使水平"
+  ],
+  "Quarterly": [
+    "每季",
+    "每季"
+  ],
+  "Quote data and quality": [
+    "報價資料及質素",
+    "报价资料及质素"
+  ],
+  "Quote timestamp:": [
+    "報價時間：",
+    "报价时间："
+  ],
+  "Quoted price · USD": [
+    "報價 · 美元",
+    "报价 · 美元"
+  ],
+  "RESET DEMO": [
+    "重設示範",
+    "重设示范"
+  ],
+  "RULES → SIMULATE → REVIEW": [
+    "規則 → 模擬 → 審閱",
+    "规则 → 模拟 → 审阅"
+  ],
+  "Range controls update the chart immediately. Request a new explanation after changing the range.": [
+    "期間選擇會即時更新圖表；更改期間後可要求新的解釋。",
+    "期间选择会即时更新图表；更改期间后可要求新的解释。"
+  ],
+  "Rate change": [
+    "利率變動",
+    "利率变动"
+  ],
+  "Rate history observation": [
+    "歷史利率觀察值",
+    "历史利率观察值"
+  ],
+  "Rate history range": [
+    "歷史利率期間",
+    "历史利率期间"
+  ],
+  "Read": [
+    "已讀",
+    "已读"
+  ],
+  "Read original report": [
+    "閱讀原報告",
+    "阅读原报告"
+  ],
+  "Read the result with its assumptions.": [
+    "請連同假設一併閱讀結果。",
+    "请连同假设一并阅读结果。"
+  ],
+  "Ready for review": [
+    "待審閱",
+    "待审阅"
+  ],
+  "Ready for your next conversation.": [
+    "可以開始新的對話。",
+    "可以开始新的对话。"
+  ],
+  "Rebalance rules": [
+    "再平衡規則",
+    "再平衡规则"
+  ],
+  "Rebalances": [
+    "再平衡次數",
+    "再平衡次数"
+  ],
+  "Recalculate model": [
+    "重新計算模型",
+    "重新计算模型"
+  ],
+  "Redeemed": [
+    "已贖回",
+    "已赎回"
+  ],
+  "Reduce": [
+    "減少",
+    "减少"
+  ],
+  "Reference": [
+    "參考",
+    "参考"
+  ],
+  "Reference and proposed allocation": [
+    "基準及方案配置",
+    "基准及方案配置"
+  ],
+  "Reference risk estimate": [
+    "基準風險估算",
+    "基准风险估算"
+  ],
+  "Reference → proposed allocation": [
+    "基準 → 方案配置",
+    "基准 → 方案配置"
+  ],
+  "Refresh": [
+    "更新",
+    "更新"
+  ],
+  "Refresh analysis": [
+    "更新分析",
+    "更新分析"
+  ],
+  "Refresh connection": [
+    "重新連線",
+    "重新连线"
+  ],
+  "Refresh data": [
+    "更新資料",
+    "更新资料"
+  ],
+  "Refresh this Fed analysis using the latest available data.": [
+    "使用最新可用資料更新此聯儲局分析。",
+    "使用最新可用资料更新此联储局分析。"
+  ],
+  "Refreshing…": [
+    "更新中…",
+    "更新中…"
+  ],
+  "Remove last": [
+    "移除最後一項",
+    "移除最后一项"
+  ],
+  "Reported": [
+    "已報告",
+    "已报告"
+  ],
+  "Reported financial facts": [
+    "已報告財務資料",
+    "已报告财务资料"
+  ],
+  "Reported financials": [
+    "已報告財務數據",
+    "已报告财务数据"
+  ],
+  "Reporting currency": [
+    "報告貨幣",
+    "报告货币"
+  ],
+  "Reporting value may combine different account currencies. Transfers and foreign exchange have not been executed.": [
+    "報告市值可能合併不同帳戶貨幣；未有執行轉帳或外匯交易。",
+    "报告市值可能合并不同帐户货币；未有执行转帐或外汇交易。"
+  ],
+  "Request cancelled. No further response will be applied.": [
+    "請求已取消，不會再套用後續回覆。",
+    "请求已取消，不会再套用后续回覆。"
+  ],
+  "Request steps": [
+    "處理步驟",
+    "处理步骤"
+  ],
+  "Requested meeting unavailable": [
+    "所選會議暫無資料",
+    "所选会议暂无资料"
+  ],
+  "Research": [
+    "研究",
+    "研究"
+  ],
+  "Research data chart": [
+    "研究數據圖表",
+    "研究数据图表"
+  ],
+  "Reset": [
+    "重設",
+    "重设"
+  ],
+  "Reset demo": [
+    "重設示範",
+    "重设示范"
+  ],
+  "Reset example": [
+    "重設範例",
+    "重设范例"
+  ],
+  "Restore": [
+    "還原",
+    "还原"
+  ],
+  "Retrieved": [
+    "取得時間",
+    "取得时间"
+  ],
+  "Retry explanation": [
+    "重試解釋",
+    "重试解释"
+  ],
+  "Retry the previous explanation": [
+    "重試上一個解釋",
+    "重试上一个解释"
+  ],
+  "Return": [
+    "回報",
+    "回报"
+  ],
+  "Returns are cumulative, after the configured buy/sell cost. Rebalance counts exclude the initial allocation. A higher backtest return does not establish a better future strategy.": [
+    "回報為累積數字，已扣除設定的買賣成本。再平衡次數不包括初始配置。較高回測回報不代表未來策略較佳。",
+    "回报为累积数字，已扣除设定的买卖成本。再平衡次数不包括初始配置。较高回测回报不代表未来策略较佳。"
+  ],
+  "Reuse the saved plan and observations": [
+    "重用已儲存方案及觀察值",
+    "重用已保存方案及观察值"
+  ],
+  "Reusing the previous analysis snapshot. No new market fetch.": [
+    "正在重用上次分析快照，不會重新查詢市場資料。",
+    "正在重用上次分析快照，不会重新查询市场资料。"
+  ],
+  "Review": [
+    "審閱",
+    "审阅"
+  ],
+  "Review family holdings": [
+    "檢視家庭持倉",
+    "检视家庭持仓"
+  ],
+  "Review holdings": [
+    "檢視持倉",
+    "检视持仓"
+  ],
+  "Review records are saved locally. Awaiting signature does not mean signed; no signature provider is connected.": [
+    "審閱紀錄儲存在本機。「待簽署」不代表已簽署；尚未接通簽署供應商。",
+    "审阅纪录保存在本机。“待签署”不代表已签署；尚未接通签署供应商。"
+  ],
+  "Risk = annualized historical volatility, estimated in the same sample used to fit the weights. It is not a forecast.": [
+    "風險指以同一權重估算樣本計算的年化歷史波動率，並非預測。",
+    "风险指以同一权重估算样本计算的年化历史波动率，并非预测。"
+  ],
+  "Risk parity": [
+    "風險平價",
+    "风险平价"
+  ],
+  "Run a comparison to see all three strategy paths.": [
+    "執行比較以查看三種策略路徑。",
+    "执行比较以查看三种策略路径。"
+  ],
+  "Run the example to compare TWR with the change in account value.": [
+    "執行範例以比較時間加權回報與帳戶市值變動。",
+    "执行范例以比较时间加权回报与帐户市值变动。"
+  ],
+  "Running simulation…": [
+    "模擬中…",
+    "模拟中…"
+  ],
+  "SAMPLE TERM SHEET / VERSION 1": [
+    "範例條款 / 版本 1",
+    "范例条款 / 版本 1"
+  ],
+  "SAVED DRAFT /": [
+    "已儲存草稿 /",
+    "已保存草稿 /"
+  ],
+  "SEC source": [
+    "SEC 來源",
+    "SEC 来源"
+  ],
+  "SIMPLIFIED DAILY ACCUMULATION": [
+    "簡化每日累積買入",
+    "简化每日累积买入"
+  ],
+  "SIMULATION / CHART FIRST": [
+    "情境模擬 / 圖表優先",
+    "情境模拟 / 图表优先"
+  ],
+  "SPECIALIST DISCUSSION": [
+    "專家討論",
+    "专家讨论"
+  ],
+  "Same capital. Different rules.": [
+    "相同本金，不同規則。",
+    "相同本金，不同规则。"
+  ],
+  "Sample snapshot": [
+    "範例快照",
+    "范例快照"
+  ],
+  "Sample term sheet · Non-principal-protected": [
+    "範例條款 · 不保本",
+    "范例条款 · 不保本"
+  ],
+  "Save": [
+    "儲存",
+    "保存"
+  ],
+  "Save a product scenario or a message for your adviser.": [
+    "儲存產品情境或給顧問的訊息草稿。",
+    "保存产品情境或给顾问的讯息草稿。"
+  ],
+  "Save discussion draft": [
+    "儲存討論草稿",
+    "保存讨论草稿"
+  ],
+  "Save for later": [
+    "收藏",
+    "收藏"
+  ],
+  "Save scenario": [
+    "儲存情境",
+    "保存情境"
+  ],
+  "Saved": [
+    "已儲存",
+    "已保存"
+  ],
+  "Saved in this browser": [
+    "已儲存在此瀏覽器",
+    "已保存在此浏览器"
+  ],
+  "Saved items": [
+    "已儲存項目",
+    "已保存项目"
+  ],
+  "Saved locally": [
+    "已儲存在本機",
+    "已保存在本机"
+  ],
+  "Saved on this device": [
+    "已儲存在此裝置",
+    "已保存在此装置"
+  ],
+  "Saved research": [
+    "已收藏研究",
+    "已收藏研究"
+  ],
+  "Saved result from another or unrecorded scope. Switch back or start a new analysis to use its actions.": [
+    "此結果來自其他或未記錄範圍。請切回原範圍或開始新分析，才可使用相關操作。",
+    "此结果来自其他或未记录范围。请切回原范围或开始新分析，才可使用相关操作。"
+  ],
+  "Saved to your documents. Nothing has been sent.": [
+    "已儲存至文件，未有發送任何內容。",
+    "已保存至文件，未有发送任何内容。"
+  ],
+  "Search": [
+    "搜尋",
+    "搜索"
+  ],
+  "Search US stocks": [
+    "搜尋美股",
+    "搜索美股"
+  ],
+  "Search Yahoo Finance for": [
+    "在 Yahoo Finance 搜尋",
+    "在 Yahoo Finance 搜索"
+  ],
+  "Search asset, book or custodian": [
+    "搜尋資產、組合或託管銀行",
+    "搜索资产、组合或托管银行"
+  ],
+  "Search holdings": [
+    "搜尋持倉",
+    "搜索持仓"
+  ],
+  "Search matches (": [
+    "搜尋結果（",
+    "搜索结果（"
+  ],
+  "Select": [
+    "選擇",
+    "选择"
+  ],
+  "Selected Kalshi event ↗": [
+    "所選 Kalshi 事件 ↗",
+    "所选 Kalshi 事件 ↗"
+  ],
+  "Selected portfolio": [
+    "所選投資組合",
+    "所选投资组合"
+  ],
+  "Selected value:": [
+    "所選市值：",
+    "所选市值："
+  ],
+  "Sell": [
+    "賣出",
+    "卖出"
+  ],
+  "Sep": [
+    "9 月",
+    "9 月"
+  ],
+  "Sep 1": [
+    "9 月 1 日",
+    "9 月 1 日"
+  ],
+  "Settings": [
+    "設定",
+    "设定"
+  ],
+  "Settlement": [
+    "交收",
+    "交收"
+  ],
+  "Share of model variance; this is different from the allocation percentage.": [
+    "佔模型方差的比例，與配置百分比不同。",
+    "占模型方差的比例，与配置百分比不同。"
+  ],
+  "Shares accumulated": [
+    "累積股數",
+    "累积股数"
+  ],
+  "Shares reported by the source. Missing volume is left missing.": [
+    "來源報告的股數；缺失成交量會保留為缺失。",
+    "来源报告的股数；缺失成交量会保留为缺失。"
+  ],
+  "Show": [
+    "顯示",
+    "显示"
+  ],
+  "Show barriers": [
+    "顯示障礙水平",
+    "显示障碍水平"
+  ],
+  "Show fewer": [
+    "收起",
+    "收起"
+  ],
+  "Show more sources": [
+    "顯示更多來源",
+    "显示更多来源"
+  ],
+  "Show my cash across books": [
+    "顯示各組合的現金",
+    "显示各组合的现金"
+  ],
+  "Show portfolio": [
+    "顯示組合",
+    "显示组合"
+  ],
+  "Showing": [
+    "顯示",
+    "显示"
+  ],
+  "Showing the exact ticker match, or the first supported US search match. Choose another result if needed.": [
+    "現顯示完全相符的股票代號，或首個支援的美股搜尋結果；如有需要可改選其他結果。",
+    "现显示完全相符的股票代号，或首个支援的美股搜索结果；如有需要可改选其他结果。"
+  ],
+  "Signal → execution": [
+    "訊號 → 執行",
+    "讯号 → 执行"
+  ],
+  "Simulate": [
+    "模擬",
+    "模拟"
+  ],
+  "Simulation window": [
+    "模擬期間",
+    "模拟期间"
+  ],
+  "Simulator": [
+    "模擬器",
+    "模拟器"
+  ],
+  "Simulator model": [
+    "模擬模型",
+    "模拟模型"
+  ],
+  "Skip to content": [
+    "跳至內容",
+    "跳至内容"
+  ],
+  "Sleeve": [
+    "子組合",
+    "子组合"
+  ],
+  "Smallest value": [
+    "市值由小至大",
+    "市值由小至大"
+  ],
+  "Snapshot": [
+    "快照",
+    "快照"
+  ],
+  "Snapshot observation": [
+    "快照分析",
+    "快照分析"
+  ],
+  "Sort by": [
+    "排序",
+    "排序"
+  ],
+  "Source & chart details": [
+    "來源及圖表詳情",
+    "来源及图表详情"
+  ],
+  "Source figures & methodology": [
+    "原始數字及方法",
+    "原始数字及方法"
+  ],
+  "Source observations used in this response.": [
+    "本回覆使用的來源觀察值。",
+    "本回覆使用的来源观察值。"
+  ],
+  "Source: New York Fed": [
+    "來源：紐約聯儲",
+    "来源：纽约联储"
+  ],
+  "Sources": [
+    "來源",
+    "来源"
+  ],
+  "Sources, method & tool activity": [
+    "來源、方法及工具紀錄",
+    "来源、方法及工具纪录"
+  ],
+  "Sources, timing & analysis flow": [
+    "來源、時間及分析流程",
+    "来源、时间及分析流程"
+  ],
+  "Specialist discussion brief": [
+    "專家討論摘要",
+    "专家讨论摘要"
+  ],
+  "Start": [
+    "開始",
+    "开始"
+  ],
+  "Start close": [
+    "期初收市價",
+    "期初收市价"
+  ],
+  "Start date": [
+    "開始日期",
+    "开始日期"
+  ],
+  "Start with a clean slate?": [
+    "是否重設本機示範狀態？",
+    "是否重设本机示范状态？"
+  ],
+  "Starting capital (USD)": [
+    "起始本金（美元）",
+    "起始本金（美元）"
+  ],
+  "Stock": [
+    "股票",
+    "股票"
+  ],
+  "Stock analysis": [
+    "股票分析",
+    "股票分析"
+  ],
+  "Stock chart display": [
+    "股票圖表顯示",
+    "股票图表显示"
+  ],
+  "Stock chart observation": [
+    "股票圖表觀察值",
+    "股票图表观察值"
+  ],
+  "Stock chart range": [
+    "股票圖表期間",
+    "股票图表期间"
+  ],
+  "Stored snapshot": [
+    "已儲存快照",
+    "已保存快照"
+  ],
+  "Strategy": [
+    "策略",
+    "策略"
+  ],
+  "Strategy Lab ↗": [
+    "策略工作區 ↗",
+    "策略工作区 ↗"
+  ],
+  "Strategy comparison": [
+    "策略比較",
+    "策略比较"
+  ],
+  "Strategy service unavailable.": [
+    "策略服務暫時無法使用。",
+    "策略服务暂时无法使用。"
+  ],
+  "Strategy settings": [
+    "策略設定",
+    "策略设定"
+  ],
+  "Strike": [
+    "行使價",
+    "行使价"
+  ],
+  "Strike 88%, knock-out 105% of initial price": [
+    "行使水平為初始價格的 88%，敲出水平為 105%",
+    "行使水平为初始价格的 88%，敲出水平为 105%"
+  ],
+  "Structured products": [
+    "結構產品",
+    "结构产品"
+  ],
+  "Suggested topics": [
+    "建議主題",
+    "建议主题"
+  ],
+  "Suitability: not assessed · Simulation only · No trade execution": [
+    "未評估適合性 · 僅供模擬 · 不執行交易",
+    "未评估适合性 · 仅供模拟 · 不执行交易"
+  ],
+  "Supabase · Demo snapshot": [
+    "示範快照",
+    "示范快照"
+  ],
+  "Supabase · Imported demo · Valued": [
+    "已匯入示範資料 · 估值日期",
+    "已汇入示范资料 · 估值日期"
+  ],
+  "Swipe left or right to change custodian": [
+    "左右滑動切換託管銀行",
+    "左右滑动切换托管银行"
+  ],
+  "THE RESEARCH EDIT": [
+    "研究精選",
+    "研究精选"
+  ],
+  "THIS SCENARIO": [
+    "此情境",
+    "此情境"
+  ],
+  "TWR result": [
+    "時間加權回報結果",
+    "时间加权回报结果"
+  ],
+  "TWR workbench": [
+    "時間加權回報工作區",
+    "时间加权回报工作区"
+  ],
+  "Tap an option to select it.": [
+    "點選一個選項。",
+    "点选一个选项。"
+  ],
+  "Target allocation": [
+    "目標配置",
+    "目标配置"
+  ],
+  "Target range in the same release": [
+    "同次公佈的目標區間",
+    "同次公布的目标区间"
+  ],
+  "Tenor": [
+    "年期",
+    "年期"
+  ],
+  "The analysis could not complete.": [
+    "分析未能完成。",
+    "分析未能完成。"
+  ],
+  "The calendar strategy signals at the first observed date of a new month or quarter, then executes one observation later. Buy & hold keeps its original units.": [
+    "定期策略於新月份或季度首個觀察日產生訊號，下一個觀察日執行。買入並持有策略維持原有數量。",
+    "定期策略于新月份或季度首个观察日产生讯号，下一个观察日执行。买入并持有策略维持原有数量。"
+  ],
+  "The chart starts at 100 and links returns after adjusting for boundary cash flows. It is not the account balance.": [
+    "圖表由 100 開始，調整期初及期末資金流後連乘回報，並非帳戶結餘。",
+    "图表由 100 开始，调整期初及期末资金流后连乘回报，并非帐户结余。"
+  ],
+  "The drift strategy restores targets when any asset or cash weight crosses the configured band, or cash falls below its floor. Signals execute one supplied price observation later.": [
+    "當資產或現金權重超出設定幅度，或現金低於下限，偏離策略會恢復目標配置。訊號於下一個價格觀察日執行。",
+    "当资产或现金权重超出设定幅度，或现金低于下限，偏离策略会恢复目标配置。讯号于下一个价格观察日执行。"
+  ],
+  "The live AI request did not complete.": [
+    "即時 AI 請求未能完成。",
+    "即时 AI 请求未能完成。"
+  ],
+  "The local AI server is unavailable. Start Mercury AI and retry.": [
+    "分析服務暫時無法使用，請稍後重試。",
+    "分析服务暂时无法使用，请稍后重试。"
+  ],
+  "The next Fed meeting": [
+    "下次聯儲局會議",
+    "下次联储局会议"
+  ],
+  "The note has already redeemed. No later coupon is due.": [
+    "票據已贖回，之後不再產生票息。",
+    "票据已赎回，之后不再产生票息。"
+  ],
+  "The sources do not have enough shared observations to draw a comparison.": [
+    "來源的共同觀察值不足，無法繪製比較圖。",
+    "来源的共同观察值不足，无法绘制比较图。"
+  ],
+  "This clears your saved conversations, drafts, dismissed insights and demo responses in this browser. Cloud demo holdings and API settings are preserved.": [
+    "這會清除此瀏覽器內已儲存的對話、草稿、已關閉洞察及示範回覆；雲端示範持倉及 API 設定會保留。",
+    "这会清除此浏览器内已保存的对话、草稿、已关闭洞察及示范回覆；云端示范持仓及 API 设定会保留。"
+  ],
+  "This demo supports a final underlying level from 0% to 130%: a fall of up to 100% or a rise of up to 30%. Please enter a scenario within that range. Your existing scenario has been kept.": [
+    "此示範支援最終相關資產水平 0% 至 130%，即最多下跌 100% 或上升 30%。請輸入範圍內情境，原有情境已保留。",
+    "此示范支援最终相关资产水平 0% 至 130%，即最多下跌 100% 或上升 30%。请输入范围内情境，原有情境已保留。"
+  ],
+  "This is an illustrative accumulation scenario, not a current sale price or a full contract projection.": [
+    "此為累積買入情境示範，並非目前可售價格或完整合約預測。",
+    "此为累积买入情境示范，并非目前可售价格或完整合约预测。"
+  ],
+  "This local demonstration uses imported fictional holdings. Valuation dates and illustrative scenarios are labelled separately. No trades or adviser messages are sent.": [
+    "本機示範使用已匯入的虛構持倉，估值日期及情境示範會分開標示。不會提交交易或發送顧問訊息。",
+    "本机示范使用已汇入的虚构持仓，估值日期及情境示范会分开标示。不会提交交易或发送顾问讯息。"
+  ],
+  "This standalone preview uses local sample data.": [
+    "此獨立預覽使用本機範例資料。",
+    "此独立预览使用本机范例资料。"
+  ],
+  "Time-weighted return": [
+    "時間加權回報",
+    "时间加权回报"
+  ],
+  "Total assets": [
+    "總資產",
+    "总资产"
+  ],
+  "Total cash returned": [
+    "現金回款總額",
+    "现金回款总额"
+  ],
+  "Total return": [
+    "總回報",
+    "总回报"
+  ],
+  "Total wealth": [
+    "總財富",
+    "总财富"
+  ],
+  "Trades, dividends and fees are internal to the portfolio: include their effect in NAV. Do not enter them as external cash flows. Inputs are caller-declared; this workbench does not audit source records.": [
+    "交易、股息及費用屬組合內部活動，應反映於資產淨值，不應列作外部資金流。輸入由使用者提供，此工作區不會審核來源紀錄。",
+    "交易、股息及费用属组合内部活动，应反映于资产净值，不应列作外部资金流。输入由使用者提供，此工作区不会审核来源纪录。"
+  ],
+  "Trading cost": [
+    "交易成本",
+    "交易成本"
+  ],
+  "Trading cost (bps, each side)": [
+    "交易成本（每邊基點）",
+    "交易成本（每边基点）"
+  ],
+  "Trading day": [
+    "交易日",
+    "交易日"
+  ],
+  "Trading volume comparison": [
+    "成交量比較",
+    "成交量比较"
+  ],
+  "Two-sided quote.": [
+    "雙邊報價。",
+    "双边报价。"
+  ],
+  "UBS CIO · 20 Oct 2026": [
+    "UBS CIO · 2026 年 10 月 20 日",
+    "UBS CIO · 2026 年 10 月 20 日"
+  ],
+  "US MARKET EXPLORER": [
+    "美國市場探索",
+    "美国市场探索"
+  ],
+  "US stocks": [
+    "美國股票",
+    "美国股票"
+  ],
+  "USD · Issuer performance assumed · Fees and taxes excluded. Scenario, not a quote.": [
+    "美元 · 假設發行商履約 · 不包括費用及稅項。此為情境，並非報價。",
+    "美元 · 假设发行商履约 · 不包括费用及税项。此为情境，并非报价。"
+  ],
+  "USD · Shared observation dates from the chart · Price change, not total return.": [
+    "美元 · 圖表共同觀察日期 · 價格變動，並非總回報。",
+    "美元 · 图表共同观察日期 · 价格变动，并非总回报。"
+  ],
+  "USD-based demo balance": [
+    "以美元計算的示範結餘",
+    "以美元计算的示范结余"
+  ],
+  "UTC. Successful data may be cached for 60 seconds. Quotes are not guaranteed real-time.": [
+    "UTC。成功取得的資料可能快取 60 秒，不保證報價為即時。",
+    "UTC。成功取得的资料可能快取 60 秒，不保证报价为即时。"
+  ],
+  "Unavailable": [
+    "暫無資料",
+    "暂无资料"
+  ],
+  "Underlying": [
+    "相關資產",
+    "相关资产"
+  ],
+  "Underlying basket": [
+    "相關資產籃子",
+    "相关资产篮子"
+  ],
+  "Underlying path": [
+    "相關資產路徑",
+    "相关资产路径"
+  ],
+  "Understand the proposed changes.": [
+    "了解方案變動。",
+    "了解方案变动。"
+  ],
+  "Understanding your question…": [
+    "正在理解你的問題…",
+    "正在理解你的问题…"
+  ],
+  "Unexecuted final signal:": [
+    "尚未執行的最終訊號：",
+    "尚未执行的最终讯号："
+  ],
+  "Unrealised P/L": [
+    "未實現盈虧",
+    "未实现盈亏"
+  ],
+  "Unrealised P&L": [
+    "未實現盈虧",
+    "未实现盈亏"
+  ],
+  "Unrealised gain": [
+    "未實現收益",
+    "未实现收益"
+  ],
+  "Unsave": [
+    "取消收藏",
+    "取消收藏"
+  ],
+  "Updating holdings…": [
+    "正在更新持倉…",
+    "正在更新持仓…"
+  ],
+  "Use one reporting currency. Deposits are positive; withdrawals are negative. Opening NAV is measured before the start flow, and closing NAV after the end flow.": [
+    "請使用單一報告貨幣。入金為正數，提款為負數；期初資產淨值在期初資金流前計量，期末資產淨值在期末資金流後計量。",
+    "请使用单一报告货币。入金为正数，提款为负数；期初资产净值在期初资金流前计量，期末资产净值在期末资金流后计量。"
+  ],
+  "VIEWING": [
+    "查看範圍",
+    "查看范围"
+  ],
+  "Valuation date": [
+    "估值日期",
+    "估值日期"
+  ],
+  "Valuations & external flows": [
+    "估值及外部資金流",
+    "估值及外部资金流"
+  ],
+  "Value": [
+    "市值",
+    "市值"
+  ],
+  "Verified client details not linked": [
+    "尚未連結已核實客戶資料",
+    "尚未连结已核实客户资料"
+  ],
+  "Verified performance": [
+    "已核實表現",
+    "已核实表现"
+  ],
+  "Verified product terms are unavailable for this selection. A valuation, coupon or payoff cannot be inferred from the position name.": [
+    "此選項未有已核實產品條款，不能從持倉名稱推算估值、票息或回款。",
+    "此选项未有已核实产品条款，不能从持仓名称推算估值、票息或回款。"
+  ],
+  "Version 1 · Product terms and calculation assumptions": [
+    "版本 1 · 產品條款及計算假設",
+    "版本 1 · 产品条款及计算假设"
+  ],
+  "View": [
+    "查看",
+    "查看"
+  ],
+  "View all documents": [
+    "查看所有文件",
+    "查看所有文件"
+  ],
+  "View all holdings": [
+    "查看所有持倉",
+    "查看所有持仓"
+  ],
+  "View balances": [
+    "查看結餘",
+    "查看结余"
+  ],
+  "View cash by book": [
+    "按組合查看現金",
+    "按组合查看现金"
+  ],
+  "View cash holdings": [
+    "查看現金持倉",
+    "查看现金持仓"
+  ],
+  "View exact figures": [
+    "查看精確數字",
+    "查看精确数字"
+  ],
+  "View holdings": [
+    "查看持倉",
+    "查看持仓"
+  ],
+  "View my product": [
+    "查看我的產品",
+    "查看我的产品"
+  ],
+  "View portfolio details": [
+    "查看組合詳情",
+    "查看组合详情"
+  ],
+  "View product": [
+    "查看產品",
+    "查看产品"
+  ],
+  "View terms": [
+    "查看條款",
+    "查看条款"
+  ],
+  "Visualize this product": [
+    "查看產品圖解",
+    "查看产品图解"
+  ],
+  "Volume": [
+    "成交量",
+    "成交量"
+  ],
+  "Volume ticker": [
+    "成交量股票代號",
+    "成交量股票代号"
+  ],
+  "Volume:": [
+    "成交量：",
+    "成交量："
+  ],
+  "WEALTH": [
+    "財富",
+    "财富"
+  ],
+  "W E A L T H": [
+    "財 富",
+    "财 富"
+  ],
+  "We can turn this into a focused discussion with a specialist. Capture your intended timing, who owns the assets, the jurisdictions involved and what control you want to retain. Which outcome matters most to you?": [
+    "可將此整理成專家討論摘要。請記錄預計時間、資產持有人、涉及司法管轄區及希望保留的控制權。你最重視哪個結果？",
+    "可将此整理成专家讨论摘要。请记录预计时间、资产持有人、涉及司法管辖区及希望保留的控制权。你最重视哪个结果？"
+  ],
+  "Wealth by custodian": [
+    "按託管銀行列出財富",
+    "按托管银行列出财富"
+  ],
+  "Weight": [
+    "佔比",
+    "占比"
+  ],
+  "What do current Fed rates and market pricing suggest for the next meeting? Show the data and source dates.": [
+    "目前聯儲局利率及市場定價對下次會議有甚麼啟示？請顯示資料及來源日期。",
+    "目前联储局利率及市场定价对下次会议有什么启示？请显示资料及来源日期。"
+  ],
+  "What is next for rates?": [
+    "利率下一步如何走？",
+    "利率下一步如何走？"
+  ],
+  "What the visualizer assumes": [
+    "圖解使用的假設",
+    "图解使用的假设"
+  ],
+  "What would you like to explore?": [
+    "你想了解甚麼？",
+    "你想了解什么？"
+  ],
+  "What’s connected. What’s still needed.": [
+    "已有資料與尚欠資料。",
+    "已有资料与尚欠资料。"
+  ],
+  "Where does the estimated risk come from?": [
+    "估算風險來自哪裡？",
+    "估算风险来自哪里？"
+  ],
+  "Where rates stand": [
+    "目前利率水平",
+    "目前利率水平"
+  ],
+  "Which holding, cash event or product would you like to explore? I can explain the available portfolio and product scenarios. Connected market research is unavailable in this offline file.": [
+    "你想了解哪項持倉、現金事件或產品？可解釋現有組合及產品情境；離線檔案無法查詢即時市場研究。",
+    "你想了解哪项持仓、现金事件或产品？可解释现有组合及产品情境；离线文件无法查询即时市场研究。"
+  ],
+  "Why it matters": [
+    "為何重要",
+    "为何重要"
+  ],
+  "Worst performer at maturity": [
+    "到期時表現最差的資產",
+    "到期时表现最差的资产"
+  ],
+  "YOU": [
+    "你",
+    "你"
+  ],
+  "YOUR ADVISER / EMMA LEE": [
+    "你的顧問 / EMMA LEE",
+    "你的顾问 / EMMA LEE"
+  ],
+  "YOUR FAMILY OFFICE": [
+    "家庭財富辦公室",
+    "家庭财富办公室"
+  ],
+  "YOUR PRIVATE OFFICE": [
+    "私人財富辦公室",
+    "私人财富办公室"
+  ],
+  "Yahoo Finance retrieved:": [
+    "Yahoo Finance 取得時間：",
+    "Yahoo Finance 取得时间："
+  ],
+  "Yahoo Finance · Stocks & ETFs": [
+    "Yahoo Finance · 股票及 ETF",
+    "Yahoo Finance · 股票及 ETF"
+  ],
+  "YoY": [
+    "按年變動",
+    "按年变动"
+  ],
+  "Your documents": [
+    "你的文件",
+    "你的文件"
+  ],
+  "Your equity allocation": [
+    "你的股票配置",
+    "你的股票配置"
+  ],
+  "Your financial picture": [
+    "你的財務概覽",
+    "你的财务概览"
+  ],
+  "Your held product is the AAPL Accumulator, not the example coupon notes. Its 88% strike, 105% knock-out and 2× gearing determine the share-purchase obligations. Use its separate simulator to inspect a simplified path.": [
+    "你持有的是 AAPL 累積股票合約，而非範例票息票據。其 88% 行使水平、105% 敲出水平及 2 倍槓桿決定買入責任。可使用獨立模擬器查看簡化路徑。",
+    "你持有的是 AAPL 累积股票合约，而非范例票息票据。其 88% 行使水平、105% 敲出水平及 2 倍杠杆决定买入责任。可使用独立模拟器查看简化路径。"
+  ],
+  "Your holdings": [
+    "你的持倉",
+    "你的持仓"
+  ],
+  "Your investment plan": [
+    "你的投資方案",
+    "你的投资方案"
+  ],
+  "Your investment review": [
+    "你的投資審閱",
+    "你的投资审阅"
+  ],
+  "Your next moves": [
+    "洞察及下一步",
+    "洞察及下一步"
+  ],
+  "Your portfolio": [
+    "你的投資組合",
+    "你的投资组合"
+  ],
+  "Your portfolio exposure": [
+    "你的組合敞口",
+    "你的组合敞口"
+  ],
+  "Your private wealth, connected.": [
+    "連繫你的私人財富。",
+    "连系你的私人财富。"
+  ],
+  "Your question, goals or known facts": [
+    "你的問題、目標或已知資料",
+    "你的问题、目标或已知资料"
+  ],
+  "Your wealth adviser": [
+    "你的財富顧問",
+    "你的财富顾问"
+  ],
+  "Your whole portfolio": [
+    "完整投資組合",
+    "完整投资组合"
+  ],
+  "a measured comparison.": [
+    "有依據的比較。",
+    "有依据的比较。"
+  ],
+  "all custodians": [
+    "所有託管銀行",
+    "所有托管银行"
+  ],
+  "below strike": [
+    "低於行使價",
+    "低于行使价"
+  ],
+  "calendar days, through": [
+    "個曆日，截至",
+    "个历日，截至"
+  ],
+  "dismissed insight": [
+    "已關閉洞察",
+    "已关闭洞察"
+  ],
+  "holdings ·": [
+    "項持倉 ·",
+    "项持仓 ·"
+  ],
+  "knock-out level": [
+    "敲出水平",
+    "敲出水平"
+  ],
+  "local drafts": [
+    "份本機草稿",
+    "份本机草稿"
+  ],
+  "matching positions": [
+    "項相關持倉",
+    "项相关持仓"
+  ],
+  "model weight": [
+    "模型權重",
+    "模型权重"
+  ],
+  "more holdings": [
+    "項更多持倉",
+    "项更多持仓"
+  ],
+  "ms). Explicitly requested volume is always included.": [
+    "毫秒）。明確要求的成交量會一併顯示。",
+    "毫秒）。明确要求的成交量会一并显示。"
+  ],
+  "ms). Gemini explains the retrieved data.": [
+    "毫秒）。模型會解釋已取得的資料。",
+    "毫秒）。模型会解释已取得的资料。"
+  ],
+  "observations ·": [
+    "個觀察值 ·",
+    "个观察值 ·"
+  ],
+  "of family market value": [
+    "佔所選組合市值",
+    "占所选组合市值"
+  ],
+  "of initial level": [
+    "相對初始水平",
+    "相对初始水平"
+  ],
+  "on Yahoo Finance ↗": [
+    "於 Yahoo Finance 查看 ↗",
+    "于 Yahoo Finance 查看 ↗"
+  ],
+  "over the selected": [
+    "於所選",
+    "于所选"
+  ],
+  "periods · Illustrative data": [
+    "個期間 · 示範資料",
+    "个期间 · 示范资料"
+  ],
+  "portfolio holding": [
+    "組合持倉",
+    "组合持仓"
+  ],
+  "portfolio observations": [
+    "組合觀察",
+    "组合观察"
+  ],
+  "price and chart.": [
+    "價格及圖表。",
+    "价格及图表。"
+  ],
+  "price and volume": [
+    "價格及成交量",
+    "价格及成交量"
+  ],
+  "price history.": [
+    "價格歷史。",
+    "价格历史。"
+  ],
+  "range using the chart data.": [
+    "期間，使用圖表資料。",
+    "期间，使用图表资料。"
+  ],
+  "rebalances · Ending NAV": [
+    "次再平衡 · 期末資產淨值",
+    "次再平衡 · 期末资产净值"
+  ],
+  "selected the panel": [
+    "已選擇分析面板",
+    "已选择分析面板"
+  ],
+  "selected the presentation:": [
+    "已選擇展示方式：",
+    "已选择展示方式："
+  ],
+  "shared daily closes · Price change, not total return": [
+    "個共同每日收市價 · 價格變動，並非總回報",
+    "个共同每日收市价 · 价格变动，并非总回报"
+  ],
+  "shares · Valued": [
+    "股 · 估值日期",
+    "股 · 估值日期"
+  ],
+  "structured product": [
+    "結構產品",
+    "结构产品"
+  ],
+  "the source price history": [
+    "來源價格歷史",
+    "来源价格历史"
+  ],
+  "trading days at the assumed constant price.": [
+    "個交易日，使用假設固定價格。",
+    "个交易日，使用假设固定价格。"
+  ],
+  "· Ask": [
+    "· 賣價",
+    "· 卖价"
+  ],
+  "· Cash-floor breach observations:": [
+    "· 現金低於下限的觀察次數：",
+    "· 现金低于下限的观察次数："
+  ],
+  "· Draft": [
+    "· 草稿",
+    "· 草稿"
+  ],
+  "· Input": [
+    "· 輸入",
+    "· 输入"
+  ],
+  "· Mercury brief": [
+    "· Mercury 摘要",
+    "· Mercury 摘要"
+  ],
+  "· No message or instruction sent": [
+    "· 未有發送訊息或指令",
+    "· 未有发送讯息或指令"
+  ],
+  "· Published source": [
+    "· 已發表來源",
+    "· 已发表来源"
+  ],
+  "· Read": [
+    "· 讀取時間",
+    "· 读取时间"
+  ],
+  "· Report/event date": [
+    "· 報告／事件日期",
+    "· 报告／事件日期"
+  ],
+  "· Retrieved": [
+    "· 取得時間",
+    "· 取得时间"
+  ],
+  "· STALE": [
+    "· 資料已過時",
+    "· 资料已过时"
+  ],
+  "· Snapshot": [
+    "· 快照",
+    "· 快照"
+  ],
+  "· Source retrieval:": [
+    "· 來源取得時間：",
+    "· 来源取得时间："
+  ],
+  "· USD · Daily closes": [
+    "· 美元 · 每日收市價",
+    "· 美元 · 每日收市价"
+  ],
+  "· fictional": [
+    "· 示範",
+    "· 示范"
+  ],
+  "· product scenario": [
+    "· 產品情境",
+    "· 产品情境"
+  ],
+  "· sample term sheet": [
+    "· 範例條款",
+    "· 范例条款"
+  ],
+  "· sample terms": [
+    "· 範例條款",
+    "· 范例条款"
+  ],
+  "· stale": [
+    "· 資料已過時",
+    "· 资料已过时"
+  ],
+  "· worst performer": [
+    "· 表現最差資產",
+    "· 表现最差资产"
+  ],
+  "−duration × rate change. Ignores convexity, carry and credit spreads. Policy changes do not imply an identical move across the yield curve.": [
+    "−存續期×利率變動。不計凸性、持有收益及信貸息差。政策變動不代表整條收益率曲線同幅變動。",
+    "−存续期×利率变动。不计凸性、持有收益及信贷息差。政策变动不代表整条收益率曲线同幅变动。"
+  ],
+  "All": [
+    "全部",
+    "全部"
+  ],
+  "Unread": [
+    "未讀",
+    "未读"
+  ],
+  "Clear read notifications": [
+    "清除已讀通知",
+    "清除已读通知"
+  ],
+  "View details": [
+    "查看詳情",
+    "查看详情"
+  ],
+  "Mark unread": [
+    "標為未讀",
+    "标为未读"
+  ],
+  "Mark read": [
+    "標為已讀",
+    "标为已读"
+  ],
+  "No notifications in this category.": [
+    "此分類暫無通知。",
+    "此分类暂无通知。"
+  ],
+  "Search documents": [
+    "搜尋文件",
+    "搜索文件"
+  ],
+  "Category": [
+    "類別",
+    "类别"
+  ],
+  "All categories": [
+    "所有類別",
+    "所有类别"
+  ],
+  "Identity & Account": [
+    "身份及帳戶",
+    "身份及帐户"
+  ],
+  "Statements": [
+    "結單",
+    "结单"
+  ],
+  "Product Documents": [
+    "產品文件",
+    "产品文件"
+  ],
+  "Agreements": [
+    "協議",
+    "协议"
+  ],
+  "Reports": [
+    "報告",
+    "报告"
+  ],
+  "Name": [
+    "名稱",
+    "名称"
+  ],
+  "Saving…": [
+    "儲存中…",
+    "保存中…"
+  ],
+  "Upload": [
+    "上傳",
+    "上传"
+  ],
+  "Uploaded": [
+    "已上傳",
+    "已上传"
+  ],
+  "Reviewed": [
+    "已審閱",
+    "已审阅"
+  ],
+  "Archived": [
+    "已封存",
+    "已封存"
+  ],
+  "Preview": [
+    "預覽",
+    "预览"
+  ],
+  "Download": [
+    "下載",
+    "下载"
+  ],
+  "New version uploaded": [
+    "已上傳新版本",
+    "已上传新版本"
+  ],
+  "Retry": [
+    "重試",
+    "重试"
+  ],
+  "Other": [
+    "其他",
+    "其他"
+  ],
+  "Total": [
+    "總額",
+    "总额"
+  ],
+  "All periods": [
+    "全部期間",
+    "全部期间"
+  ],
+  "positions": [
+    "個持倉",
+    "个持仓"
+  ],
+  "days": [
+    "天",
+    "天"
+  ],
+  "Back to holdings": [
+    "返回持倉",
+    "返回持仓"
+  ],
+  "Choose a held product to review its terms and scenario.": [
+    "選擇持有產品，查看條款及情境。",
+    "选择持有产品，查看条款及情境。"
+  ],
+  "Imported portfolio snapshot": [
+    "已匯入組合快照",
+    "已汇入组合快照"
+  ],
+  "Global Flagship": [
+    "環球旗艦組合",
+    "环球旗舰组合"
+  ],
+  "Thematic Equity": [
+    "主題股票組合",
+    "主题股票组合"
+  ],
+  "Corporate Reserve": [
+    "企業儲備組合",
+    "企业储备组合"
+  ],
+  "/ FINANCE": [
+    "／回報計算",
+    "／回报计算"
+  ],
+  "/ STRATEGY LAB": [
+    "／策略分析",
+    "／策略分析"
+  ],
+  "Okonkwo Global Flagship": [
+    "Okonkwo 環球旗艦組合",
+    "Okonkwo 环球旗舰组合"
+  ],
+  "Okonkwo Thematic Equity": [
+    "Okonkwo 主題股票組合",
+    "Okonkwo 主题股票组合"
+  ],
+  "Okonkwo Corporate Reserve": [
+    "Okonkwo 企業儲備組合",
+    "Okonkwo 企业储备组合"
+  ],
+  "planning": [
+    "規劃分析",
+    "规划分析"
+  ],
+  "company data": [
+    "公司資料",
+    "公司资料"
+  ],
+  "portfolio data": [
+    "組合資料",
+    "组合资料"
+  ],
+  "tool review": [
+    "核對工具結果",
+    "核对工具结果"
+  ],
+  "research data": [
+    "研究資料",
+    "研究资料"
+  ],
+  "fed data": [
+    "利率資料",
+    "利率资料"
+  ],
+  "stock data": [
+    "股票資料",
+    "股票资料"
+  ],
+  "composition": [
+    "組合分析畫面",
+    "组合分析画面"
+  ],
+  "explanation": [
+    "解說",
+    "解说"
+  ],
+  "routing": [
+    "選擇分析方法",
+    "选择分析方法"
+  ],
+  "started": [
+    "處理中",
+    "处理中"
+  ],
+  "completed": [
+    "已完成",
+    "已完成"
+  ],
+  "failed": [
+    "失敗",
+    "失败"
+  ],
+  "Finance tools": [
+    "財務計算",
+    "财务计算"
+  ],
+  "Market data": [
+    "市場資料",
+    "市场资料"
+  ],
+  "WEALTH INTELLIGENCE": [
+    "財富研究",
+    "财富研究"
+  ],
+  "LIFESTYLE & WEALTH": [
+    "生活與財富",
+    "生活与财富"
+  ],
+  "30 Jun 2026": [
+    "2026年6月30日",
+    "2026年6月30日"
+  ],
+  "7 Jul 2026": [
+    "2026年7月7日",
+    "2026年7月7日"
+  ],
+  "Global Wealth Report 2026": [
+    "2026 全球財富報告",
+    "2026 全球财富报告"
+  ],
+  "Global Wealth and Lifestyle Report 2026": [
+    "2026 全球財富與高端生活報告",
+    "2026 全球财富与高端生活报告"
+  ],
+  "Wealth grew. Unevenly.": [
+    "財富增長，步伐不一。",
+    "财富增长，步伐不一。"
+  ],
+  "A stronger year. A different story in every region.": [
+    "財富增長加快，各地表現卻不盡相同。",
+    "财富增长加快，各地表现却不尽相同。"
+  ],
+  "global personal wealth · 2025, USD": [
+    "全球個人財富 · 2025年，以美元計",
+    "全球个人财富 · 2025年，以美元计"
+  ],
+  "Worldwide personal wealth expanded 10.8% in 2025, measured in US dollars.": [
+    "以美元計，2025年全球個人財富增長10.8%。",
+    "以美元计，2025年全球个人财富增长10.8%。"
+  ],
+  "EMEA led regional growth. A weaker dollar magnified gains outside the US.": [
+    "歐洲、中東及非洲增長領先。美元走弱，放大了美國以外地區以美元計的增幅。",
+    "欧洲、中东及非洲增长领先。美元走弱，放大了美国以外地区以美元计的增幅。"
+  ],
+  "The study covers 56 markets, representing more than 92% of global wealth.": [
+    "研究涵蓋56個市場，佔全球財富逾92%。",
+    "研究涵盖56个市场，占全球财富逾92%。"
+  ],
+  "Growth, seen two ways": [
+    "從兩個角度看增長",
+    "从两个角度看增长"
+  ],
+  "By region": [
+    "按地區",
+    "按地区"
+  ],
+  "By year": [
+    "按年份",
+    "按年份"
+  ],
+  "2025 personal wealth growth · nominal USD %": [
+    "2025年個人財富增長 · 名義美元百分比",
+    "2025年个人财富增长 · 名义美元百分比"
+  ],
+  "Global personal wealth growth · nominal USD %": [
+    "全球個人財富增長 · 名義美元百分比",
+    "全球个人财富增长 · 名义美元百分比"
+  ],
+  "EMEA": [
+    "歐洲、中東及非洲",
+    "欧洲、中东及非洲"
+  ],
+  "Americas": [
+    "美洲",
+    "美洲"
+  ],
+  "APAC": [
+    "亞太",
+    "亚太"
+  ],
+  "Europe": [
+    "歐洲",
+    "欧洲"
+  ],
+  "How much of a change in family wealth comes from assets, and how much from currency?": [
+    "家庭財富的變化，有多少來自資產，又有多少來自匯率？",
+    "家庭财富的变化，有多少来自资产，又有多少来自汇率？"
+  ],
+  "Aggregate personal wealth, not investment performance. Chart redrawn by Mercury from the UBS release.": [
+    "此為整體個人財富，並非投資表現。圖表由 Mercury 按 UBS 公布資料重繪。",
+    "此为整体个人财富，并非投资表现。图表由 Mercury 按 UBS 公布数据重绘。"
+  ],
+  "The price of living well.": [
+    "優質生活的代價。",
+    "优质生活的代价。"
+  ],
+  "Same lifestyle. Different currency. A new cost.": [
+    "同樣的生活方式，幣種不同，成本亦不同。",
+    "同样的生活方式，币种不同，成本也不同。"
+  ],
+  "premium lifestyle costs · 2026, USD": [
+    "高端生活成本 · 2026年，以美元計",
+    "高端生活成本 · 2026年，以美元计"
+  ],
+  "Premium lifestyle costs rose 10.2% on average in US dollar terms.": [
+    "以美元計，高端生活成本平均上升10.2%。",
+    "以美元计，高端生活成本平均上升10.2%。"
+  ],
+  "Currency shifts drove much of the increase; Singapore remained the costliest city.": [
+    "匯率變動是升幅的主要因素；新加坡仍是成本最高的城市。",
+    "汇率变动是升幅的主要因素；新加坡仍是成本最高的城市。"
+  ],
+  "The index compares 20 goods and services across 25 cities. Collection ended in late February 2026, before the conflict discussed in the report.": [
+    "指數比較25個城市的20項商品及服務。資料收集於2026年2月底完成，早於報告提及的衝突。",
+    "指数比较25个城市的20项商品及服务。数据收集于2026年2月底完成，早于报告提及的冲突。"
+  ],
+  "What changed the bill?": [
+    "成本為何改變？",
+    "成本为何改变？"
+  ],
+  "2026 lifestyle cost change · USD %": [
+    "2026年生活成本變化 · 美元百分比",
+    "2026年生活成本变化 · 美元百分比"
+  ],
+  "Selected goods": [
+    "部分商品",
+    "部分商品"
+  ],
+  "2026 price change · USD %": [
+    "2026年價格變化 · 美元百分比",
+    "2026年价格变化 · 美元百分比"
+  ],
+  "Jewellery": [
+    "珠寶",
+    "珠宝"
+  ],
+  "Watches": [
+    "腕錶",
+    "腕表"
+  ],
+  "Luxury goods": [
+    "奢侈品",
+    "奢侈品"
+  ],
+  "Do the currencies you hold match the places where your family plans to spend?": [
+    "你持有的貨幣，是否配合家庭未來消費的地區？",
+    "你持有的货币，是否配合家庭未来消费的地区？"
+  ],
+  "A premium lifestyle basket, not general inflation or portfolio returns. Mercury redraw using Julius Baer’s published figures.": [
+    "此為高端生活消費籃子，並非整體通脹或組合回報。Mercury 按 Julius Baer 公布數據重繪。",
+    "此为高端生活消费篮子，并非整体通胀或组合回报。Mercury 按 Julius Baer 公布数据重绘。"
+  ],
+  "Read UBS research": [
+    "閱讀 UBS 研究",
+    "阅读 UBS 研究"
+  ],
+  "Read Julius Baer research": [
+    "閱讀 Julius Baer 研究",
+    "阅读 Julius Baer 研究"
+  ],
+  "Save UBS research": [
+    "儲存 UBS 研究",
+    "保存 UBS 研究"
+  ],
+  "Save Julius Baer research": [
+    "儲存 Julius Baer 研究",
+    "保存 Julius Baer 研究"
+  ],
+  "Unsave UBS research": [
+    "取消儲存 UBS 研究",
+    "取消保存 UBS 研究"
+  ],
+  "Unsave Julius Baer research": [
+    "取消儲存 Julius Baer 研究",
+    "取消保存 Julius Baer 研究"
+  ],
+  "UBS research": [
+    "UBS 研究",
+    "UBS 研究"
+  ],
+  "Julius Baer research": [
+    "Julius Baer 研究",
+    "Julius Baer 研究"
+  ],
+  "The explanation could not be verified against the source figures. Saved data and charts are unchanged; retry the explanation.": [
+    "解釋未能通過來源數字核對。已儲存的資料及圖表不變；請重試解釋。",
+    "解释未能通过来源数字核对。已保存的数据及图表不变；请重试解释。"
+  ]
+}

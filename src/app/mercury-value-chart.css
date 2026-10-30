@@ -1,0 +1,41 @@
+.portfolio-value-chart{padding:24px;overflow:hidden}
+.portfolio-value-chart header>span{font-size:12px;color:var(--muted-foreground)}
+.portfolio-value-chart header h2{font-size:32px;letter-spacing:-1px;margin:10px 0 20px;font-variant-numeric:tabular-nums}
+.value-chart-result{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.value-chart-result>span{width:100%;font-size:11px;color:var(--muted-foreground)}
+.value-chart-result strong{font-size:21px;font-weight:600}.value-chart-result small{font-size:12px}
+.value-chart-bars{display:grid;gap:24px;margin:30px 0 22px}
+.value-chart-bar>div:first-child{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px;font-size:12px}
+.value-chart-bar b{font-weight:500;font-variant-numeric:tabular-nums}
+.value-chart-track{height:18px;border-radius:5px;background:var(--muted);overflow:hidden}
+.value-chart-track i{display:block;height:100%;border-radius:5px;background:var(--primary);transform-origin:left;animation:valuation-enter .7s cubic-bezier(.2,.75,.3,1) both}
+.value-chart-bar.cost i{opacity:.4}.value-chart-bar.value i{animation-delay:.1s}
+.portfolio-value-chart>p{font-size:10px;color:var(--muted-foreground);margin:16px 0 0;line-height:1.5}
+.portfolio-value-chart.is-compact{padding:22px 0 6px;border-top:1px solid #ffffff29;margin-top:22px;color:inherit}
+.is-compact .value-chart-result>span,.is-compact>p{color:#ffffffb8}
+.is-compact .value-chart-bars{gap:17px;margin:22px 0 12px}
+.is-compact .value-chart-track{height:8px;background:#ffffff12}
+.is-compact .value-chart-track i{background:#d5e8c8}
+.is-compact .value-chart-result strong{font-size:21px}
+.is-compact .value-chart-bar>div:first-child{font-size:11px}
+.home-wealth-slide .wealth-summary-card{min-height:0!important;padding-bottom:22px}
+.home-wealth-slide .wealth-card-cash{margin-top:20px}
+.client-home .wealth-summary-card{padding-bottom:0}
+.client-home .wealth-card-value{margin:16px 0}
+.client-home .portfolio-value-chart.is-compact{margin-top:16px;padding-top:16px}
+.client-home .wealth-summary-card .wealth-card-cash{min-height:64px;padding-block:14px;margin-top:14px}
+@keyframes valuation-enter{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){.value-chart-track i{animation:none}}
+.wealth-line header{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.wealth-line header>span{font-size:13px;color:inherit;font-weight:600}.wealth-line header>small{font-size:9px;opacity:.7}
+.wealth-line>h2{font-size:30px;margin:18px 0 10px;letter-spacing:-.7px;font-variant-numeric:tabular-nums}
+.wealth-line-caption{display:flex;align-items:baseline;gap:8px;margin-top:14px;font-size:10px}.wealth-line-caption strong{font-size:15px;font-weight:600}.wealth-line-caption span{opacity:.7}
+.wealth-line-svg{display:block;width:100%;height:190px;color:var(--primary);touch-action:pan-y;overflow:visible;margin:12px 0 0}
+.wealth-line-stroke{stroke-dasharray:1;stroke-dashoffset:0;animation:wealth-line-draw 240ms cubic-bezier(.23,1,.32,1)}
+.wealth-line-dates{display:flex;justify-content:space-between;font-size:9px;opacity:.65}
+.wealth-line-periods{display:flex;gap:8px;margin:14px 0 0}.wealth-line-periods button{flex:1;min-height:44px;background:transparent;color:inherit;border:0;border-radius:8px;font-size:11px;cursor:pointer}.wealth-line-periods button[aria-pressed=true]{background:var(--muted);font-weight:600}
+.wealth-line.is-compact .wealth-line-svg{height:124px;color:#daedcf;margin-top:8px}.wealth-line.is-compact .wealth-line-periods button[aria-pressed=true]{background:#ffffff18}.wealth-line.is-compact>p{font-size:9px}
+.wealth-line-empty{min-height:145px;display:grid;place-content:center;gap:12px;font-size:12px;opacity:.75}.wealth-line-source{font-size:9px!important}
+.client-home .wealth-line.is-compact{padding-top:12px;margin-top:12px}.client-home .wealth-card-value{margin:10px 0}.client-home .wealth-summary-card{padding-top:20px}
+@keyframes wealth-line-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.wealth-line-stroke{animation:none}}

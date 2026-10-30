@@ -1,0 +1,28 @@
+import {z} from 'zod';
+import {addFact} from './numeric-evidence.mjs';
+
+// Reviewed, read-only extracts of the two adviser records already displayed in 3001.
+// The original records remain the source of truth; no holding or proposal is changed here.
+const records=[
+ {id:'prop_okonkwo_corp_001',title:'擴闊儲備組合配置',bookId:'pf_okonkwo_corp',book:'Okonkwo Corporate Reserve',bank:'Julius Baer',mandate:'APM',status:'sent',version:1,created:'2026-06-08',expires:'2026-07-09',summary:'減持美國國債，增加廣泛美股配置，並加入黃金。',tradeoff:'減少固定收益集中，但增加股票及金價波動的影響。',before:[32.9,62.1,0,5],proposed:[42,43,10,5],turnoverPct:31.3,estimatedCostUSD:1700,changes:[{name:'US Treasury 4% 2030',before:35.2,proposed:22,why:'降低債券超配。'},{name:'iShares S&P 500 · IVV',before:24.9,proposed:33,why:'增加廣泛美股投資。'},{name:'iShares Physical Gold',before:0,proposed:10,why:'加入另類資產配置。'}],recordNote:'來源仍等待家庭決定；有效期已過，未核實更新或執行。交易明細與配置摘要未完整對應。'},
+ {id:'prop_okonkwo_thematic_001',title:'降低大型科技股集中度',bookId:'pf_okonkwo_thematic',book:'Okonkwo Thematic Equity',bank:'UBS',mandate:'APM',status:'executed',version:1,created:'2026-05-10',expires:'2026-06-11',summary:'減持 NVIDIA 及 Microsoft，加入環球股票、國債及黃金分散配置。',tradeoff:'資產更分散，但減持科技股若跑贏大市，組合受惠較少。',before:[98.2,0,0,1.8],proposed:[80,10,8,2],turnoverPct:63.8,estimatedCostUSD:2500,changes:[{name:'NVIDIA · NVDA',before:25,proposed:10,why:'調整至建議的 10% 持倉上限。'},{name:'Vanguard All-World · VWRA',before:0,proposed:18,why:'分散至環球股票。'},{name:'Microsoft · MSFT',before:22.9,proposed:10,why:'降低單一股票集中。'},{name:'US Treasury 4% 2030',before:0,proposed:10,why:'加入固定收益。'},{name:'iShares Physical Gold',before:0,proposed:8,why:'加入另類資產配置。'}],recordNote:'來源記錄顧客批准及外部 OMS 完成；未有逐筆成交核對。Proposed 權重不是已核實的成交後持倉。'}
+];
+export const proposalSchema=z.object({proposal_id:z.enum(records.map(r=>r.id)).optional()}).strict();
+export const variationSchema=z.object({proposal_id:z.enum(records.map(r=>r.id)),equity_pct:z.number().min(0).max(100),bond_pct:z.number().min(0).max(100),alternatives_pct:z.number().min(0).max(100),cash_pct:z.number().min(0).max(100)}).strict();
+export function getProposals(raw,run){
+ const args=proposalSchema.parse(raw);if(run.portfolio_scope?.household!=='hh_okonkwo')throw Error('Authorized Okonkwo scope required.');
+ const selected=records.filter(r=>(run.portfolio_scope.book==='all'||r.bookId===run.portfolio_scope.book)&&((run.portfolio_scope.bank||'all')==='all'||r.bank===run.portfolio_scope.bank)&&(!args.proposal_id||r.id===args.proposal_id));
+ if(args.proposal_id&&!selected.length)throw Error('Proposal is outside the selected book.');
+ const source={id:'S'+(run.sources.length+1),title:'Okonkwo adviser proposal source records',url:'https://mercury-wealth.vercel.app/proposals',publisher:'Mercury adviser source',coverage:'imported_adviser_records',observation_end:'2026-06-19',retrieved_at:'2026-10-30',access:'private_demo'};run.sources.push(source);
+ const result={id:'R'+(run.results.length+1),kind:'adviser_proposals',title:args.proposal_id?selected[0].title:'顧問方案',data:{records:selected,sourceAsOf:'2026-06-19',sourceChecked:'2026-10-30',categories:['股票','債券','另類資產','現金'],discussion:'Private notes and adviser messaging are not connected to this prototype.'},source_id:source.id,scope_key:run.portfolio_scope.key,access:'private_demo'};run.results.push(result);
+ const numeric_facts=selected.map(r=>addFact(run,{key:result.id+':'+r.id,kind:'source',result_id:result.id,source_id:source.id,value:r.estimatedCostUSD,display:`${r.title}（${r.book}，${r.status==='executed'?'來源記錄已執行':'來源記錄已發送'}）：估算成本 USD ${r.estimatedCostUSD}，估算總交易比例 ${r.turnoverPct}%；方案建立 ${r.created}，來源資料截至 2026-06-19 [${result.id}]`}));
+ return {result,numeric_facts,note:'Adviser proposal records are not generated model allocations. Before/proposed are proposal-date weights, not current/post-trade valuations. Discussion notes are unavailable in this prototype.'};
+}
+export function calculateVariation(raw,run){
+ const args=variationSchema.parse(raw),original=records.find(r=>r.id===args.proposal_id);
+ if(run.portfolio_scope?.household!=='hh_okonkwo'||(run.portfolio_scope.book!=='all'&&run.portfolio_scope.book!==original.bookId)||((run.portfolio_scope.bank||'all')!=='all'&&run.portfolio_scope.bank!==original.bank))throw Error('Proposal is outside the authorized book.');
+ const weights=[args.equity_pct,args.bond_pct,args.alternatives_pct,args.cash_pct];if(Math.abs(weights.reduce((a,b)=>a+b,0)-100)>.01)throw Error('Variation weights must total 100%.');
+ const source={id:'S'+(run.sources.length+1),title:original.title+' · adviser proposal source',url:'https://mercury-wealth.vercel.app/proposals/'+original.id,publisher:'Mercury adviser source',coverage:'imported_adviser_record',observation_end:'2026-06-19',access:'private_demo'};run.sources.push(source);
+ const result={id:'R'+(run.results.length+1),kind:'adviser_variation',title:'客戶配置比例比較',source_id:source.id,scope_key:run.portfolio_scope.key,access:'private_demo',data:{proposalId:original.id,proposalTitle:original.title,book:original.book,sourceAsOf:'2026-06-19',categories:['股票','債券','另類資產','現金'],adviserProposed:original.proposed,clientVariation:weights,deltaPp:weights.map((v,i)=>v-original.proposed[i]),assumptions:['只比較資產類別權重；不計算成交量、成本、風險或預期回報。','客戶假設試算；不更改顧問方案、持倉或交易狀態。']}};run.results.push(result);
+ return {result,numeric_facts:weights.map((v,i)=>addFact(run,{key:result.id+':'+i,kind:'scenario',result_id:result.id,source_id:source.id,value:v,display:`${result.data.categories[i]}：顧問方案 ${original.proposed[i]}% → 客戶試算 ${v}%（${result.data.deltaPp[i]>=0?'+':''}${result.data.deltaPp[i]} 個百分點）[${result.id}]`})),note:result.data.assumptions.join(' ')};
+}

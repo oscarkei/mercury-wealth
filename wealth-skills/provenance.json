@@ -1,0 +1,58 @@
+{
+  "library_version": "0.1.0",
+  "reviewed_on": "2026-10-28",
+  "sources": [
+    {
+      "repo": "anthropics/claude-for-financial-advisors",
+      "path": "skills/portfolio-rebalance-review/SKILL.md",
+      "commit": "ab454f4c6888c49819843fa9a2c2cd38ec5c6439",
+      "url": "https://github.com/anthropics/claude-for-financial-advisors/blob/ab454f4c6888c49819843fa9a2c2cd38ec5c6439/skills/portfolio-rebalance-review/SKILL.md",
+      "license": "Apache-2.0",
+      "copyright": "Copyright 2026 Anthropic PBC",
+      "adapted_to": [
+        "mercury-client-portfolio"
+      ],
+      "content_reviewed": true
+    },
+    {
+      "repo": "anthropics/claude-for-financial-advisors",
+      "path": "skills/pre-meeting/SKILL.md",
+      "commit": "ab454f4c6888c49819843fa9a2c2cd38ec5c6439",
+      "url": "https://github.com/anthropics/claude-for-financial-advisors/blob/ab454f4c6888c49819843fa9a2c2cd38ec5c6439/skills/pre-meeting/SKILL.md",
+      "license": "Apache-2.0",
+      "copyright": "Copyright 2026 Anthropic PBC",
+      "adapted_to": [
+        "mercury-client-portfolio"
+      ],
+      "content_reviewed": true
+    },
+    {
+      "repo": "anthropics/financial-services",
+      "path": "plugins/vertical-plugins/equity-research/skills/earnings-analysis/SKILL.md",
+      "commit": "574ed3624aebd0418c7e96cd101262f30210ab26",
+      "url": "https://github.com/anthropics/financial-services/blob/574ed3624aebd0418c7e96cd101262f30210ab26/plugins/vertical-plugins/equity-research/skills/earnings-analysis/SKILL.md",
+      "license": "Apache-2.0",
+      "copyright": "Copyright 2026 Anthropic PBC",
+      "adapted_to": [
+        "mercury-market-research"
+      ],
+      "content_reviewed": true
+    },
+    {
+      "repo": "anthropics/financial-services",
+      "path": "plugins/vertical-plugins/equity-research/skills/sector-overview/SKILL.md",
+      "commit": "574ed3624aebd0418c7e96cd101262f30210ab26",
+      "url": "https://github.com/anthropics/financial-services/blob/574ed3624aebd0418c7e96cd101262f30210ab26/plugins/vertical-plugins/equity-research/skills/sector-overview/SKILL.md",
+      "license": "Apache-2.0",
+      "copyright": "Copyright 2026 Anthropic PBC",
+      "adapted_to": [
+        "mercury-market-research"
+      ],
+      "content_reviewed": true
+    }
+  ],
+  "review_scope": "Read pinned instruction bodies; no upstream scripts, connectors, Claude plugins or managed-agent deployment were installed or executed.",
+  "source_license_file": "LICENSES/Apache-2.0.txt",
+  "adaptation_notice": "THIRD_PARTY_NOTICES.md",
+  "note": "The two reviewed repository root trees contained LICENSE and no root NOTICE. Runtime capability and answer-quality claims require separate evaluation."
+}

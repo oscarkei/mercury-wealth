@@ -1,0 +1,568 @@
+{
+  "importId": "vercel_4e1ec38630b41010012b",
+  "plans": [
+    {
+      "table": "mercury_v1_household",
+      "key": "id",
+      "rows": [
+        {
+          "id": "hh_okonkwo",
+          "name": "Okonkwo Family",
+          "reportingCurrency": "USD"
+        }
+      ]
+    },
+    {
+      "table": "mercury_v1_account",
+      "key": "id",
+      "rows": [
+        {
+          "id": "acct_okonkwo_ubs",
+          "householdId": "hh_okonkwo",
+          "custodianId": "cust_ubs",
+          "primaryOwnerClientId": "cli_okonkwo_ada",
+          "accountNumber": "UBS-\u2022\u2022\u20225201"
+        },
+        {
+          "id": "acct_okonkwo_jb",
+          "householdId": "hh_okonkwo",
+          "custodianId": "cust_jb",
+          "primaryOwnerClientId": "cli_okonkwo_corp",
+          "accountNumber": "JB-\u2022\u2022\u20228102"
+        }
+      ]
+    },
+    {
+      "table": "mercury_v1_portfolio",
+      "key": "id",
+      "rows": [
+        {
+          "id": "pf_okonkwo_global",
+          "accountId": "acct_okonkwo_ubs",
+          "name": "Okonkwo Global Flagship",
+          "mandateType": "Discretionary"
+        },
+        {
+          "id": "pf_okonkwo_thematic",
+          "accountId": "acct_okonkwo_ubs",
+          "name": "Okonkwo Thematic Equity",
+          "mandateType": "Advisory"
+        },
+        {
+          "id": "pf_okonkwo_corp",
+          "accountId": "acct_okonkwo_jb",
+          "name": "Okonkwo Corporate Reserve",
+          "mandateType": "Advisory"
+        }
+      ]
+    },
+    {
+      "table": "mercury_v1_position_valuation",
+      "key": "id",
+      "rows": [
+        {
+          "id": "pos_okonkwo_global__vwra_ie",
+          "portfolioId": "pf_okonkwo_global",
+          "instrumentId": "inst_vwra_ie",
+          "marketValue": {
+            "amount": 3512625,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 3512625,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 702525,
+            "currency": "USD"
+          },
+          "quantity": 24650,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_global__csspx_ie",
+          "portfolioId": "pf_okonkwo_global",
+          "instrumentId": "inst_csspx_ie",
+          "marketValue": {
+            "amount": 5374256,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 5374256,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 1612276.8,
+            "currency": "USD"
+          },
+          "quantity": 8770,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_global__msft",
+          "portfolioId": "pf_okonkwo_global",
+          "instrumentId": "inst_msft",
+          "marketValue": {
+            "amount": 1109952,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 1109952,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 443980.8,
+            "currency": "USD"
+          },
+          "quantity": 2460,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_global__nvda",
+          "portfolioId": "pf_okonkwo_global",
+          "instrumentId": "inst_nvda",
+          "marketValue": {
+            "amount": 1295604,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 1295604,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 777362.4,
+            "currency": "USD"
+          },
+          "quantity": 9860,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_global__aapl",
+          "portfolioId": "pf_okonkwo_global",
+          "instrumentId": "inst_aapl",
+          "marketValue": {
+            "amount": 884924,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 884924,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 353969.6,
+            "currency": "USD"
+          },
+          "quantity": 3940,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_global__amzn",
+          "portfolioId": "pf_okonkwo_global",
+          "instrumentId": "inst_amzn",
+          "marketValue": {
+            "amount": 585784,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 585784,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 175735.2,
+            "currency": "USD"
+          },
+          "quantity": 2960,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_global__googl",
+          "portfolioId": "pf_okonkwo_global",
+          "instrumentId": "inst_googl",
+          "marketValue": {
+            "amount": 702502,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 702502,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 175605.8,
+            "currency": "USD"
+          },
+          "quantity": 3940,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_global__sgld_l",
+          "portfolioId": "pf_okonkwo_global",
+          "instrumentId": "inst_sgld_l",
+          "marketValue": {
+            "amount": 921960,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 921960,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 230490,
+            "currency": "USD"
+          },
+          "quantity": 19700,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_global__jpm_aef_lu",
+          "portfolioId": "pf_okonkwo_global",
+          "instrumentId": "inst_jpm_aef_lu",
+          "marketValue": {
+            "amount": 3657090,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 3657090,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 548125,
+            "currency": "USD"
+          },
+          "quantity": 87700,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_global__3115_hk",
+          "portfolioId": "pf_okonkwo_global",
+          "instrumentId": "inst_3115_hk",
+          "marketValue": {
+            "amount": 4540200,
+            "currency": "HKD"
+          },
+          "marketValueBase": {
+            "amount": 582076.34,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 454020,
+            "currency": "HKD"
+          },
+          "quantity": 164500,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_global__cash_usd",
+          "portfolioId": "pf_okonkwo_global",
+          "instrumentId": "inst_cash_usd",
+          "marketValue": {
+            "amount": 380000,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 380000,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 0,
+            "currency": "USD"
+          },
+          "quantity": 380000,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_thematic__nvda",
+          "portfolioId": "pf_okonkwo_thematic",
+          "instrumentId": "inst_nvda",
+          "marketValue": {
+            "amount": 971046,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 971046,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 582627.6,
+            "currency": "USD"
+          },
+          "quantity": 7390,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_thematic__aapl",
+          "portfolioId": "pf_okonkwo_thematic",
+          "instrumentId": "inst_aapl",
+          "marketValue": {
+            "amount": 552516,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 552516,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 221006.4,
+            "currency": "USD"
+          },
+          "quantity": 2460,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_thematic__msft",
+          "portfolioId": "pf_okonkwo_thematic",
+          "instrumentId": "inst_msft",
+          "marketValue": {
+            "amount": 888864,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 888864,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 355545.6,
+            "currency": "USD"
+          },
+          "quantity": 1970,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_thematic__amzn",
+          "portfolioId": "pf_okonkwo_thematic",
+          "instrumentId": "inst_amzn",
+          "marketValue": {
+            "amount": 486834,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 486834,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 146050.2,
+            "currency": "USD"
+          },
+          "quantity": 2460,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_thematic__googl",
+          "portfolioId": "pf_okonkwo_thematic",
+          "instrumentId": "inst_googl",
+          "marketValue": {
+            "amount": 527768,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 527768,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 131927.2,
+            "currency": "USD"
+          },
+          "quantity": 2960,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_thematic__sn_aq_aapl",
+          "portfolioId": "pf_okonkwo_thematic",
+          "instrumentId": "inst_sn_aq_aapl",
+          "marketValue": {
+            "amount": 390000,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 390000,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": -10000,
+            "currency": "USD"
+          },
+          "quantity": 4000,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_thematic__cash_usd",
+          "portfolioId": "pf_okonkwo_thematic",
+          "instrumentId": "inst_cash_usd",
+          "marketValue": {
+            "amount": 70000,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 70000,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 0,
+            "currency": "USD"
+          },
+          "quantity": 70000,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_corp__ivv_us",
+          "portfolioId": "pf_okonkwo_corp",
+          "instrumentId": "inst_ivv_us",
+          "marketValue": {
+            "amount": 1388178,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 1388178,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 277635.6,
+            "currency": "USD"
+          },
+          "quantity": 2460,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_corp__msft",
+          "portfolioId": "pf_okonkwo_corp",
+          "instrumentId": "inst_msft",
+          "marketValue": {
+            "amount": 446688,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 446688,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 134006.4,
+            "currency": "USD"
+          },
+          "quantity": 990,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_corp__ust_4_2030",
+          "portfolioId": "pf_okonkwo_corp",
+          "instrumentId": "inst_ust_4_2030",
+          "marketValue": {
+            "amount": 1962120,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 1962120,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 39203,
+            "currency": "USD"
+          },
+          "quantity": 1970000,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_corp__hsbc_4_25_2032",
+          "portfolioId": "pf_okonkwo_corp",
+          "instrumentId": "inst_hsbc_4_25_2032",
+          "marketValue": {
+            "amount": 1499240,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 1499240,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 0,
+            "currency": "USD"
+          },
+          "quantity": 1480000,
+          "valuedAt": "2026-06-19"
+        },
+        {
+          "id": "pos_okonkwo_corp__cash_usd",
+          "portfolioId": "pf_okonkwo_corp",
+          "instrumentId": "inst_cash_usd",
+          "marketValue": {
+            "amount": 279000,
+            "currency": "USD"
+          },
+          "marketValueBase": {
+            "amount": 279000,
+            "currency": "USD"
+          },
+          "unrealizedPnl": {
+            "amount": 0,
+            "currency": "USD"
+          },
+          "quantity": 279000,
+          "valuedAt": "2026-06-19"
+        }
+      ]
+    },
+    {
+      "table": "mercury_v1_client",
+      "key": "id",
+      "rows": [
+        {
+          "id": "cli_okonkwo_ada",
+          "householdId": "hh_okonkwo",
+          "name": "Adaeze Okonkwo"
+        },
+        {
+          "id": "cli_okonkwo_chidi",
+          "householdId": "hh_okonkwo",
+          "name": "Chidi Okonkwo"
+        },
+        {
+          "id": "cli_okonkwo_corp",
+          "householdId": "hh_okonkwo",
+          "name": "Okonkwo Global Ltd"
+        }
+      ]
+    },
+    {
+      "table": "mercury_v1_custodian",
+      "key": "id",
+      "rows": [
+        {
+          "id": "cust_ubs",
+          "name": "UBS"
+        },
+        {
+          "id": "cust_jb",
+          "name": "Julius Baer"
+        }
+      ]
+    },
+    {
+      "table": "mercury_v1_account_owner",
+      "key": "id",
+      "rows": [
+        {
+          "id": "own_okonkwo_ubs_ada",
+          "accountId": "acct_okonkwo_ubs",
+          "clientId": "cli_okonkwo_ada",
+          "ownershipType": "Joint Tenant",
+          "ownershipPct": null,
+          "isPrimary": true
+        },
+        {
+          "id": "own_okonkwo_ubs_chidi",
+          "accountId": "acct_okonkwo_ubs",
+          "clientId": "cli_okonkwo_chidi",
+          "ownershipType": "Joint Tenant",
+          "ownershipPct": null,
+          "isPrimary": false
+        },
+        {
+          "id": "own_okonkwo_jb_corp",
+          "accountId": "acct_okonkwo_jb",
+          "clientId": "cli_okonkwo_corp",
+          "ownershipType": "Sole",
+          "ownershipPct": null,
+          "isPrimary": true
+        }
+      ]
+    }
+  ]
+}

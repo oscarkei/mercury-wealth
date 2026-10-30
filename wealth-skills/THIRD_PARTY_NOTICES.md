@@ -1,0 +1,9 @@
+# Third-party notices and adaptation record
+
+This library adapts selected analysis methods from Anthropic's `financial-services` and `claude-for-financial-advisors` reference libraries. Copyright 2026 Anthropic PBC. Licensed under the Apache License, Version 2.0. Retain `LICENSES/Apache-2.0.txt` and this attribution when redistributing adapted material. Exact source paths and pinned upstream commits are in `provenance.json`.
+
+Changes made for Mercury Wealth: rewrite analyst instructions for an application-owned, model-agnostic orchestrator; replace provider/CRM integrations with explicit Mercury tool contracts; remove Claude-only commands and automatic subagent requirements; replace institutional document-length requirements with concise interactive answers; add demo-client context, persistent conversation state, version-aware cache rules, evidence-bound numbers, product-method boundaries and synthetic acceptance cases. Do not interpret upstream vendor/platform examples as installed Mercury integrations.
+
+`mercury-client-portfolio` draws on portfolio review and pre-meeting methodology. `mercury-market-research` draws on earnings and sector research methodology. `mercury-product-scenario`, `mercury-response-ui`, shared contracts, synthetic fixtures and checks are Mercury-specific additions, with general analytical concepts informed by the reference workflows. No Anthropic affiliation, endorsement, model-equivalence or runtime integration is claimed.
+
+The upstream advisor repository describes itself as a reference implementation that is not actively maintained. This adaptation owns its own version, review and evaluation process. Upstream main-branch changes must be reviewed before updating pinned sources. Paid third-party data, API access and vendor entitlements are not included in the skill license.

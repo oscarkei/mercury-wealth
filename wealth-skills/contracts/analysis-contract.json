@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:mercury:wealth:analysis-response:0.1",
+  "title": "Mercury Wealth analysis response proposal",
+  "description": "Application-level proposal. Provider structured-output schemas may need a supported-subset projection. This schema alone does not validate claim semantics, metric ownership, available components or calculations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "conversation_id",
+    "state_revision",
+    "completion",
+    "sections",
+    "components",
+    "limitations",
+    "next_steps"
+  ],
+  "properties": {
+    "conversation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "completion": {
+      "enum": [
+        "complete",
+        "partial",
+        "clarification",
+        "failed"
+      ]
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/section"
+      },
+      "maxItems": 8
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/component"
+      },
+      "maxItems": 4
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_steps": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "label",
+          "capability"
+        ],
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "capability": {
+            "type": "string",
+            "description": "Must resolve to an actually available analysis or navigation action."
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "text_template",
+        "metric_refs",
+        "evidence_refs",
+        "assumption_refs"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "finding",
+            "interpretation",
+            "portfolio_impact",
+            "method",
+            "clarification"
+          ]
+        },
+        "claim_type": {
+          "enum": [
+            "fact",
+            "calculation",
+            "scenario",
+            "inference"
+          ]
+        },
+        "text_template": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metric_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "assumption_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_id",
+        "result_ref",
+        "role"
+      ],
+      "properties": {
+        "component_id": {
+          "type": "string",
+          "description": "Must exist in the runtime-advertised catalog; semantic examples are not installed component IDs."
+        },
+        "result_ref": {
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "primary",
+            "detail"
+          ]
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "entity_id",
+        "metric",
+        "value",
+        "unit",
+        "scope_ref",
+        "snapshot_ref",
+        "source_ref",
+        "method",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "entity_id": {
+          "type": "string"
+        },
+        "metric": {
+          "type": "string"
+        },
+        "value": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "as_of": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "period_start": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "period_end": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "scope_ref": {
+          "type": "string"
+        },
+        "snapshot_ref": {
+          "type": "string"
+        },
+        "source_ref": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "observed",
+            "calculated",
+            "scenario"
+          ]
+        },
+        "denominator_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "x-runtime-validation": [
+    "Resolve every template token and metric/evidence/assumption reference from server-owned registries.",
+    "Check issuer, metric meaning, units, period, currency, scope, snapshot, denominator and calculation method.",
+    "Keep user/default assumptions typed and separate from observed metrics.",
+    "Reject unavailable components, invalid result schemas and cross-scope references.",
+    "Permit at most one primary component by default; detail components are optional.",
+    "Do not accept invented numbers because they pass JSON Schema.",
+    "Use bounded repair; preserve successful tool results if prose fails."
+  ]
+}
