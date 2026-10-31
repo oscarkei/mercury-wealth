@@ -5,7 +5,7 @@ const python=process.env.MERCURY_FINANCE_PYTHON||fileURLToPath(new URL('../../.v
 let worker=null,sequence=0,pending=new Map(),queue=Promise.resolve();
 function start(){
  if(worker)return;
- worker=spawn(python,['-B','finance-worker.py'],{cwd:fileURLToPath(new URL('.',import.meta.url)),env:{PATH:'/usr/bin:/bin',HOME:process.env.HOME,PYTHONUNBUFFERED:'1',PYTHONDONTWRITEBYTECODE:'1'},stdio:['pipe','pipe','inherit']});
+ worker=spawn(python,['-B','finance-worker.py'],{cwd:fileURLToPath(new URL('.',import.meta.url)),env:{PATH:'/usr/bin:/bin',HOME:process.env.HOME,MERCURY_FINANCE_CACHE_DIR:process.env.MERCURY_FINANCE_CACHE_DIR,PYTHONUNBUFFERED:'1',PYTHONDONTWRITEBYTECODE:'1'},stdio:['pipe','pipe','inherit']});
  createInterface({input:worker.stdout}).on('line',line=>{let r;try{r=JSON.parse(line);}catch{return;}const p=pending.get(r.id);if(p){clearTimeout(p.timer);pending.delete(r.id);r.error?p.reject(Error(r.error)):p.resolve(r.result);}});
  const fail=()=>{worker=null;for(const p of pending.values()){clearTimeout(p.timer);p.reject(Error('Finance worker stopped.'));}pending.clear();};worker.on('error',fail);worker.on('exit',fail);
 }

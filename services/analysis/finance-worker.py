@@ -3,7 +3,7 @@ import sys, os, json, math, contextlib
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent
 PROJECT=ROOT.parents[1]
-CACHE=ROOT/'data/finance-cache';CACHE.mkdir(parents=True,exist_ok=True)
+CACHE=Path(os.environ.get('MERCURY_FINANCE_CACHE_DIR',str(ROOT/'data/finance-cache')));CACHE.mkdir(parents=True,exist_ok=True)
 for name in ('OPENBLAS_NUM_THREADS','VECLIB_MAXIMUM_THREADS','OMP_NUM_THREADS'):os.environ[name]='1'
 os.environ.update(MPLBACKEND='Agg',MPLCONFIGDIR=str(CACHE/'matplotlib'),NUMBA_CACHE_DIR=str(CACHE/'numba'),FINANCE_TOOLKIT_CACHE_ENABLED='0',FINANCE_TOOLKIT_CACHE_DB=str(CACHE/'toolkit.sqlite'))
 sys.path.insert(0,str(PROJECT))
@@ -12,6 +12,9 @@ from finance_service.strategies import StrategyRequest,compare_strategies
 engine.CACHE=CACHE/'research.sqlite'
 
 def execute(name,args):
+    if name=='health':
+        import importlib.metadata
+        return {'ready':True,'libraries':{name:importlib.metadata.version(name) for name in ['openbb-core','openbb-cboe','riskfolio-lib','bt','quantstats','financetoolkit']}}
     if name=='history':return engine.market_history(engine.HistoryRequest(**args))
     if name=='optimize':
         history=args.pop('history')

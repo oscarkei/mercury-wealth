@@ -1,5 +1,6 @@
 "use client";
 // mercury-localized
+import {cloudChatResponse} from '../lib/cloud-chat-client';
 import {usePublicMock} from './mobile-preview-content';
 import {copy,statusText,localize,useAppPreferences,locale} from "../lib/app-preferences";
 import PortfolioScope from "./portfolio-scope";
@@ -717,16 +718,17 @@ export default function WealthPortal() {
       );
   }
   const sqliteRestored=useRef(false);
+  const [cloudSessionReady,setCloudSessionReady]=useState(false);
   useEffect(()=>{
-    if(publicMock||!ready||sqliteRestored.current)return;sqliteRestored.current=true;const revision=aiRevision.current;
-    void (async()=>{try{await fetch('/api/session',{method:'POST',headers:{'x-mercury-client':'portal'}});const response=await fetch('/api/hybrid?history=1'+(conversationId.current?'&conversationId='+encodeURIComponent(conversationId.current):''));if(!response.ok)return;const data=await response.json() as {conversationId:string|null;turns:{scope:{bank:string;book:string};run:HybridRun}[]};if(aiRevision.current!==revision||!data.conversationId)return;if(!conversationId.current)conversationId.current=data.conversationId;setMessages(old=>{const known=new Set(old.map(m=>m.hybridRunId));const missing=data.turns.filter(t=>!known.has(t.run.id));return [...missing.flatMap(({scope,run}):Message[]=>[{role:'user',text:run.question,scopeKey:JSON.stringify(scope)},{id:run.id,role:'assistant',source:'DeepSeek',text:run.answer,scopeKey:JSON.stringify(scope),hybridRunId:run.id,hybridRun:run,model:'deepseek-flash'}]),...old];});}catch{}})();
-  },[ready,publicMock]);
+    if((publicMock&&!chatOpen)||!ready||sqliteRestored.current)return;sqliteRestored.current=true;const revision=aiRevision.current;
+    void (async()=>{try{const session=await fetch('/api/session',{method:'POST',headers:{'x-mercury-client':'portal'}});if(!session.ok)return;if(publicMock)setCloudSessionReady(true);const response=await fetch((publicMock?'/api/cloud-chat?history=1':'/api/hybrid?history=1')+(conversationId.current?'&conversationId='+encodeURIComponent(conversationId.current):''));if(!response.ok)return;const data=await response.json() as {conversationId:string|null;turns:{scope:{bank:string;book:string};run:HybridRun}[]};if(aiRevision.current!==revision||!data.conversationId)return;if(!conversationId.current)conversationId.current=data.conversationId;setMessages(old=>{const known=new Set(old.map(m=>m.hybridRunId));const missing=data.turns.filter(t=>!known.has(t.run.id));return [...missing.flatMap(({scope,run}):Message[]=>[{role:'user',text:run.question,scopeKey:JSON.stringify(scope)},{id:run.id,role:'assistant',source:'DeepSeek',text:run.answer,scopeKey:JSON.stringify(scope),hybridRunId:run.id,hybridRun:run,model:'deepseek-flash'}]),...old.map(item=>{const saved=data.turns.find(t=>t.run.id===item.hybridRunId);return saved?{...item,hybridRun:saved.run}:item;})];});}catch{}})();
+  },[ready,publicMock,chatOpen]);
   const hydratedHybridRuns=useRef(new Set<string>());
   useEffect(()=>{
-    if(publicMock||!ready)return;
+    if((publicMock&&(!chatOpen||!cloudSessionReady))||!ready)return;
     const pending=messages.filter(m=>m.hybridRunId&&!m.hybridRun&&!hydratedHybridRuns.current.has(m.hybridRunId)).slice(-10);
-    for(const message of pending){const id=message.hybridRunId!;hydratedHybridRuns.current.add(id);void fetch('/api/hybrid?run='+encodeURIComponent(id)+'&conversationId='+encodeURIComponent(conversationId.current||(conversationId.current=uuid())),{headers:{'x-mercury-client':'portal'},credentials:'same-origin'}).then(async response=>response.ok?(await response.json()).run:null).then((run:HybridRun|null)=>{if(run)setMessages(items=>items.map(item=>item.hybridRunId===id?{...item,hybridRun:run}:item));}).catch(()=>{});}
-  },[ready,messages,publicMock]);
+    for(const message of pending){const id=message.hybridRunId!;hydratedHybridRuns.current.add(id);void fetch((publicMock?'/api/cloud-chat?run=':'/api/hybrid?run=')+encodeURIComponent(id)+'&conversationId='+encodeURIComponent(conversationId.current||(conversationId.current=uuid())),{headers:{'x-mercury-client':'portal'},credentials:'same-origin'}).then(async response=>response.ok?(await response.json()).run:null).then((run:HybridRun|null)=>{if(run)setMessages(items=>items.map(item=>item.hybridRunId===id?{...item,hybridRun:run}:item));}).catch(()=>{});}
+  },[ready,messages,publicMock,chatOpen,cloudSessionReady]);
   async function sendHybrid(question:string,followupIndex?:number,sourceRunId?:string){
     if(!question.trim()||busy)return;
     const clean=question.trim().slice(0,2500),requestScope=JSON.stringify(scope),previousId=sourceRunId||[...messages].reverse().find(m=>m.scopeKey===requestScope&&m.hybridRunId)?.hybridRunId;
@@ -737,8 +739,9 @@ export default function WealthPortal() {
     const update=(fn:(message:Message)=>Message)=>{if(active())setMessages(items=>items.map(item=>item.id===id?fn(item):item));};
     try{
       const session=await fetch('/api/session',{method:'POST',headers:{'x-mercury-client':'portal'},credentials:'same-origin',signal:controller.signal});
-      if(!session.ok)throw Error('Could not start the Mercury session.');
-      const response=await fetch('/api/hybrid',{method:'POST',headers:{'Content-Type':'application/json','x-mercury-client':'portal'},credentials:'same-origin',signal:controller.signal,body:JSON.stringify({conversationId:conversationId.current||(conversationId.current=uuid()),question:clean,previousId,followupIndex,language,scope})});
+      if(!session.ok){const failure=await session.json().catch(()=>({}));throw Error(publicMock?copy('Cloud analysis is not connected yet.','雲端分析服務尚未接駁。','云端分析服务尚未接通。'):failure.error||'Could not start the Mercury session.');}
+      const payload={conversationId:conversationId.current||(conversationId.current=uuid()),question:clean,previousId,followupIndex,language,scope};
+      const response=publicMock?await cloudChatResponse(payload,controller.signal):await fetch('/api/hybrid',{method:'POST',headers:{'Content-Type':'application/json','x-mercury-client':'portal'},credentials:'same-origin',signal:controller.signal,body:JSON.stringify(payload)});
       if(!response.ok){const error=await response.json().catch(()=>({}));throw Error(typeof error.error==='string'?error.error:'Conversation service unavailable.');}
       if(!response.body)throw Error('Conversation service returned no response.');
       const reader=response.body.getReader(),decoder=new TextDecoder();let buffer='',completed=false;
@@ -984,7 +987,7 @@ export default function WealthPortal() {
   function reset() {
     const oldConversation=conversationId.current;
     cancelRequest();
-    if(oldConversation)void fetch('/api/conversation',{method:'POST',headers:{'Content-Type':'application/json','x-mercury-client':'portal'},body:JSON.stringify({action:'reset',conversationId:oldConversation,scope:{household:'hh_okonkwo',bank:scope.bank,book:scope.book}})}).catch(()=>{});
+    if(oldConversation&&!publicMock)void fetch('/api/conversation',{method:'POST',headers:{'Content-Type':'application/json','x-mercury-client':'portal'},body:JSON.stringify({action:'reset',conversationId:oldConversation,scope:{household:'hh_okonkwo',bank:scope.bank,book:scope.book}})}).catch(()=>{});
     try {
       localStorage.removeItem(storage);
     } catch {}

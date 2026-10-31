@@ -4,6 +4,7 @@ node_modules
 .env*
 !.env.example
 .mercury/
+.mercury-cloud/
 .venv*/
 .cache/
 **/__pycache__/

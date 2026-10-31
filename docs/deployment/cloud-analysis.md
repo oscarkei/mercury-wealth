@@ -1,0 +1,68 @@
+# Independent cloud analysis deployment
+
+Status: source and local boundary tests prepared. An analysis hosting account, a running service and runtime secrets are still required. A successful frontend deployment does not mean DeepSeek is connected. This repository does not contain API keys or existing local conversations.
+
+## Architecture
+
+Browser → Vercel signed visitor session → authenticated HTTPS analysis service → DeepSeek Flash chooses analysis/tools → existing Python finance workers → Laya chooses supported UI → browser polls the saved job result.
+
+The backend uses the existing `engine.mjs`, catalogs, guides, evidence validation, presentation assembler and calculation workers. It does not switch models. Deep research runs outside Vercel; browser polling avoids the 300-second function limit. Each frontend poll has a short timeout. Interrupted HTTP requests do not repeat model calls. Explicit cancellation stops the analysis where supported.
+
+The public website and cloud holdings tools use the same committed fictional Okonkwo snapshot. They do **not** access the operator's local Supabase credentials or SQLite files. Sources identify the public snapshot accurately. A future private client deployment needs verified identities and household authorization; do not pass arbitrary household IDs or enable public access to a service-role database connection.
+
+## Analysis host
+
+Use a Docker-capable long-running host with HTTPS and a private persistent disk. The service currently runs one replica/worker: SQLite, the queue and Laya are process-local. Do not scale replicas against different disks or start multiple instances against the same SQLite file. Linux image build and host memory sizing must be validated before choosing a paid plan; no hosting purchase is included in this change.
+
+- Repository: `oscarkei/mercury-wealth`
+- Build context: repository root
+- Dockerfile: `services/analysis/Dockerfile`
+- Container port: `8080`, or the host-supplied `PORT`
+- Health check: `/healthz` (process liveness only)
+- Private disk: mount `/data`, writable by UID `10001`
+- The image provisions isolated Python environments and pins the Laya model revision. No GPU is required by the worker configuration. Docker has not been built on the current Mac because Docker is not installed.
+
+Set private runtime secrets on the analysis host:
+
+| Variable | Value |
+| --- | --- |
+| `DEEPSEEK_API_KEY` | The existing DeepSeek key; no new key is required |
+| `MERCURY_SERVICE_TOKEN` | A new randomly generated secret of at least 32 characters, shared only with Vercel |
+| `MERCURY_DAILY_JOB_LIMIT` | Optional, defaults to 100 jobs/day across all demo visitors |
+| `EIA_API_KEY`, `BEA_API_KEY` | Optional existing keys; absent providers report a data gap |
+
+The service also limits each signed visitor to 20 jobs/hour and queues at most ten waiting jobs. Usage counts persist in the cloud database; queued work is marked failed after a restart and is never automatically billed again. Do not put secrets in Docker build arguments, GitHub source, frontend JavaScript or screenshots.
+
+`GET /v1/health` requires the service bearer token and reports Laya/finance readiness. `ready` indicates workers are loaded; it does not prove that the DeepSeek key has valid quota. Verify that with an actual analysis after deployment.
+
+## Vercel project
+
+Set the following as server-side Production environment variables for `mercury-wealth`, then redeploy. Do not add a `NEXT_PUBLIC_` prefix.
+
+| Variable | Value |
+| --- | --- |
+| `MERCURY_ANALYSIS_URL` | HTTPS origin of the analysis service, with no path/query |
+| `MERCURY_SERVICE_TOKEN` | Same private token as the analysis host |
+| `MERCURY_SESSION_SECRET` | A separate randomly generated secret of at least 32 characters |
+| `MERCURY_PUBLIC_ORIGIN` | `https://mercury-wealth-mu.vercel.app` |
+
+The DeepSeek key belongs on the analysis host. Vercel only needs the service token. The browser receives an HttpOnly, Secure signed visitor cookie; it never receives either secret. Keep session signing configuration stable to retain access to existing cloud history. Other preview domains are not automatically authorized.
+
+## Acceptance after provisioning
+
+1. Confirm protected `/v1/health` reports DeepSeek Flash, Laya and finance readiness.
+2. Open the website mobile chat; ask `美國能源市場而家點睇`.
+3. Follow with `對我持倉有咩影響`; verify the committed website scope and source date.
+4. Ask for held rebalancing; missing target weights must produce a clarification, not proxy ETFs.
+5. Confirm actual DeepSeek usage and Laya decisions in the saved result; successful health checks alone are insufficient.
+6. Reload: the same visitor retains cloud conversations. A second browser cannot read the first visitor's run ID.
+7. Confirm frontend requests use `/api/cloud-chat`, and no request contacts localhost or exposes credentials.
+
+Local port 3001 continues using its existing local session and sidecar. No local credential, database or conversation migration is performed by this deployment.
+
+## Validation completed before hosting
+
+- 201 app tests and 71 analysis tests passed; production public-mock build passed.
+- Five browser tests passed, covering the mobile frame, scoped wealth curves, light/dark views, and a two-turn cloud transport fixture. The fixture verifies routing and context; it is not a live DeepSeek result.
+- Actual local Laya startup and one UI selection passed. The finance worker reported all six installed packages available: OpenBB core/Cboe, Riskfolio-Lib, bt, QuantStats and FinanceToolkit.
+- Live cloud DeepSeek inference, Linux Docker image build and provider-side storage/network behaviour remain unverified until a host is provisioned.
