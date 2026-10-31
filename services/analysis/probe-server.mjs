@@ -3,7 +3,7 @@ import http from 'node:http';
 import {spawn} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 let result={status:'loading',provider_calls:0};
-const child=spawn(process.execPath,['scripts/probe-analysis-resources.mjs'],{cwd:fileURLToPath(new URL('../..',import.meta.url)),stdio:['ignore','pipe','inherit']});
+const child=spawn(process.execPath,['scripts/probe-component-resources.mjs'],{cwd:fileURLToPath(new URL('../..',import.meta.url)),stdio:['ignore','pipe','inherit']});
 let output='';
 child.stdout.on('data',chunk=>{output+=chunk;if(output.length>1000000)child.kill();});
 child.on('error',()=>{result={status:'failed',error:'Probe process failed to start.',provider_calls:0};});

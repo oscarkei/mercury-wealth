@@ -23,6 +23,7 @@ ENV NODE_ENV=production PORT=8080 MERCURY_CLOUD_DATA_DIR=/data MERCURY_FINANCE_C
  MERCURY_FINANCE_PYTHON=/opt/finance/bin/python MERCURY_LAYA_PYTHON=/opt/laya/bin/python \
  MERCURY_LAYA_MODEL_PATH=/opt/models/laya MERCURY_LAYA_STARTUP_MS=180000 HF_HUB_DISABLE_TELEMETRY=1
 COPY --chown=mercury:mercury scripts/probe-analysis-resources.mjs /app/scripts/probe-analysis-resources.mjs
+COPY --chown=mercury:mercury scripts/probe-component-memory.py scripts/probe-component-resources.mjs /app/scripts/
 COPY --chown=mercury:mercury services/analysis/probe-server.mjs /app/services/analysis/probe-server.mjs
 USER mercury
 EXPOSE 8080
