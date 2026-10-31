@@ -40,7 +40,7 @@ export function createCloudService({token,store,research,ready,dailyLimit=100}){
    if(request.method==='DELETE'&&kind==='jobs'){if(!store.job(owner,id))return json(404,{error:'Analysis unavailable.'});controllers.get(id)?.abort();return json(200,{cancelled:true});}
   }
   if(request.method!=='POST'||url.pathname!=='/v1/jobs')return json(404,{error:'Not found.'});
-  if(!ready().ready)return json(503,{error:'DeepSeek / Laya / finance service is not ready.'});
+  if(!ready().ready)return json(503,{error:'Analysis / finance service is not ready.'});
   let body;try{const raw=await request.text();if(raw.length>12000)throw Error();body=input.parse(JSON.parse(raw));}catch{return json(400,{error:'Invalid question or scope.'});}
   const scope=capability(owner,body.scope.book,body.scope.bank);try{publicPortfolio(scope);}catch{return json(403,{error:'Scope is outside the public demo.'});}
   const previous=body.previousId?store.run(owner,body.previousId,body.conversationId):undefined;

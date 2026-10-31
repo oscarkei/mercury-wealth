@@ -1,9 +1,9 @@
 // Offline per-component diagnosis. Sequential fresh processes prevent artificial co-residency.
 import {spawn} from 'node:child_process';
 import {writeFileSync} from 'node:fs';
-const report={status:'running',provider_calls:0,platform:process.platform,cases:[],limits:['Isolated library totals overlap shared dependencies; do not add them together.','Import footprints do not include optimization/backtest peaks.','Cgroup file cache is separate from process RSS and can be reclaimed.']};
+const report={status:'running',provider_calls:0,platform:process.platform,ui_mode:'deepseek',laya_installed:false,cases:[],limits:['Isolated library totals overlap shared dependencies; do not add them together.','Import footprints do not include optimization/backtest peaks.','Cgroup file cache is separate from process RSS and can be reclaimed.']};
 const started=performance.now();
-for(const name of ['laya','finance','openbb','riskfolio','bt','quantstats','financetoolkit']){
+for(const name of ['finance','openbb','riskfolio','bt','quantstats','financetoolkit']){
  const python=process.env[name==='laya'?'MERCURY_LAYA_PYTHON':'MERCURY_FINANCE_PYTHON'];
  const result=await new Promise(resolve=>{
   const child=spawn(python,['-B','scripts/probe-component-memory.py',name],{env:{...process.env,PYTHONDONTWRITEBYTECODE:'1'},stdio:['ignore','pipe','pipe']});

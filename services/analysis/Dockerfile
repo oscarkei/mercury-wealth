@@ -8,20 +8,14 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev --ignore-scripts
-COPY scripts/finance-requirements.lock.txt scripts/laya-requirements.lock.txt /tmp/requirements/
+COPY scripts/finance-requirements.lock.txt /tmp/requirements/
 RUN python -m venv /opt/finance && /opt/finance/bin/pip install --no-cache-dir -r /tmp/requirements/finance-requirements.lock.txt
-RUN python -m venv /opt/laya \
- && /opt/laya/bin/pip install --no-cache-dir torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu \
- && /opt/laya/bin/pip install --no-cache-dir -r /tmp/requirements/laya-requirements.lock.txt
-ARG LAYA_REVISION=1720e3e3357cfe1e281542e223f8273b0890ca34
-RUN /opt/laya/bin/python -c "from huggingface_hub import snapshot_download; snapshot_download('convaiinnovations/laya-multilingual',revision='$LAYA_REVISION',local_dir='/opt/models/laya')"
 RUN useradd --uid 10001 --create-home mercury && mkdir -p /data && chown mercury:mercury /data
 COPY --chown=mercury:mercury services/analysis /app/services/analysis
 COPY --chown=mercury:mercury finance_service /app/finance_service
 COPY --chown=mercury:mercury src/lib/okonkwo-data.json /app/src/lib/okonkwo-data.json
 ENV NODE_ENV=production PORT=8080 MERCURY_CLOUD_DATA_DIR=/data MERCURY_FINANCE_CACHE_DIR=/data/finance-cache \
- MERCURY_FINANCE_PYTHON=/opt/finance/bin/python MERCURY_LAYA_PYTHON=/opt/laya/bin/python \
- MERCURY_LAYA_MODEL_PATH=/opt/models/laya MERCURY_LAYA_STARTUP_MS=180000 HF_HUB_DISABLE_TELEMETRY=1
+ MERCURY_FINANCE_PYTHON=/opt/finance/bin/python
 USER mercury
 EXPOSE 8080
 CMD ["node","services/analysis/cloud-server.mjs"]
