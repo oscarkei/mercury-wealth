@@ -41,7 +41,7 @@ test('scope changes, missing targets and forged follow-up clicks cannot cross th
  const id=randomUUID();f.store.save(f.owner,f.input.conversationId,{id,portfolio_scope:capability(f.owner,'all','UBS'),followups:[]});
  assert.equal((await f.call('/v1/jobs',{...f.input,previousId:id})).status,403);
 });
-test('unavailable Laya/finance prevents inference rather than falling back',async t=>{
+test('unavailable finance prevents cloud inference rather than falling back',async t=>{
  const f=fixture(t,{ready:()=>({ready:false}),research:()=>{throw Error('Should not run');}});
  assert.equal((await f.call('/v1/jobs',f.input)).status,503);
 });

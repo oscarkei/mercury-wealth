@@ -1,0 +1,23 @@
+FROM node:24-bookworm-slim AS web
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --ignore-scripts
+COPY . .
+ENV NEXT_TELEMETRY_DISABLED=1 MERCURY_PUBLIC_MOCK=1
+RUN npm test && npm run analysis:test && npm run build
+
+FROM python:3.12-slim-bookworm
+COPY --from=web /usr/local/bin/node /usr/local/bin/node
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential libgomp1 ca-certificates && rm -rf /var/lib/apt/lists/*
+COPY scripts/finance-requirements.lock.txt /tmp/finance-requirements.lock.txt
+RUN python -m venv /opt/finance && /opt/finance/bin/pip install --no-cache-dir -r /tmp/finance-requirements.lock.txt
+WORKDIR /app
+COPY --from=web /app /app
+# Laya remains in the source archive, but no worker, framework or weights ship here.
+RUN rm -f services/analysis/laya-client.mjs services/analysis/laya-worker.py \
+ && useradd --uid 10001 --create-home mercury && chown -R mercury:mercury /app
+ENV NODE_ENV=production PORT=8080 MERCURY_PUBLIC_MOCK=1 NEXT_TELEMETRY_DISABLED=1 \
+ MERCURY_FINANCE_PYTHON=/opt/finance/bin/python MERCURY_FINANCE_CACHE_DIR=/tmp/mercury-finance-cache
+USER mercury
+EXPOSE 8080
+CMD ["node","services/analysis/vercel/server.mjs"]

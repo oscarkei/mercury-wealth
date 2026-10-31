@@ -1,6 +1,6 @@
 "use client";
 // mercury-localized
-import {cloudChatResponse} from '../lib/cloud-chat-client';
+import {cloudChatResponse,cloudChatRead,clearCloudTurns} from '../lib/cloud-chat-client';
 import {usePublicMock} from './mobile-preview-content';
 import {copy,statusText,localize,useAppPreferences,locale} from "../lib/app-preferences";
 import PortfolioScope from "./portfolio-scope";
@@ -721,13 +721,13 @@ export default function WealthPortal() {
   const [cloudSessionReady,setCloudSessionReady]=useState(false);
   useEffect(()=>{
     if((publicMock&&!chatOpen)||!ready||sqliteRestored.current)return;sqliteRestored.current=true;const revision=aiRevision.current;
-    void (async()=>{try{const session=await fetch('/api/session',{method:'POST',headers:{'x-mercury-client':'portal'}});if(!session.ok)return;if(publicMock)setCloudSessionReady(true);const response=await fetch((publicMock?'/api/cloud-chat?history=1':'/api/hybrid?history=1')+(conversationId.current?'&conversationId='+encodeURIComponent(conversationId.current):''));if(!response.ok)return;const data=await response.json() as {conversationId:string|null;turns:{scope:{bank:string;book:string};run:HybridRun}[]};if(aiRevision.current!==revision||!data.conversationId)return;if(!conversationId.current)conversationId.current=data.conversationId;setMessages(old=>{const known=new Set(old.map(m=>m.hybridRunId));const missing=data.turns.filter(t=>!known.has(t.run.id));return [...missing.flatMap(({scope,run}):Message[]=>[{role:'user',text:run.question,scopeKey:JSON.stringify(scope)},{id:run.id,role:'assistant',source:'DeepSeek',text:run.answer,scopeKey:JSON.stringify(scope),hybridRunId:run.id,hybridRun:run,model:'deepseek-flash'}]),...old.map(item=>{const saved=data.turns.find(t=>t.run.id===item.hybridRunId);return saved?{...item,hybridRun:saved.run}:item;})];});}catch{}})();
+    void (async()=>{try{const session=await fetch('/api/session',{method:'POST',headers:{'x-mercury-client':'portal'}});if(!session.ok)return;if(publicMock)setCloudSessionReady(true);const response=await (publicMock?cloudChatRead:fetch)((publicMock?'/api/cloud-chat?history=1':'/api/hybrid?history=1')+(conversationId.current?'&conversationId='+encodeURIComponent(conversationId.current):''));if(!response.ok)return;const data=await response.json() as {conversationId:string|null;turns:{scope:{bank:string;book:string};run:HybridRun}[]};if(aiRevision.current!==revision||!data.conversationId)return;if(!conversationId.current)conversationId.current=data.conversationId;setMessages(old=>{const known=new Set(old.map(m=>m.hybridRunId));const missing=data.turns.filter(t=>!known.has(t.run.id));return [...missing.flatMap(({scope,run}):Message[]=>[{role:'user',text:run.question,scopeKey:JSON.stringify(scope)},{id:run.id,role:'assistant',source:'DeepSeek',text:run.answer,scopeKey:JSON.stringify(scope),hybridRunId:run.id,hybridRun:run,model:'deepseek-flash'}]),...old.map(item=>{const saved=data.turns.find(t=>t.run.id===item.hybridRunId);return saved?{...item,hybridRun:saved.run}:item;})];});}catch{}})();
   },[ready,publicMock,chatOpen]);
   const hydratedHybridRuns=useRef(new Set<string>());
   useEffect(()=>{
     if((publicMock&&(!chatOpen||!cloudSessionReady))||!ready)return;
     const pending=messages.filter(m=>m.hybridRunId&&!m.hybridRun&&!hydratedHybridRuns.current.has(m.hybridRunId)).slice(-10);
-    for(const message of pending){const id=message.hybridRunId!;hydratedHybridRuns.current.add(id);void fetch((publicMock?'/api/cloud-chat?run=':'/api/hybrid?run=')+encodeURIComponent(id)+'&conversationId='+encodeURIComponent(conversationId.current||(conversationId.current=uuid())),{headers:{'x-mercury-client':'portal'},credentials:'same-origin'}).then(async response=>response.ok?(await response.json()).run:null).then((run:HybridRun|null)=>{if(run)setMessages(items=>items.map(item=>item.hybridRunId===id?{...item,hybridRun:run}:item));}).catch(()=>{});}
+    for(const message of pending){const id=message.hybridRunId!;hydratedHybridRuns.current.add(id);void (publicMock?cloudChatRead:fetch)((publicMock?'/api/cloud-chat?run=':'/api/hybrid?run=')+encodeURIComponent(id)+'&conversationId='+encodeURIComponent(conversationId.current||(conversationId.current=uuid())),{headers:{'x-mercury-client':'portal'},credentials:'same-origin'}).then(async response=>response.ok?(await response.json()).run:null).then((run:HybridRun|null)=>{if(run)setMessages(items=>items.map(item=>item.hybridRunId===id?{...item,hybridRun:run}:item));}).catch(()=>{});}
   },[ready,messages,publicMock,chatOpen,cloudSessionReady]);
   async function sendHybrid(question:string,followupIndex?:number,sourceRunId?:string){
     if(!question.trim()||busy)return;
@@ -749,6 +749,7 @@ export default function WealthPortal() {
       const consume=(line:string)=>{
         if(!line.trim()||!active())return;
         const event=JSON.parse(line) as Partial<HybridRun>&{type:string;text?:string;run?:HybridRun};
+        if(event.type==='error')throw Error(event.error||'Analysis could not complete.');
         if(event.type==='progress'&&!streamedRun?.answer)update(m=>({...m,text:event.text||m.text}));
         if(event.type==='start'&&event.run)streamedRun=event.run;
         if(event.type==='depth'&&streamedRun)streamedRun={...streamedRun,research_depth:event.research_depth};
@@ -987,6 +988,7 @@ export default function WealthPortal() {
   function reset() {
     const oldConversation=conversationId.current;
     cancelRequest();
+    if(oldConversation&&publicMock)clearCloudTurns(oldConversation);
     if(oldConversation&&!publicMock)void fetch('/api/conversation',{method:'POST',headers:{'Content-Type':'application/json','x-mercury-client':'portal'},body:JSON.stringify({action:'reset',conversationId:oldConversation,scope:{household:'hh_okonkwo',bank:scope.bank,book:scope.book}})}).catch(()=>{});
     try {
       localStorage.removeItem(storage);
@@ -2394,7 +2396,7 @@ export default function WealthPortal() {
             <h3>{localize("Account and support")}</h3><button onClick={()=>setModal('profile')}>{localize("Profile")}</button><button onClick={()=>setModal('help')}>{localize("Help & About")}</button><p>{localize("Device management, identity verification and remote sign-out are not connected in this local demo.")}</p>
           </section>)}
           {localize(modal==='profile'&&<section><h2 id="modal-title">{localize("Profile")}</h2><h3>{localize("Okonkwo Family")}</h3><p>{localize("Adaeze Okonkwo")}</p><h3>{localize("Accounts & Books")}</h3>{localize(family.books.map(b=><p key={b.id}>{localize(b.bank)} · {localize(b.name)}</p>))}<p>{localize("Profile editing and identity verification are not available in this demo.")}</p></section>)}
-          {localize(modal==='help'&&<section><h2 id="modal-title">{localize("Help & About")}</h2><h3>{localize("Mercury Wealth")}</h3><p>{localize("This local demonstration uses imported fictional holdings. Valuation dates and illustrative scenarios are labelled separately. No trades or adviser messages are sent.")}</p><details><summary>{localize("How are returns calculated?")}</summary><p>{localize("Market value includes cash flows. Investment growth requires complete valuations and external flows. Missing history is never inferred from a current snapshot.")}</p></details><details><summary>{localize("Are documents signed?")}</summary><p>{localize("Review records are saved locally. Awaiting signature does not mean signed; no signature provider is connected.")}</p></details><p>{localize("Market charts by")}<a href="https://www.tradingview.com/" target="_blank" rel="noreferrer">{localize("TradingView")}</a>{localize("· Lightweight Charts™")}</p><button onClick={()=>setModal('adviser')}>{localize("Contact support")}</button></section>)}
+          {localize(modal==='help'&&<section><h2 id="modal-title">{localize("Help & About")}</h2>{publicMock&&<details><summary>{copy('Cloud chat history','雲端對話紀錄','云端对话记录')}</summary><p>{copy('This browser keeps up to 12 completed answers and chart data (2 MB, seven days). Follow-up context expires after eight hours. Clearing browser data removes the history; it is not synced to other devices.','此瀏覽器最多保存 12 個完整答案及圖表資料（2 MB、七日）。追問內容的驗證期限為八小時。清除瀏覽器資料會移除紀錄，亦不會同步至其他裝置。','此浏览器最多保存 12 个完整答案及图表数据（2 MB、七天）。追问内容的验证期限为八小时。清除浏览器数据会移除记录，也不会同步至其他设备。')}</p></details>}<h3>{localize("Mercury Wealth")}</h3><p>{localize("This local demonstration uses imported fictional holdings. Valuation dates and illustrative scenarios are labelled separately. No trades or adviser messages are sent.")}</p><details><summary>{localize("How are returns calculated?")}</summary><p>{localize("Market value includes cash flows. Investment growth requires complete valuations and external flows. Missing history is never inferred from a current snapshot.")}</p></details><details><summary>{localize("Are documents signed?")}</summary><p>{localize("Review records are saved locally. Awaiting signature does not mean signed; no signature provider is connected.")}</p></details><p>{localize("Market charts by")}<a href="https://www.tradingview.com/" target="_blank" rel="noreferrer">{localize("TradingView")}</a>{localize("· Lightweight Charts™")}</p><button onClick={()=>setModal('adviser')}>{localize("Contact support")}</button></section>)}
           {localize(modal === "reset" && (
             <>
               <Label>{localize("RESET DEMO")}</Label>
