@@ -1,10 +1,16 @@
 # Mercury Wealth v0.4 Rev4
 
-Mobile wealth research demo. DeepSeek Flash understands the request and chooses tools; a separate local Laya model selects supported, evidence-bound UI. There is no model fallback.
+Mobile wealth research demo. On Vercel, DeepSeek Flash understands the request, chooses financial tools and selects validated, evidence-bound UI. Laya is removed from that runtime. The original local hybrid variant still uses Laya for UI selection. Neither variant silently falls back to another model.
 
 This source snapshot includes the mobile app, analysis service, Supabase schema, financial calculations, tests and third-party UI notices. It contains no API credentials, local conversation exports, SQLite databases, model weights or installed dependencies.
 
-## Requirements and setup
+## Vercel mobile chat (no Laya)
+
+The root `Dockerfile.vercel` builds the mobile web app and Python finance tools into one Vercel container. Set the existing **DEEPSEEK_API_KEY** as a private Production secret and redeploy; no separate analysis host is required. See [Vercel direct-chat setup and limits](docs/deployment/vercel-direct.md).
+
+The website uses a fictional committed portfolio. Completed analysis/chart JSON is kept in this browser (12 turns, bounded storage); encrypted follow-up tokens expire after eight hours. There is no cross-device cloud history or private Supabase access in this public demo. The local SQLite and credentials are not uploaded.
+
+## Local hybrid requirements and setup
 
 Use Node 24 and separate Python environments for finance and Laya. Install the reviewed Python versions from the supplied lock files; operating-system wheel availability may differ.
 
@@ -44,9 +50,9 @@ The website root opens the mobile preview; desktop and tablet browsers retain a 
 
 ## Current limits
 
-This is a local demo with a fixed authorized Okonkwo household capability, not production multi-tenant authentication. Before internet deployment, implement production identity, household authorization, persistent server sessions and private storage controls. Do not expose the local analysis service directly.
+The local variant has a fixed authorized Okonkwo household capability. The public Vercel variant uses only its committed fictional snapshot. Before serving real clients, implement production identity, household authorization and private durable storage. Do not expose the local analysis service directly.
 
-A successful Vercel build does not deploy the complete chat runtime. The local app uses port 3009; the public app now uses `/api/cloud-chat` to reach a separately hosted, authenticated analysis service. The Docker configuration, signed visitor sessions, private cloud history and asynchronous job transport are prepared. **A cloud host and runtime secrets still need provisioning**; without them, chat explicitly reports that cloud analysis is not connected. See [cloud deployment instructions](docs/deployment/cloud-analysis.md). This public demo uses the committed fictional holdings snapshot, not a private Supabase connection. The Linux container image still requires a host build check.
+The Vercel runtime uses `/api/cloud-chat` as a synchronous streaming request with a 270-second deadline. Its API key must be configured before live chat works; a build or health check alone does not verify provider access. It keeps the existing calculation packages and does not install Laya/PyTorch. Instance-local concurrency/rate limits are not a global spending cap. The older separate-host/SQLite queue option is documented separately in [cloud-analysis.md](docs/deployment/cloud-analysis.md).
 
 A direct-share shock does not cover all funds, ETFs, bonds or structured products. Unknown indirect exposure is not zero and calculated direct losses are not a proven lower bound on total losses. Whole-portfolio factor stress testing, bond duration/spread shocks and verified FCN/Accumulator valuation models remain unfinished. A one-off scenario loss is not historical volatility. Existing source replies are not rewritten by this export.
 

@@ -420,7 +420,7 @@ export default function WealthPortal() {
       try {
         localStorage.setItem(
           storage,
-          JSON.stringify({ drafts, messages:messages.map(({hybridRun,...message})=>message), dismissed, accepted, currency, geminiModel, conversationId:conversationId.current }),
+          JSON.stringify({ drafts, messages:(publicMock?messages.slice(-24):messages).map(({hybridRun,...message})=>message), dismissed, accepted, currency, geminiModel, conversationId:conversationId.current }),
         );
       } catch {}
     }

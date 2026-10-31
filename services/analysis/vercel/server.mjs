@@ -27,5 +27,15 @@ const server=http.createServer(async(req,res)=>{
  const upstream=http.request({hostname:'127.0.0.1',port:3100,path:req.url,method:req.method,headers:req.headers},r=>{res.writeHead(r.statusCode||502,r.headers);r.pipe(res);});
  upstream.on('error',()=>{if(!res.headersSent)res.writeHead(503,{'Retry-After':'2'});res.end('Mercury is starting. Please refresh shortly.');});req.pipe(upstream);
 });
-server.headersTimeout=15000;server.requestTimeout=300000;server.listen(Number(process.env.PORT||8080),'0.0.0.0');
+// Expose the container port only after Next can answer: the first cold request
+// must not receive a transient 503 while the private web process is starting.
+async function waitForWeb(){
+ for(let attempt=0;attempt<100;attempt++){
+  const ready=await new Promise(resolve=>{const probe=http.request({hostname:'127.0.0.1',port:3100,path:'/',method:'HEAD',timeout:1000},response=>{response.resume();resolve(true);});probe.on('timeout',()=>probe.destroy());probe.on('error',()=>resolve(false));probe.end();});
+  if(ready)return;await new Promise(resolve=>setTimeout(resolve,200));
+ }
+ throw Error('Mobile web process did not become ready.');
+}
+server.headersTimeout=15000;server.requestTimeout=300000;
+await waitForWeb();server.listen(Number(process.env.PORT||8080),'0.0.0.0');
 for(const signal of ['SIGTERM','SIGINT'])process.on(signal,()=>{closeFinance();web.kill();server.close();setTimeout(()=>process.exit(0),1000).unref();});
