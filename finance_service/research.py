@@ -16,7 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 VERSION = 'mercury-research-1.0.0'
 POOL = ThreadPoolExecutor(max_workers=3, thread_name_prefix='market-source')
-CACHE = Path(__file__).resolve().parents[3] / 'work/finance-cache/research.sqlite'
+CACHE = Path(os.environ.get('MERCURY_FINANCE_CACHE_DIR', str(Path(__file__).resolve().parents[1] / '.cache/finance'))) / 'research.sqlite'
 DB_LOCK=threading.Lock()
 SOURCE_LOCK=threading.Lock()
 INITIALIZED=set()

@@ -1,6 +1,6 @@
 // Offline deployment probe: real workers, synthetic prices, no API keys or model-provider calls.
 import {spawnSync} from 'node:child_process';
-import {writeFileSync} from 'node:fs';
+import {writeFileSync,readFileSync} from 'node:fs';
 import {startLaya} from '../services/analysis/laya-client.mjs';
 import {financeCall,closeFinance} from '../services/analysis/finance-client.mjs';
 
@@ -19,7 +19,7 @@ function sample(){
  }catch(error){samplingError=error.code||'ps-unavailable';}
 }
 sample();const timer=setInterval(sample,500),laya=startLaya();
-const report={platform:process.platform,architecture:process.arch,node:process.version,provider_calls:0,fixture:'synthetic offline resource test',checks:{},limits:['Local RSS samples are not a Vercel/Linux memory benchmark.','No cloud build, cold-start, external data fetch or DeepSeek conversation is verified.','Finance tests cover package presence and one FinanceToolkit/QuantStats calculation, not every tool.']};
+const report={platform:process.platform,architecture:process.arch,node:process.version,provider_calls:0,fixture:'synthetic offline resource test',checks:{},limits:['Sampled process-tree RSS can double-count shared pages and miss brief peaks.','No external data fetch or DeepSeek conversation is tested.','Finance tests cover package presence and one FinanceToolkit/QuantStats calculation, not every tool.']};
 let failed=false;
 try{
  const [loaded,finance]=await Promise.all([laya.ready,financeCall('health',{},AbortSignal.timeout(110000))]);
@@ -36,6 +36,11 @@ finally{
  report.elapsed_ms=Math.round(performance.now()-started);
  report.sampled_process_tree_peak_mib=samples?Math.round(peakKiB/1024):null;
  report.memory_samples=samples;if(samplingError)report.sampling_error=samplingError;
+ if(process.platform==='linux'){
+  const bytes=paths=>{for(const path of paths)try{const raw=readFileSync(path,'utf8').trim();if(/^\d+$/.test(raw)){const value=Number(raw);if(value>0&&value<2**50)return value;}}catch{}return null;};
+  const mib=value=>value===null?null:Math.round(value/1024/1024);
+  report.cgroup={peak_mib:mib(bytes(['/sys/fs/cgroup/memory.peak','/sys/fs/cgroup/memory/memory.max_usage_in_bytes'])),current_mib:mib(bytes(['/sys/fs/cgroup/memory.current','/sys/fs/cgroup/memory/memory.usage_in_bytes'])),limit_mib:mib(bytes(['/sys/fs/cgroup/memory.max','/sys/fs/cgroup/memory/memory.limit_in_bytes'])),scope:'Runtime cgroup when exposed; may include processes outside the sampled tree.'};
+ }
  report.status=failed?'failed':'passed';
  if(process.argv[2])writeFileSync(process.argv[2],JSON.stringify(report,null,2)+'\n',{mode:0o600});
  console.log(JSON.stringify(report));if(failed)process.exitCode=1;
