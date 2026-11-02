@@ -721,7 +721,7 @@ export default function WealthPortal() {
   const [cloudSessionReady,setCloudSessionReady]=useState(false);
   useEffect(()=>{
     if((publicMock&&!chatOpen)||!ready||sqliteRestored.current)return;sqliteRestored.current=true;const revision=aiRevision.current;
-    void (async()=>{try{const session=await fetch('/api/session',{method:'POST',headers:{'x-mercury-client':'portal'}});if(!session.ok)return;if(publicMock)setCloudSessionReady(true);const response=await (publicMock?cloudChatRead:fetch)((publicMock?'/api/cloud-chat?history=1':'/api/hybrid?history=1')+(conversationId.current?'&conversationId='+encodeURIComponent(conversationId.current):''));if(!response.ok)return;const data=await response.json() as {conversationId:string|null;turns:{scope:{bank:string;book:string};run:HybridRun}[]};if(aiRevision.current!==revision||!data.conversationId)return;if(!conversationId.current)conversationId.current=data.conversationId;setMessages(old=>{const known=new Set(old.map(m=>m.hybridRunId));const missing=data.turns.filter(t=>!known.has(t.run.id));return [...missing.flatMap(({scope,run}):Message[]=>[{role:'user',text:run.question,scopeKey:JSON.stringify(scope)},{id:run.id,role:'assistant',source:'DeepSeek',text:run.answer,scopeKey:JSON.stringify(scope),hybridRunId:run.id,hybridRun:run,model:'deepseek-flash'}]),...old.map(item=>{const saved=data.turns.find(t=>t.run.id===item.hybridRunId);return saved?{...item,hybridRun:saved.run}:item;})];});}catch{}})();
+    void (async()=>{try{if(publicMock)setCloudSessionReady(true);else{const session=await fetch('/api/session',{method:'POST',headers:{'x-mercury-client':'portal'}});if(!session.ok)return;}const response=await (publicMock?cloudChatRead:fetch)((publicMock?'/api/cloud-chat?history=1':'/api/hybrid?history=1')+(conversationId.current?'&conversationId='+encodeURIComponent(conversationId.current):''));if(!response.ok)return;const data=await response.json() as {conversationId:string|null;turns:{scope:{bank:string;book:string};run:HybridRun}[]};if(aiRevision.current!==revision||!data.conversationId)return;if(!conversationId.current)conversationId.current=data.conversationId;setMessages(old=>{const known=new Set(old.map(m=>m.hybridRunId));const missing=data.turns.filter(t=>!known.has(t.run.id));return [...missing.flatMap(({scope,run}):Message[]=>[{role:'user',text:run.question,scopeKey:JSON.stringify(scope)},{id:run.id,role:'assistant',source:'DeepSeek',text:run.answer,scopeKey:JSON.stringify(scope),hybridRunId:run.id,hybridRun:run,model:'deepseek-flash'}]),...old.map(item=>{const saved=data.turns.find(t=>t.run.id===item.hybridRunId);return saved?{...item,hybridRun:saved.run}:item;})];});}catch{}})();
   },[ready,publicMock,chatOpen]);
   const hydratedHybridRuns=useRef(new Set<string>());
   useEffect(()=>{
@@ -729,7 +729,7 @@ export default function WealthPortal() {
     const pending=messages.filter(m=>m.hybridRunId&&!m.hybridRun&&!hydratedHybridRuns.current.has(m.hybridRunId)).slice(-10);
     for(const message of pending){const id=message.hybridRunId!;hydratedHybridRuns.current.add(id);void (publicMock?cloudChatRead:fetch)((publicMock?'/api/cloud-chat?run=':'/api/hybrid?run=')+encodeURIComponent(id)+'&conversationId='+encodeURIComponent(conversationId.current||(conversationId.current=uuid())),{headers:{'x-mercury-client':'portal'},credentials:'same-origin'}).then(async response=>response.ok?(await response.json()).run:null).then((run:HybridRun|null)=>{if(run)setMessages(items=>items.map(item=>item.hybridRunId===id?{...item,hybridRun:run}:item));}).catch(()=>{});}
   },[ready,messages,publicMock,chatOpen,cloudSessionReady]);
-  async function sendHybrid(question:string,followupIndex?:number,sourceRunId?:string){
+  async function sendHybrid(question:string,followupIndex?:number,sourceRunId?:string,followupValue?:number){
     if(!question.trim()||busy)return;
     const clean=question.trim().slice(0,2500),requestScope=JSON.stringify(scope),previousId=sourceRunId||[...messages].reverse().find(m=>m.scopeKey===requestScope&&m.hybridRunId)?.hybridRunId;
     setInput('');setBusy(true);setMessages(items=>[...items,{role:'user',text:clean,scopeKey:requestScope}]);
@@ -740,7 +740,7 @@ export default function WealthPortal() {
     try{
       const session=await fetch('/api/session',{method:'POST',headers:{'x-mercury-client':'portal'},credentials:'same-origin',signal:controller.signal});
       if(!session.ok){const failure=await session.json().catch(()=>({}));throw Error(publicMock?copy('Cloud analysis is not connected yet.','雲端分析服務尚未接駁。','云端分析服务尚未接通。'):failure.error||'Could not start the Mercury session.');}
-      const payload={conversationId:conversationId.current||(conversationId.current=uuid()),question:clean,previousId,followupIndex,language,scope};
+      const payload={conversationId:conversationId.current||(conversationId.current=uuid()),question:clean,previousId,followupIndex,followupValue,language,scope};
       const response=publicMock?await cloudChatResponse(payload,controller.signal):await fetch('/api/hybrid',{method:'POST',headers:{'Content-Type':'application/json','x-mercury-client':'portal'},credentials:'same-origin',signal:controller.signal,body:JSON.stringify(payload)});
       if(!response.ok){const error=await response.json().catch(()=>({}));throw Error(typeof error.error==='string'?error.error:'Conversation service unavailable.');}
       if(!response.body)throw Error('Conversation service returned no response.');
@@ -1941,7 +1941,7 @@ export default function WealthPortal() {
                 key={i}
               >
                 {m.role === "assistant" && <div className="mercury-reply-label"><i aria-hidden="true"/><span>Mercury</span></div>}
-                {m.hybridRun&&<HybridChatResult run={m.hybridRun} language={language} disabled={busy||!messageInScope(m)} onAsk={(question,index)=>{if(messageInScope(m))void sendHybrid(question,index,m.hybridRunId);}}/>}
+                {m.hybridRun&&<HybridChatResult run={m.hybridRun} language={language} disabled={busy||!messageInScope(m)} onAsk={(question,index,value)=>{if(messageInScope(m))void sendHybrid(question,index,m.hybridRunId,value);}}/>}
                 {localize(m.role==="assistant"&&(m.analysis||m.stockAnalysis||m.researchAnalysis||m.portfolioImpact||m.wealthScenario||m.inputRequest)&&!messageInScope(m)&&<p className="chart-caption" role="status">{localize("Saved result from another or unrecorded scope. Switch back or start a new analysis to use its actions.")}</p>)}
                 {localize(m.wealthScenario && <WealthScenarioCard scenario={m.wealthScenario}/>)}
                 {localize(m.portfolioImpact && <PortfolioImpactCard impact={m.portfolioImpact}/>)}
