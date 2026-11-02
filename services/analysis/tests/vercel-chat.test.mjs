@@ -44,3 +44,13 @@ test('one running analysis rejects concurrent work and releases slot on cancella
  assert.equal((await app.handle(req('/api/cloud-chat',body,cookie))).status,429);
  await response.body.cancel();
 });
+test('prefilled action authenticates saved template and bounded input before research',async()=>{
+ let received;
+ const research=async args=>{received=args;return {id:randomUUID(),question:args.question,answer:'calculated',portfolio_scope:args.portfolioScope,status:'completed',followups:[{question:'Cash {value}%',input:{min:0,max:100,value:10}}]};};
+ const make=()=>createVercelChat({key:secret,research,origins:[origin]});const app=make(),cookie=(await app.handle(req('/api/session',{}))).headers.get('set-cookie').split(';')[0];
+ const first=JSON.parse((await(await app.handle(req('/api/cloud-chat',body,cookie))).text()).trim());
+ const payload={...body,question:'Cash 15%',previousId:first.run.id,continuation:first.continuation,followupIndex:0,followupValue:15};
+ assert.equal((await make().handle(req('/api/cloud-chat',{...payload,question:'Cash 80%'},cookie))).status,400);
+ assert.equal((await make().handle(req('/api/cloud-chat',{...payload,followupValue:101},cookie))).status,400);
+ const response=await make().handle(req('/api/cloud-chat',payload,cookie));await response.text();assert.equal(received.selectedFollowup.question,'Cash 15%');
+});

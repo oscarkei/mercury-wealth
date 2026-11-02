@@ -43,3 +43,7 @@ Keep skills cached by library version/content hash. Provider prompt caching redu
 ## Acceptance evidence
 
 Verify a long mixed-topic conversation, page refresh, server restart, model switch, failed tool call, changed benchmark, changed snapshot, explicit reset and scope switch. Log request/result IDs and versions rather than relying on a fluent-looking reply. The preserved facts and invalidated caches must be visible in the trace.
+
+## v0.5 alpha implementation boundary
+
+This cloud alpha does not migrate the databases described above. Confirmed task conditions, result IDs and revisions travel in the existing encrypted, owner/conversation/scope-bound continuation token. The local preview uses an isolated browser key (`mercury-v05-cloud-turns-v1`), 12 turns, seven days, 2 MB. The token expires after eight hours. Production SQLite and Supabase are not rewritten. Public demo holdings remain a labelled committed snapshot, not a new live bank connection. Refresh restores stored JSON; images are not stored.

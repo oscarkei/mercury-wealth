@@ -41,7 +41,7 @@ export async function cloudChatResponse(payload:unknown,signal:AbortSignal):Prom
 }
 
 // JSON only, 12 completed turns and 2 MB per browser; no images or provider credentials.
-const HISTORY_KEY='mercury-cloud-turns-v1';
+const HISTORY_KEY='mercury-v05-cloud-turns-v1';
 type CloudTurn={conversationId:string;scope:{bank:string;book:string};run:HybridRun;continuation?:string|null;at:number};
 let volatileTurns:CloudTurn[]|null=null;
 export function readCloudTurns():CloudTurn[]{
@@ -56,9 +56,8 @@ function saveCloudTurn(turn:CloudTurn){
  volatileTurns=saved;try{localStorage.setItem(HISTORY_KEY,JSON.stringify(saved));}catch{/* Browsing restrictions: current-tab history still works. */}
 }
 export function clearCloudTurns(conversationId:string){volatileTurns=readCloudTurns().filter(t=>t.conversationId!==conversationId);try{localStorage.setItem(HISTORY_KEY,JSON.stringify(volatileTurns));}catch{}}
-export async function cloudChatRead(path:string,init:RequestInit={}):Promise<Response>{
- const response=await fetch(path,init);if(!response.ok)return response;
- const data=await response.clone().json();if(data.mode!=='vercel-direct')return response;
+export async function cloudChatRead(path:string,_init:RequestInit={}):Promise<Response>{
+ // Saved public-demo results are local JSON: viewing them needs no model/session connection.
  const q=new URL(path,window.location.origin).searchParams,cid=q.get('conversationId'),id=q.get('run'),all=readCloudTurns();
  const conversationId=cid||all.at(-1)?.conversationId||null,turns=all.filter(t=>t.conversationId===conversationId);
  if(id){const turn=turns.find(t=>t.run.id===id);return Response.json(turn?{run:turn.run}:{error:'Saved result unavailable.'},{status:turn?200:404});}

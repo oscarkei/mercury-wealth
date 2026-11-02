@@ -16,7 +16,7 @@ test('direct stream persists only completed JSON and sends sealed context for fo
 test('browser history is capped and restores rich result for the matching conversation',async()=>{
  for(let i=2;i<16;i++){globalThis.fetch=async()=>new Response(JSON.stringify(event('r'+i))+'\n',{headers:{'Content-Type':'application/x-ndjson'}});await (await cloudChatResponse(payload,new AbortController().signal)).text();}
  assert.equal(readCloudTurns().length,12);
- globalThis.fetch=async()=>Response.json({mode:'vercel-direct'});
+ globalThis.fetch=async()=>{throw Error('Offline: saved results must not require a connection');};
  const restored=await (await cloudChatRead('/api/cloud-chat?run=r15&conversationId=c1')).json();assert.equal(restored.run.id,'r15');
  assert.equal((await cloudChatRead('/api/cloud-chat?run=r15&conversationId=c2')).status,404);
  clearCloudTurns('c1');assert.equal(readCloudTurns().length,0);

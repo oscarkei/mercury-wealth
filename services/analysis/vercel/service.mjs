@@ -1,8 +1,9 @@
+import {resolveFollowup} from '../followup-actions.mjs';
 import {z} from 'zod';
 import {createSessions} from './session.mjs';
 import {capability} from '../portfolio-bridge.mjs';
 import {publicPortfolio} from '../cloud/portfolio.mjs';
-const input=z.object({conversationId:z.string().uuid(),question:z.string().trim().min(1).max(2500),previousId:z.string().uuid().optional(),continuation:z.string().max(260000).optional(),followupIndex:z.number().int().min(0).max(1).optional(),language:z.enum(['en','zh-Hant','zh-Hans']),scope:z.object({bank:z.string().max(80),book:z.string().max(100)}).strict()}).strict();
+const input=z.object({conversationId:z.string().uuid(),question:z.string().trim().min(1).max(2500),previousId:z.string().uuid().optional(),continuation:z.string().max(260000).optional(),followupValue:z.number().min(-80).max(100).optional(),followupIndex:z.number().int().min(0).max(1).optional(),language:z.enum(['en','zh-Hant','zh-Hans']),scope:z.object({bank:z.string().max(80),book:z.string().max(100)}).strict()}).strict();
 const json=(status,body,headers={})=>Response.json(body,{status,headers:{'Cache-Control':'no-store',...headers}});
 export function createVercelChat({key,secret=key,research,origins,timeoutMs=270000,now=Date.now}){
  const sessions=key?createSessions(secret,now):null;
@@ -19,7 +20,7 @@ export function createVercelChat({key,secret=key,research,origins,timeoutMs=2700
   let body;try{const text=await request.text();if(Buffer.byteLength(text)>280000)throw Error();body=input.parse(JSON.parse(text));}catch{return json(400,{error:'Invalid question or context.'});}
   const scope=capability(owner,body.scope.book,body.scope.bank);try{publicPortfolio(scope);}catch{return json(403,{error:'Only the selected public demo portfolio is available.'});}
   let previous;try{if(body.previousId)previous=sessions.open(body.continuation,owner,body.conversationId,scope,body.previousId);else if(body.continuation)throw Error();}catch{return json(409,{error:'Saved context expired or is unavailable. Start a new conversation to continue.'});}
-  const selectedFollowup=body.followupIndex===undefined?undefined:previous?.followups?.[body.followupIndex];
+  let selectedFollowup;try{if(body.followupIndex!==undefined)selectedFollowup=resolveFollowup(previous?.followups?.[body.followupIndex],body.followupValue);else if(body.followupValue!==undefined)throw Error();}catch{return json(400,{error:'Invalid follow-up input.'});}
   if(body.followupIndex!==undefined&&(!selectedFollowup||selectedFollowup.question!==body.question))return json(400,{error:'Follow-up does not match the saved answer.'});
   for(const [id,item] of counts)if(item.until<=now())counts.delete(id);
   const count=counts.get(owner)||{n:0,until:now()+3600000};
