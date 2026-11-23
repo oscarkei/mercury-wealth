@@ -1,6 +1,7 @@
 import {allocationCash,transitionTask,guardTaskTool,finishTask,taskInstructions} from './task-state.mjs';
 import {selectPresentation} from './presentation-selector.mjs';
 import {activeResults,activeSources,selectContext,contextIssues,checkedFollowups} from './conversation-policy.mjs';
+import {calculationSummary} from './evidence-review.mjs';
 import {auditAnswer,materializeAnswer} from './numeric-evidence.mjs';
 import {randomUUID} from 'node:crypto';
 import {MODEL,tools,schemas,evidenceInstructions,coreInstructions,professionalInstructions,hybridInstructions,numericInstructions} from './catalog.mjs';
@@ -75,7 +76,21 @@ export async function research({question,language='zh-Hant',owner,previous,key,p
     continue;
    }
    let answer=String(message.content||'').trim();if(!answer)throw Error('Model returned no final answer.');
-   const audit=auditAnswer(answer,run);const selectionIssues=contextIssues(answer,run);audit.issues.push(...selectionIssues);if(selectionIssues.length)audit.passed=false;if(/DSML|<tool_call|<function_call|<invoke[\s>]/i.test(answer)){audit.passed=false;audit.issues.push({code:'tool_protocol_in_answer',message:'Tool protocol leaked into final text. Return ordinary client-facing Markdown using evidence already available, with citations. No XML, DSML, tool syntax or additional calls.'});}if(repairNext&&numericRepairs>0&&/修正後的?.{0,10}段落|其餘內容.{0,10}不變|不影響前文|上述修正|only the corrected paragraph|rest remains unchanged/i.test(answer)){audit.passed=false;audit.issues.push({code:'incomplete_repair',message:'Return the COMPLETE final research answer. A correction note or replacement paragraph cannot stand alone.'});}run.validation.attempts.push({round,audit,raw_answer:answer});
+   let audit=auditAnswer(answer,run);const selectionIssues=contextIssues(answer,run);audit.issues.push(...selectionIssues);if(selectionIssues.length)audit.passed=false;if(/DSML|<tool_call|<function_call|<invoke[\s>]/i.test(answer)){audit.passed=false;audit.issues.push({code:'tool_protocol_in_answer',message:'Tool protocol leaked into final text. Return ordinary client-facing Markdown using evidence already available, with citations. No XML, DSML, tool syntax or additional calls.'});}if(repairNext&&numericRepairs>0&&/修正後的?.{0,10}段落|其餘內容.{0,10}不變|不影響前文|上述修正|only the corrected paragraph|rest remains unchanged/i.test(answer)){audit.passed=false;audit.issues.push({code:'incomplete_repair',message:'Return the COMPLETE final research answer. A correction note or replacement paragraph cannot stand alone.'});}run.validation.attempts.push({round,audit,raw_answer:answer});
+   if (analysisFirst && !audit.passed && numericRepairs > 0) {
+    const summary = calculationSummary(run, audit.issues);
+    if (summary) {
+     const checked = auditAnswer(summary, run);
+     checked.issues.push(...contextIssues(summary, run));
+     checked.passed = checked.issues.length === 0;
+     run.validation.attempts.push({round, kind:'calculation_facts', audit:checked, raw_answer:summary});
+     if (checked.passed) {
+      answer = summary;
+      audit = checked;
+      run.validation.published_from = 'calculation_facts';
+     }
+    }
+   }
    if(!audit.passed){
     if(numericRepairs<2&&round<10){numericRepairs++;repairNext=true;emit('progress',{text:languageText('Checking values, units and dates…','正在核對數值、單位及比較日期…','正在核对数值、单位及比较日期…')});messages.push({role:'system',content:'Selected response language: '+(language==='en'?'English':language==='zh-Hans'?'简体中文':'繁體中文（不是简体中文）')+'. Keep this language throughout the complete replacement answer. FINAL EVIDENCE CHECK FAILED. Return the COMPLETE, self-contained final research, preserving all supported sections. Do not output a correction note, a diff, a replacement paragraph, references to an earlier draft, or commentary about the checking system. Repair the identified issues using returned {{F#}} facts and their exact context. Do not swap to an unrelated measure, delta or period just to pass; correct the source citation if the intended number belongs to another source. Omit the unsupported claim if necessary. Preserve professional tone. No new tools in this repair. Issues: '+JSON.stringify(audit.issues)+'. Available facts: '+JSON.stringify(run.facts.filter(f=>activeResults(run).some(r=>r.id===f.result_id)||(!f.result_id&&activeSources(run).some(s=>s.id===f.source_id))))});continue;}
     run.validation.status='blocked';run.status='partial';run.warnings.push('數值或日期核對未通過；未發布該研究草稿。');run.answer='部分數值或日期未能通過核對，本次研究暫未提供結論。請查看已取得的資料來源或重新嘗試。';run.components=[];break;

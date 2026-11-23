@@ -66,3 +66,40 @@ export function evidenceIssues(answer,run){
  if(contradictsLockedWeight(answer,run))issues.push({code:'locked_weight_change',message:'A locked position keeps its value and percentage of the unchanged total. Distinguish a share within its category from a whole-portfolio weight. Use the calculated rows.'});
  return issues;
 }
+
+const correlationErrors = new Set([
+ 'unbound_sample_correlation', 'rewritten_correlation', 'unsupported_high_sample_correlation',
+ 'correlation_extrapolation', 'confused_diversification_baseline'
+]);
+
+// If only the interpretation failed, the accepted tool results still answer the question.
+export function calculationSummary(run, issues) {
+ if (!issues.length || !issues.every(issue => correlationErrors.has(issue.code))) return '';
+ const fresh = run.results.slice(run.result_start_index || 0)
+  .filter(result => result.kind === 'performance' || result.kind === 'allocation');
+ const sections = [];
+ for (const result of fresh) {
+  if (result.scope_key && result.scope_key !== run.portfolio_scope?.key) return '';
+  const facts = run.facts.filter(fact => fact.result_id === result.id);
+  const corr = facts.find(fact => fact.measure === 'pairwise_daily_correlation');
+  if (!corr) return '';
+  let key = 'summary';
+  let lead = result.title;
+  if (result.kind === 'performance') {
+   const rows = result.data.rows.filter(row => Number.isFinite(row.volatility_pct));
+   if (!rows.length) return '';
+   key = rows.reduce((highest, row) => row.volatility_pct > highest.volatility_pct ? row : highest).symbol;
+   lead = run.language === 'en' ? 'Highest annualized volatility in the sample' :
+    run.language === 'zh-Hans' ? '样本内年化波动最高' : '樣本內年化波動最高';
+  }
+  const primary = facts.find(fact => fact.key === result.id + ':' + key);
+  if (!primary) return '';
+  sections.push(lead + ' — {{' + primary.id + '}}。\n\n{{' + corr.id + '}}。');
+ }
+ if (!sections.length) return '';
+ if (fresh.every(result => result.data.data_mode === 'demo')) {
+  sections.push(run.language === 'en' ? 'These calculations use generated sample prices.' :
+   run.language === 'zh-Hans' ? '以上计算采用示范日线。' : '以上計算採用示範日線。');
+ }
+ return sections.join('\n\n');
+}

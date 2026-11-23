@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {demoHistory} from '../demo-history.mjs';
 import {blockProxyForHeldContext} from '../held-rebalance.mjs';
-import {evidenceIssues} from '../evidence-review.mjs';
+import {calculationSummary,evidenceIssues} from '../evidence-review.mjs';
 import {guardTaskTool} from '../task-state.mjs';
 
 const scope = 'household:book';
@@ -54,4 +54,19 @@ test('distinguish the diversification benefit from incremental optimizer gains',
  const run={results:[{id:'R1',kind:'allocation',data:{pairwise_daily_correlation:{min:-.077,max:.095}}}]};
  assert.ok(evidenceIssues('每日回報相關性極低，這表示模型可分散的空間本就有限。',run).some(i=>i.code==='confused_diversification_baseline'));
  assert.deepEqual(evidenceIssues('等權配置已有分散效果；改用最低波動配置後的額外改善有限。',run),[]);
+});
+
+test('publish only fresh, scoped calculation facts when the correlation interpretation fails', () => {
+ const issues=[{code:'correlation_extrapolation'}];
+ const scope_key='household:book';
+ const run={portfolio_scope:{key:scope_key},language:'zh-Hant',result_start_index:1,
+  results:[{id:'R1',kind:'allocation'}, {id:'R2',kind:'allocation',scope_key,title:'最低波動配置',data:{data_mode:'demo'}}],
+  facts:[{id:'F2',key:'R2:summary',result_id:'R2'}, {id:'F3',measure:'pairwise_daily_correlation',result_id:'R2'}]};
+ const answer=calculationSummary(run,issues);
+ assert.match(answer,/最低波動配置.*\{\{F2\}\}/);
+ assert.match(answer,/\{\{F3\}\}/);
+ assert.match(answer,/示範日線/);
+ assert.equal(calculationSummary(run,[...issues,{code:'unknown_reference'}]),'');
+ assert.equal(calculationSummary({...run,result_start_index:2},issues),'');
+ assert.equal(calculationSummary({...run,portfolio_scope:{key:'other'}},issues),'');
 });
