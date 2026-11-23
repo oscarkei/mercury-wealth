@@ -1,4 +1,4 @@
-import {transitionTask,guardTaskTool,finishTask,taskInstructions} from './task-state.mjs';
+import {allocationCash,transitionTask,guardTaskTool,finishTask,taskInstructions} from './task-state.mjs';
 import {selectPresentation} from './presentation-selector.mjs';
 import {activeResults,activeSources,selectContext,contextIssues,checkedFollowups} from './conversation-policy.mjs';
 import {auditAnswer,materializeAnswer} from './numeric-evidence.mjs';
@@ -49,6 +49,7 @@ export async function research({question,language='zh-Hant',owner,previous,key,p
      if(name==='select_research_depth')return {call,result:plans.get(call.id)};
      try{args=JSON.parse(call.function?.arguments||'{}');}catch{return{call,result:{error:'Invalid JSON arguments. Return valid arguments for the supported tool.'}};}
      if(name==='suggest_followups'){try{const parsed=schemas.suggest_followups.parse(args);run.followups=checkedFollowups(parsed.items,run).filter(x=>!run.used_followups.includes(x.question));return {call,result:{accepted:run.followups}};}catch(e){return {call,result:{error:e.message}};}}
+     if(analysisFirst && run.task_state && name==='optimize_allocation')args={...args,cash_pct:allocationCash(run.task_state).pct};
      const record={name,arguments:args,round,started_at:new Date().toISOString(),status:'running'};run.trace.push(record);emit('tool_start',{name,arguments:args,round});
      const signature=name+JSON.stringify(args),ts=Date.now();let result;
      try{

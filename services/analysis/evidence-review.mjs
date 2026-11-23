@@ -26,16 +26,36 @@ export function evidenceIssues(answer,run){
   if(/(?:屬|全部|均為|：|:)\s*預測|forecasts? only/i.test(heading+line)&&used.some(f=>f.data_status?.startsWith('historical'))&&!/歷史|觀察|實際|historical|observed/i.test(line))issues.push({code:'observation_as_forecast',message:'A bound historical observation is presented as a forecast. Label each datum separately and separate historical data from forecast targets/vintages. '+line});
   if(/(?:第四季|第四季度|Q4|餘下|剩餘).{0,45}(?:必須|必然|一定|勢必|must)/i.test(clean)&&/(?:年|全年|年度).{0,25}(?:預測|目標)|預測.{0,25}(?:全年|年度)/.test(answer)&&!/不能|不可|不足以|無法|未能/.test(clean))issues.push({code:'unsupported_annual_bridge',message:'Do not infer the remaining quarter MUST accelerate from a weekly/annual comparison. A valid bridge requires comparable year-to-date actuals, day weighting and the same vintage; otherwise state a conditional scenario without necessity. '+line});
  }
- const allocations = activeResults({...run,results:run.results || []}).filter(r=>r.kind==='allocation');
+ const allocations = activeResults({...run,results:run.results || []}).filter(r=>['allocation','performance'].includes(r.kind));
+ const measured = allocations.filter(r=>r.data?.pairwise_daily_correlation);
+ const eligibleFacts = new Set((run.facts || []).filter(f=>f.measure==='pairwise_daily_correlation' && measured.some(r=>r.id===f.result_id)).map(f=>f.id));
+ if(eligibleFacts.size){
+  for(const sentence of answer.split(/[。！？\n]|(?<=\.)\s+/)){
+   if(!/相關(?:性|係數)|相关(?:性|系数)|correlat(?:ion|ed)/i.test(sentence))continue;
+   if(!/(?:偏高|偏低|較高|较高|很高|很低|接近|極弱|极弱|微弱|不高|不強|不强|平均|範圍|范围|係數為|系数为|[+-]?\d*\.\d+|high|strong|weak|near.zero|low|mean)/i.test(sentence.replace(/\{\{F\d+\}\}/g,'')))continue;
+   const bound=[...sentence.matchAll(/\{\{(F\d+)\}\}/g)].some(m=>eligibleFacts.has(m[1]));
+   if(!bound)issues.push({code:'unbound_sample_correlation',message:'Use a returned pairwise daily correlation fact token in this same sentence or omit the sample correlation claim.'});
+   if(/(?:相關係數|相关系数|correlation|平均|範圍|范围|mean|range)\s*(?:約為|约为|為|为|約|约|係|is|of|was|=|:|：)?\s*[-+−]?\d*\.\d+/i.test(sentence))issues.push({code:'rewritten_correlation',message:'Remove manually written correlation coefficients; use the bound correlation fact only.'});
+  }
+ }
  if(allocations.length && allocations.every(r=>{
   const corr=r.data?.pairwise_daily_correlation;
   return corr && Math.max(Math.abs(corr.min),Math.abs(corr.max)) < 0.1;
  })){
   const clauses=answer.split(/[。；;，,\n]/);
   const claimsHigh=clauses.some(c=>
-   /相關性(?:偏高|很高|較高|高企)|相关性(?:偏高|很高|较高)|高度(?:正)?相[關关]|highly correlated|(?:strong|high) (?:positive )?correlations?/i.test(c) &&
+   /相[關关]性(?:偏高|很高|[較较]高|高企|高|很[強强]|偏[強强])|高度(?:正)?相[關关]|highly correlated|(?:strong|high) (?:positive )?correlations?/i.test(c) &&
    !/不代表|並非|并非|未見|未见|未能|並無|不支持|not |no evidence|cannot infer/i.test(c));
   if(claimsHigh)issues.push({code:'unsupported_high_sample_correlation',message:'Every measured pair of daily returns in the selected sample has absolute correlation below 0.1. Use the computed correlation fact or omit the claim. Keep sector concentration separate from sample correlation.'});
+ }
+ if(measured.length && measured.every(r=>r.data.data_mode==='demo')){
+  for(const clause of answer.split(/[。；;，,\n]/)){
+   const correlationMention=/相[關关]|correlat|independen|獨立|独立/i.test(clause);
+   if(!correlationMention || /(?:不能|不可|未能|無法|无法|不足以|不等於|不等于|cannot|does not imply|not evidence)/i.test(clause))continue;
+   const assertedRealHigh=/(?:實際|实际|真實|真实|現實|现实|real[- ](?:world|market)|actual).{0,40}(?:高相[關关]|相[關关].{0,6}(?:偏高|較高|较高|性高)|high(?:ly)? correlat)/i.test(clause);
+   const assertsIndependence=/(?:彼此|互相|統計上|统计上|相互|mutually|statistically)\s*(?:獨立|独立|independent)/i.test(clause);
+   if(assertedRealHigh || assertsIndependence)issues.push({code:'correlation_extrapolation',message:'Use only measured pairwise daily sample correlations. Generated prices cannot establish real-market correlation, and near-zero correlation does not establish independence. Remove that inference; simply give the observed sample range or its limitation.'});
+  }
  }
  if(contradictsLockedWeight(answer,run))issues.push({code:'locked_weight_change',message:'A locked position keeps its value and percentage of the unchanged total. Distinguish a share within its category from a whole-portfolio weight. Use the calculated rows.'});
  return issues;

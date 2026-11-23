@@ -1,3 +1,4 @@
+import {allocationCash} from './task-state.mjs';
 import {demoHistory, DEMO_PRICE_URL} from './demo-history.mjs';
 import {activeResults} from './conversation-policy.mjs';
 import {financeCall} from './finance-client.mjs';
@@ -57,7 +58,8 @@ export function parseOutlook(html,asof){
  if(!rows.some(r=>/dry natural gas production/.test(r.measure))||!rows.some(r=>/LNG exports/.test(r.measure)))throw Error('Required EIA outlook measures missing.');return {release_date,forecast_vintage,rows,content:stripHtml(main[1]).slice(0,12000),classification_source:'EIA original table Forecast cell classes checked against projected column headers. Historical baselines can still be revised.'};
 }
 export async function executeExtended(name,raw,run,options={}){
- const args=extendedSchemas[name].parse(raw),opts={signal:options.signal,fetcher:options.fetcher||fetch};
+ const cash = name==='optimize_allocation' && run.task_state ? allocationCash(run.task_state) : null;
+ const args=extendedSchemas[name].parse(cash ? {...raw,cash_pct:cash.pct} : raw),opts={signal:options.signal,fetcher:options.fetcher||fetch};
  if(name==='get_eia_outlook'){
   const url='https://www.eia.gov/outlooks/steo/report/natgas.php',html=await publicData(url,{...opts,format:'text',ttl:3600000}),data=parseOutlook(html,run.date);const s=addSource(run,{url,title:'EIA STEO 天然氣展望',publisher:'EIA',coverage:'official_mixed_history_forecast',published_at:data.release_date,content:data.content});const r=result(run,{kind:'outlook',title:'EIA 天然氣 · 歷史與預測',source_id:s.id,data});
   const labels={'U.S. dry natural gas production':'美國乾氣產量','U.S. natural gas consumption':'美國天然氣消費','U.S. LNG exports':'美國 LNG 出口','Natural gas price at Henry Hub':'Henry Hub 年均價格','Natural gas share of electricity generation':'天然氣發電佔比'};
@@ -88,17 +90,19 @@ export async function executeExtended(name,raw,run,options={}){
   }
   const s=origin?run.sources.find(s=>s.id===origin.source_id):addSource(run,{url:'https://pmorissette.github.io/bt/',title:'bt · local explicitly labelled mock price fixture',publisher:'Local demo / bt + QuantStats',coverage:'model_simulation',published_at:null});
   const demo=origin?.data.data_mode==='demo';
+  if(cash)data.cash_source=cash.source;
   if(demo){title+=' · 示範';data.data_mode='demo';}
   const r=result(run,{kind,title,scope_key:origin?.scope_key,source_id:s.id,data,parent_id:origin?.id,classification:demo?'generated_demo_prices':origin?'hypothetical_model_on_observed_prices':'explicit_mock_simulation'});const numeric_facts=[];
+  const correlation=data.pairwise_daily_correlation;
+  if(correlation)numeric_facts.push(fact(run,r,'correlation',`樣本內每日回報兩兩相關係數：平均 ${num(correlation.mean,3)}，範圍 ${num(correlation.min,3)} 至 ${num(correlation.max,3)}`,{measure:'pairwise_daily_correlation'}));
   if(kind==='allocation'){
-   const correlation=data.pairwise_daily_correlation;
-   if(correlation)numeric_facts.push(fact(run,r,'correlation',`樣本內每日回報兩兩相關係數：平均 ${num(correlation.mean,3)}，範圍 ${num(correlation.min,3)} 至 ${num(correlation.max,3)}`));
+   const cashLabel=cash?.source==='assumption'?'試算假設：現金':cash?.source==='user'?'按你指定的現金比例':'模型現金';
    for(const row of data.rows)numeric_facts.push(fact(run,r,row.symbol,`${row.symbol}：等權參考 ${num(row.reference_pct)}% → 模型權重 ${num(row.target_pct)}%；波動風險貢獻 ${num(row.risk_contribution_pct)}%`));
-   numeric_facts.push(fact(run,r,'summary',`模型現金 ${num(data.cash_pct)}%；樣本內年化波動 ${num(data.reference_volatility_pct)}% → ${num(data.target_volatility_pct)}%；估算成本 USD ${num(data.estimated_cost)}（${data.first_date} 至 ${data.last_date}）`));
+   numeric_facts.push(fact(run,r,'summary',`${cashLabel} ${num(data.cash_pct)}%；樣本內年化波動 ${num(data.reference_volatility_pct)}% → ${num(data.target_volatility_pct)}%；估算成本 USD ${num(data.estimated_cost)}（${data.first_date} 至 ${data.last_date}）`));
   } else if(kind==='performance')for(const row of data.rows)numeric_facts.push(fact(run,r,row.symbol,`${row.symbol}：價格回報 ${num(row.return_pct)}%；最大回撤 ${num(row.max_drawdown_pct)}%；年化波動 ${num(row.volatility_pct)}%；Sharpe ${row.sharpe===null?'未定義':num(row.sharpe)}（${row.start} 至 ${row.end}，無風險利率零）`));
   else for(const row of data.strategies)numeric_facts.push(fact(run,r,row.id,`${({hold:'持有',periodic:'定期再平衡',band:'偏離再平衡'})[row.id]}：模擬回報 ${num(row.total_return_pct)}%；最大回撤 ${num(row.max_drawdown_pct)}%；成本 USD ${num(row.total_cost)}；期末 USD ${num(row.ending_nav)}（${data.date_range.start} 至 ${data.date_range.end}）`));
   const summary=structuredClone(data);if(summary.strategies)summary.strategies=summary.strategies.map(({series,events,...rest})=>rest);
-  return {result_id:r.id,kind,classification:r.classification,calculation:summary,numeric_facts,ui_available:true,note:'Use bound facts for all calculated numbers. Result is a hypothetical model or historical statistic, not a client holding, approved proposal or execution. Distinguish operating in the same sector from measured sample correlations. Label any default cash weight as a model assumption. Volatility ranks by annualized standard deviation; maximum drawdown is a separate loss measure. Volatility risk contributions are NOT CVaR contributions.'};
+  return {result_id:r.id,kind,classification:r.classification,calculation:summary,numeric_facts,ui_available:true,note:'Use bound facts for all calculated numbers. Result is a hypothetical model or historical statistic, not a client holding, approved proposal or execution. For sample correlation use the returned correlation fact token in the same sentence, or omit the claim. Shared sector and similar individual volatility do not establish correlation. A generated sample cannot establish actual market correlation; near-zero correlation does not imply independence. Label any default cash weight as a model assumption. Volatility ranks by annualized standard deviation; maximum drawdown is a separate loss measure. Volatility risk contributions are NOT CVaR contributions.'};
  }
  if(name==='get_bls_series'){
   if(args.start_year>args.end_year||args.end_year>Number(run.date.slice(0,4))||args.end_year-args.start_year>2)throw Error('BLS supports an ordered window of up to three years, no future years.');

@@ -34,3 +34,18 @@ test('sector membership cannot establish high correlation in the generated sampl
  assert.ok(evidenceIssues('五隻同屬科技股，樣本內相關性偏高。',run).some(i=>i.code==='unsupported_high_sample_correlation'));
  assert.deepEqual(evidenceIssues('同屬科技股不代表樣本內相關性偏高。',run),[]);
 });
+
+test('performance commentary shares the optimizer correlation evidence checks', () => {
+ const run={results:[{id:'R1',kind:'performance',data:{pairwise_daily_correlation:{min:-.077,mean:.007,max:.095}}}], facts:[{id:'F1',measure:'pairwise_daily_correlation',result_id:'R1'}]};
+ assert.deepEqual(evidenceIssues('樣本相關性接近零，{{F1}}。',run),[]);
+ assert.ok(evidenceIssues('樣本相關性接近零。',run).some(i=>i.code==='unbound_sample_correlation'));
+ assert.ok(evidenceIssues('相關係數為 0.97，{{F1}}。',run).some(i=>i.code==='rewritten_correlation'));
+ assert.ok(evidenceIssues('說明五隻股票的行業相關性高，{{F1}}。',run).some(i=>i.code==='unsupported_high_sample_correlation'));
+});
+
+test('generated returns cannot demonstrate real-market correlation or independence', () => {
+ const run={results:[{kind:'performance',data:{data_mode:'demo',pairwise_daily_correlation:{min:-.077,max:.095}}}]};
+ assert.ok(evidenceIssues('與同一科技產業的實際高相關特性不符。',run).some(i=>i.code==='correlation_extrapolation'));
+ assert.ok(evidenceIssues('五隻股票可視為彼此獨立。',run).some(i=>i.code==='correlation_extrapolation'));
+ assert.deepEqual(evidenceIssues('樣本低相關不能證明彼此獨立。',run),[]);
+});

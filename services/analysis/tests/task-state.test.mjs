@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {transitionTask,guardTaskTool} from '../task-state.mjs';
+import {transitionTask,guardTaskTool,allocationCash} from '../task-state.mjs';
 import {calculateHeldRebalance} from '../held-rebalance.mjs';
 import {resolveFollowup} from '../followup-actions.mjs';
 const run=(question,id='t1',key='scope')=>({id,question,portfolio_scope:{key}});
@@ -41,4 +41,17 @@ test('cash-only target scales unlocked holdings equally across categories',()=>{
  const r={...run('現金 20%'),history:[],context_selection:{reuse_result_ids:['R1']},results:[{id:'R1',kind:'portfolio_snapshot',scope_key:'scope',data:{query:'',total:1000,holdings:[{id:'a',symbol:'MSFT',category:'equity',value:400},{id:'b',symbol:'AAPL',category:'equity',value:200},{id:'d',category:'bond',value:300},{id:'c',category:'cash',value:100}]}}],task_state:{conditions:{locked_symbols:{value:'MSFT'}}}};
  const c=calculateHeldRebalance({result_id:'R1',targets:[{category:'cash',weight_pct:20}],unspecified:'keep_relative'},r);
  assert.equal(c.rows[0].target_value,400);assert.equal(c.rows[1].target_value,160);assert.equal(c.rows[2].target_value,240);assert.equal(c.after,1000);
+});
+
+test('optimizer assumption and client instructions have separate provenance across turns', () => {
+ const absent=transitionTask(null,run('同一批股票，點配可以減低波動？'),patch());
+ assert.deepEqual(allocationCash(absent),{pct:10,source:'assumption'});
+ for(const cash of [0,15]){
+  const quote='將現金改做 '+cash+'%';
+  const stated=transitionTask(absent,run(quote),patch([{key:'cash_target',value:String(cash),quote}]));
+  const retained=transitionTask(stated,run('再試另一個配置方法'),patch());
+  assert.deepEqual(allocationCash(retained),{pct:cash,source:'user'});
+  const reset=transitionTask(retained,run('新問題','new','other-scope'),patch());
+  assert.deepEqual(allocationCash(reset),{pct:10,source:'assumption'});
+ }
 });

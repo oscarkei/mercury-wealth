@@ -45,19 +45,22 @@ def execute(name,args):
         import numpy as np,pandas as pd,quantstats as qs
         from financetoolkit.performance import performance_model as perf
         from financetoolkit.risk import risk_model as risk
-        history=args['history'];rows=[]
+        history=args['history'];rows=[];price_series={}
         for h in history['histories']:
             if h['status']!=('demo' if history.get('data_mode')=='demo' else 'observed') or h['stale']:raise ValueError('Fresh observed prices are required.')
             p=pd.Series([r['close'] for r in h['points']],index=pd.to_datetime([r['date'] for r in h['points']]))
             if len(p)<20:raise ValueError('At least 20 price observations are required.')
             if (p.pct_change().abs()>0.5).any():raise ValueError('Corporate-action adjustment requires verification.')
+            price_series[h['symbol']] = p
             r=p.pct_change().fillna(0);groups=np.zeros(len(r),dtype=int)
             values={'return_pct':float(perf.get_returns(r,'yearly',groups=groups).iloc[0])*100,'max_drawdown_pct':float(risk.get_max_drawdown(r))*100,'volatility_pct':float(risk.get_volatility(r,'yearly',groups=groups).iloc[0])*100,'sharpe':float(perf.get_sharpe_ratio(r)*np.sqrt(252)) if r.std()>0 else None}
             expected=[qs.stats.comp(r)*100,qs.stats.max_drawdown(r)*100,qs.stats.volatility(r,periods=252)*100,qs.stats.sharpe(r,rf=0,periods=252) if r.std()>0 else None]
             for value,other in zip(values.values(),expected):
                 if value is not None and not math.isclose(value,float(other),rel_tol=1e-8,abs_tol=1e-8):raise ValueError('FinanceToolkit/QuantStats cross-check failed.')
             rows.append(dict(symbol=h['symbol'],start=h['first_date'],end=h['last_date'],observations=len(r),**values))
-        return {'library':'FinanceToolkit + QuantStats','rows':rows,'assumptions':['Price returns; corporate-action adjustment unverified; no total-return claim.','252-day annualization, risk-free rate zero; first return zero to include initial NAV in drawdown.','Historical statistics, not a forward forecast.']}
+        common_prices=pd.DataFrame(price_series).sort_index().dropna()
+        correlation=engine.pairwise_daily_correlation(common_prices.pct_change().dropna())
+        return {'pairwise_daily_correlation':correlation,'library':'FinanceToolkit + QuantStats','rows':rows,'assumptions':['Price returns; corporate-action adjustment unverified; no total-return claim.','252-day annualization, risk-free rate zero; first return zero to include initial NAV in drawdown.','Historical statistics, not a forward forecast.']}
     raise ValueError('Unsupported calculation.')
 
 print(json.dumps({'type':'ready','bridge':'existing-finance-libraries','isolated_cache':True}),flush=True)

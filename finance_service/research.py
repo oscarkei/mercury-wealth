@@ -171,6 +171,19 @@ def market_history(request:HistoryRequest,fetcher=None,cache_path=None):
             'histories':histories,'warnings':warnings,'storage':'local_sqlite','retrieved_at':stamp(),
             'trace':[{'tool':'market_history','library':'OpenBB','provider':'Cboe','status':'completed' if all(h['status']=='observed' for h in histories) else 'partial'}]}
 
+def pairwise_daily_correlation(returns):
+    import numpy as np
+    common = returns.dropna()
+    if len(common) < 20 or len(common.columns) < 2:
+        return None
+    matrix = common.corr().to_numpy()
+    pairs = matrix[np.triu_indices(len(matrix), k=1)]
+    if not np.isfinite(pairs).all():
+        return None
+    return dict(min=float(pairs.min()), mean=float(pairs.mean()), max=float(pairs.max()),
+                pairs=len(pairs), observations=len(common))
+
+
 def optimize_from_history(request:OptimizeRequest,history):
     import numpy as np
     import pandas as pd
@@ -206,11 +219,7 @@ def optimize_from_history(request:OptimizeRequest,history):
     if (target>request.max_asset_pct/100+1e-5).any():
         raise ValueError('The optimizer could not satisfy the maximum asset weight. Relax it or choose another objective.')
     reference=np.repeat(invested/len(target),len(target))
-    corr = returns.corr().to_numpy()
-    pairs = corr[np.triu_indices(len(corr), k=1)]
-    correlation = None
-    if len(pairs) and np.isfinite(pairs).all():
-        correlation = dict(min=float(pairs.min()), mean=float(pairs.mean()), max=float(pairs.max()), pairs=len(pairs))
+    correlation = pairwise_daily_correlation(returns)
     cov=returns.cov().to_numpy()*252
     variance=float(target@cov@target)
     contributions=target*(cov@target)/variance if variance>0 else np.zeros(len(target))
