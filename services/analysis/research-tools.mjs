@@ -29,7 +29,7 @@ export async function providerTool(path,body,key,signal){
 }
 export async function executeTool(name,raw,run,{key,signal,provider=providerTool,fetcher=fetch}){
  if(!Object.hasOwn(schemas,name))throw Error('Unsupported tool.');const args=schemas[name].parse(raw);
- blockProxyForHeldContext(name,run);
+ blockProxyForHeldContext(name,run,args);
  if(Object.hasOwn(portfolioSchemas,name))return executePortfolio(name,args,run,{signal});
  if(name==='get_analysis_guide')return getGuide(args);
  if(name==='get_adviser_proposals')return getProposals(args,run);

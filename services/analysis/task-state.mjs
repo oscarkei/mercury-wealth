@@ -1,3 +1,4 @@
+import {activeResults} from './conversation-policy.mjs';
 import {z} from 'zod';
 export const taskPatchSchema=z.object({
  operation:z.enum(['analyse','calculate','presentation_only','clarify']).default('analyse'),
@@ -33,6 +34,19 @@ export function guardTaskTool(name,args,run){
  const c=s.conditions;
  if(name==='portfolio_scenario'&&c.shock_pct&&args.shock_pct!==Number(c.shock_pct.value.replace(/[%％]/g,'')))throw Error('Scenario must preserve the user-confirmed shock.');
  if(name==='rebalance_portfolio'&&c.cash_target){const target=args.targets?.find(t=>t.category==='cash');if(!target||target.weight_pct!==Number(c.cash_target.value.replace(/[%％]/g,'')))throw Error('Rebalance must preserve the confirmed cash target.');}
- if(['optimize_allocation','strategy_backtest'].includes(name)&&c.universe)throw Error('Resolve the confirmed asset universe against supported instruments before a public-model calculation. Do not replace held assets.');
+ if(name==='optimize_allocation' && c.cash_target && args.cash_pct!==Number(c.cash_target.value.replace(/[%％]/g,'')))throw Error('Preserve the confirmed cash target.');
+ if(['optimize_allocation','strategy_backtest'].includes(name)){
+  if(c.locked_symbols)throw Error('This public model cannot lock individual positions.');
+  if(c.universe){
+   const bundle=activeResults(run).find(r=>r.id===args.history_result_id && r.kind==='market_bundle');
+   const symbols=bundle?.data.requested?.symbols || [];
+   const expected=c.universe.value.toUpperCase().split(/[\s,，、]+/).filter(Boolean);
+   const quoted=(c.universe.quote||'').toUpperCase().match(/[A-Z0-9]+(?:[.-][A-Z0-9]+)*/g)||[];
+   const explicit=symbols.length>0 && expected.length===symbols.length && expected.every(s=>symbols.includes(s)&&quoted.includes(s));
+   const held=bundle?.data.portfolio_result_id && run.results.find(r=>r.id===bundle.data.portfolio_result_id && r.kind==='portfolio_snapshot' && r.scope_key===run.portfolio_scope?.key);
+   const namedTickers=expected.length>0 && expected.every(s=>quoted.includes(s) && /^[A-Z0-9.-]+$/.test(s));
+   if(!explicit && (namedTickers || !(held && symbols.length && symbols.every(s=>held.data.holdings.some(h=>h.symbol===s)))))throw Error('Select the confirmed tickers or bind the requested held subset to a scoped portfolio price result.');
+  }
+ }
 }
 export function finishTask(run){if(!run.task_state)return;const newResults=run.results.slice(run.result_start_index).map(r=>({id:r.id,kind:r.kind,scope_key:r.scope_key}));run.task_state.results=[...run.task_state.results,...newResults].slice(-16);run.task_state.calculations=[...(run.task_state.calculations||[]),...run.trace.filter(t=>t.status==='completed'&&['portfolio_scenario','rebalance_portfolio','optimize_allocation','strategy_backtest','simulate_adviser_variation'].includes(t.name)).map(t=>({name:t.name,arguments:t.arguments,result_id:t.result?.result?.id,turn_id:run.id}))].slice(-6);run.task_state.status=run.status;}

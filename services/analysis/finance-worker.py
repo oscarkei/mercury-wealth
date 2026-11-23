@@ -25,17 +25,21 @@ def execute(name,args):
         dataset=None
         if history:
             import pandas as pd
-            if any(h['stale'] or h['status']!='observed' for h in history['histories']):raise ValueError('Fresh observed prices are required.')
+            if any(h['stale'] or h['status']!=('demo' if history.get('data_mode')=='demo' else 'observed') for h in history['histories']):raise ValueError('Fresh observed prices are required.')
+            if len({h.get('currency') for h in history['histories']})!=1 or history['histories'][0].get('currency')!='USD':raise ValueError('USD histories required for this backtest.')
             if len(history['histories'])!=3:raise ValueError('This strategy comparison requires exactly three tickers.')
             p=pd.DataFrame({h['symbol']:{r['date']:r['close'] for r in h['points']} for h in history['histories']}).sort_index().dropna()
             if len(p)<20:raise ValueError('At least 20 common observations are required.')
             if (p.pct_change().abs()>0.5).any().any():raise ValueError('Price discontinuities require verified corporate-action adjustments.')
-            dataset={'id':'observed-cboe-price-simulation','label':'Observed Cboe closes; hypothetical allocation, not a client account','assets':dict(zip(('equity','bonds','gold'),p.columns)), 'rows':[dict(date=d,**dict(zip(('equity','bonds','gold'),row))) for d,row in p.iterrows()]}
+            dataset={'id':'stored_demo_prices' if history.get('data_mode')=='demo' else 'observed-cboe-price-simulation','label':'Generated Mercury demo closes' if history.get('data_mode')=='demo' else 'Observed Cboe closes; hypothetical allocation, not a client account','assets':dict(zip(('equity','bonds','gold'),p.columns)), 'rows':[dict(date=d,**dict(zip(('equity','bonds','gold'),row))) for d,row in p.iterrows()]}
         out=compare_strategies(StrategyRequest(**args),dataset)
         if history:
             out['parameters']['dataset']='observed-cboe-price-simulation'
             out['assumptions'][0]='Observed provider close prices; split/dividend adjustments unverified. Price-only hypothetical backtest, not total return or client performance. Interest, tax and FX excluded.'
             out['input_histories']=[{'symbol':h['symbol'],'snapshot_id':h['snapshot_id']} for h in history['histories']]
+            if history.get('data_mode')=='demo':
+                out['parameters']['dataset']='stored_demo_prices'
+                out['assumptions'][0]='Generated Mercury demo daily closes. Hypothetical simulation.'
         return out
     if name=='metrics':
         import numpy as np,pandas as pd,quantstats as qs
@@ -43,7 +47,7 @@ def execute(name,args):
         from financetoolkit.risk import risk_model as risk
         history=args['history'];rows=[]
         for h in history['histories']:
-            if h['status']!='observed' or h['stale']:raise ValueError('Fresh observed prices are required.')
+            if h['status']!=('demo' if history.get('data_mode')=='demo' else 'observed') or h['stale']:raise ValueError('Fresh observed prices are required.')
             p=pd.Series([r['close'] for r in h['points']],index=pd.to_datetime([r['date'] for r in h['points']]))
             if len(p)<20:raise ValueError('At least 20 price observations are required.')
             if (p.pct_change().abs()>0.5).any():raise ValueError('Corporate-action adjustment requires verification.')

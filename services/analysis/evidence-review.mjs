@@ -1,3 +1,16 @@
+import {activeResults} from './conversation-policy.mjs';
+
+function contradictsLockedWeight(answer, run) {
+ const rebalances = activeResults({...run,results:run.results || []}).filter(r=>r.kind==='portfolio_rebalance');
+ const locked = rebalances.at(-1)?.data?.locked_symbols || [];
+ if(!locked.length)return false;
+ return answer.split(/[。；;，,\n]/).some(clause=>
+  locked.some(symbol=>clause.toUpperCase().includes(symbol)) &&
+  /全組合|整體組合|整個組合|整个组合|整体组合|whole portfolio|total portfolio/i.test(clause) &&
+  /(?:權重|佔比|占比|权重|比重).{0,8}(?:上升|增加|提高|下跌|下降|減少|减少)|(?:weight|share).{0,12}(?:increases?|falls?|rises?|decreases?)/i.test(clause) &&
+  !/不會|不会|並無|没有|沒有|不變|不变|unchanged|does not|will not/i.test(clause));
+}
+
 // Narrow regression guardrails; not a general causal-truth classifier.
 export function evidenceIssues(answer,run){
  const issues=[];if(run.language==='zh-Hant'&&(answer.match(/美国|经济|数据|价格|预测|实际|观察|风险|产量|供应|库存|市场/g)||[]).length>=4)issues.push({code:'language_changed',message:'The selected language is Traditional Chinese (繁體中文 / zh-Hant), but this draft uses Simplified Chinese extensively. Return the COMPLETE research in Traditional Chinese, keeping all facts and IDs intact.'});let heading='';const year=Number(run.date?.slice(0,4)),month=Number(run.date?.slice(5,7));const lastDay=run.date?new Date(Date.UTC(year,month,0)).getUTCDate():31;
@@ -13,5 +26,6 @@ export function evidenceIssues(answer,run){
   if(/(?:屬|全部|均為|：|:)\s*預測|forecasts? only/i.test(heading+line)&&used.some(f=>f.data_status?.startsWith('historical'))&&!/歷史|觀察|實際|historical|observed/i.test(line))issues.push({code:'observation_as_forecast',message:'A bound historical observation is presented as a forecast. Label each datum separately and separate historical data from forecast targets/vintages. '+line});
   if(/(?:第四季|第四季度|Q4|餘下|剩餘).{0,45}(?:必須|必然|一定|勢必|must)/i.test(clean)&&/(?:年|全年|年度).{0,25}(?:預測|目標)|預測.{0,25}(?:全年|年度)/.test(answer)&&!/不能|不可|不足以|無法|未能/.test(clean))issues.push({code:'unsupported_annual_bridge',message:'Do not infer the remaining quarter MUST accelerate from a weekly/annual comparison. A valid bridge requires comparable year-to-date actuals, day weighting and the same vintage; otherwise state a conditional scenario without necessity. '+line});
  }
+ if(contradictsLockedWeight(answer,run))issues.push({code:'locked_weight_change',message:'A locked position keeps its value and percentage of the unchanged total. Distinguish a share within its category from a whole-portfolio weight. Use the calculated rows.'});
  return issues;
 }

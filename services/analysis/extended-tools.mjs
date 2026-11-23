@@ -1,3 +1,4 @@
+import {demoHistory, DEMO_PRICE_URL} from './demo-history.mjs';
 import {activeResults} from './conversation-policy.mjs';
 import {financeCall} from './finance-client.mjs';
 import {extendedSchemas} from './extended-catalog.mjs';
@@ -63,6 +64,12 @@ export async function executeExtended(name,raw,run,options={}){
   const numeric_facts=data.rows.map(row=>fact(run,r,row.measure+':'+row.year,`${labels[row.measure]||row.measure} ${row.year} ${row.data_status==='forecast'?'年度預測':'歷史年度基數'}：${num(row.value)} ${row.unit}${row.unit==='Bcf/d'?'＝'+num(row.value*10)+' 億立方英尺／日':''}（STEO 發布 ${data.release_date}；預測版本 ${data.forecast_vintage}）`,{data_status:row.data_status,period:String(row.year),measure:row.measure,value:row.value,unit:row.unit}));
   return {result_id:r.id,...data,numeric_facts:[...numeric_facts,...sourceFacts(run,s,data.content)],note:'Keep historical baselines separate from forecast columns. Do not infer current-month realised volumes from annual forecasts. Do not infer price causality just by comparing production and LNG exports; total demand, weather and inventories also matter.'};
  }
+ if(name==='demo_price_history'){
+  const data=await demoHistory(args,run,opts);
+  const source=addSource(run,{url:DEMO_PRICE_URL,title:'Mercury · Supabase 示範日線',publisher:'Mercury',coverage:'generated_demo_prices',published_at:'2026-06-19'});
+  const bundle=result(run,{kind:'market_bundle',title:args.symbols.join(' / ')+' · 示範日線',source_id:source.id,scope_key:run.portfolio_scope?.key,data});
+  return {history_result_id:bundle.id,histories:data.histories.map(({points,...meta})=>meta),dataset:'stored_demo_prices',warnings:data.warnings};
+ }
  if(name==='market_history'){
   const data=await financeCall('history',args,opts.signal);const source=addSource(run,{url:'https://www.cboe.com/us/equities/market_statistics/',title:'OpenBB / Cboe daily closes',publisher:'OpenBB / Cboe',coverage:'observed_series',published_at:null});
   const bundle=result(run,{kind:'market_bundle',title:args.symbols.join(' / ')+' · Cboe',source_id:source.id,data});let numeric_facts=[];const charts=[];
@@ -74,11 +81,15 @@ export async function executeExtended(name,raw,run,options={}){
   if(name==='optimize_allocation'){const {history_result_id,...params}=args;const requested=origin.data.requested;data=await financeCall('optimize',{...params,start_date:requested.start_date,end_date:requested.end_date,history:origin.data},opts.signal);kind='allocation';title=({min_variance:'最低波動配置',min_cvar:'最低 CVaR 配置',risk_parity:'風險平價配置'})[args.objective];}
   if(name==='financial_metrics'){data=await financeCall('metrics',{history:origin.data},opts.signal);kind='performance';title='歷史回報與風險';}
   if(name==='strategy_backtest'){
-   if(args.dataset==='observed_prices'&&!origin)throw Error('Observed backtest requires a market_history result.');if(args.dataset==='explicit_demo'&&origin)throw Error('Do not mix demo and observed data.');
+   if(args.dataset==='observed_prices'&&!origin)throw Error('Observed backtest requires a market_history result.');if(args.dataset==='stored_demo_prices'&&origin?.data.data_mode!=='demo')throw Error('Select the saved demo history.');
+   if(args.dataset==='observed_prices'&&origin?.data.data_mode==='demo')throw Error('Generated data requires stored_demo_prices.');
+   if(args.dataset==='explicit_demo'&&origin)throw Error('Do not mix demo and observed data.');
    const {history_result_id,dataset,...params}=args;data=await financeCall('backtest',{...params,...(origin?{history:origin.data}:{})},opts.signal);kind='backtest';title=origin?'再平衡策略 · 歷史價格試算':'再平衡策略 · 示範數據';
   }
   const s=origin?run.sources.find(s=>s.id===origin.source_id):addSource(run,{url:'https://pmorissette.github.io/bt/',title:'bt · local explicitly labelled mock price fixture',publisher:'Local demo / bt + QuantStats',coverage:'model_simulation',published_at:null});
-  const r=result(run,{kind,title,source_id:s.id,data,parent_id:origin?.id,classification:origin?'hypothetical_model_on_observed_prices':'explicit_mock_simulation'});const numeric_facts=[];
+  const demo=origin?.data.data_mode==='demo';
+  if(demo){title+=' · 示範';data.data_mode='demo';}
+  const r=result(run,{kind,title,scope_key:origin?.scope_key,source_id:s.id,data,parent_id:origin?.id,classification:demo?'generated_demo_prices':origin?'hypothetical_model_on_observed_prices':'explicit_mock_simulation'});const numeric_facts=[];
   if(kind==='allocation'){
    for(const row of data.rows)numeric_facts.push(fact(run,r,row.symbol,`${row.symbol}：等權參考 ${num(row.reference_pct)}% → 模型權重 ${num(row.target_pct)}%；波動風險貢獻 ${num(row.risk_contribution_pct)}%`));
    numeric_facts.push(fact(run,r,'summary',`模型現金 ${num(data.cash_pct)}%；樣本內年化波動 ${num(data.reference_volatility_pct)}% → ${num(data.target_volatility_pct)}%；估算成本 USD ${num(data.estimated_cost)}（${data.first_date} 至 ${data.last_date}）`));

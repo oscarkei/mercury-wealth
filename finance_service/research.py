@@ -175,7 +175,10 @@ def optimize_from_history(request:OptimizeRequest,history):
     import numpy as np
     import pandas as pd
     import riskfolio as rp
-    if any(h['status']!='observed' or h['stale'] for h in history['histories']):
+    is_demo = history.get('data_mode') == 'demo'
+    if is_demo and any(h.get('currency') != 'USD' for h in history['histories']):
+        raise ValueError('USD histories are required for this allocation model.')
+    if any(h['status'] != ('demo' if is_demo else 'observed') or h['stale'] for h in history['histories']):
         raise ValueError('Optimization requires fresh, usable history for every requested asset. Retry the missing sources.')
     prices=pd.DataFrame({h['symbol']:{p['date']:p['close'] for p in h['points']} for h in history['histories']}).sort_index().dropna()
     if len(prices)<90:
