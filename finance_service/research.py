@@ -206,6 +206,11 @@ def optimize_from_history(request:OptimizeRequest,history):
     if (target>request.max_asset_pct/100+1e-5).any():
         raise ValueError('The optimizer could not satisfy the maximum asset weight. Relax it or choose another objective.')
     reference=np.repeat(invested/len(target),len(target))
+    corr = returns.corr().to_numpy()
+    pairs = corr[np.triu_indices(len(corr), k=1)]
+    correlation = None
+    if len(pairs) and np.isfinite(pairs).all():
+        correlation = dict(min=float(pairs.min()), mean=float(pairs.mean()), max=float(pairs.max()), pairs=len(pairs))
     cov=returns.cov().to_numpy()*252
     variance=float(target@cov@target)
     contributions=target*(cov@target)/variance if variance>0 else np.zeros(len(target))
@@ -229,7 +234,7 @@ def optimize_from_history(request:OptimizeRequest,history):
     if abs(post_nav+cost-request.capital)>1e-5:raise ValueError('Model trade costs did not reconcile.')
     return {'objective':request.objective,'library':'Riskfolio-Lib','version':rp.__version__,
             'solver':'CLARABEL','reference':'Equal-weight model, not actual account holdings',
-            'rows':trades,'cash_pct':request.cash_pct,'capital':request.capital,'estimated_cost':cost,
+            'pairwise_daily_correlation':correlation, 'rows':trades,'cash_pct':request.cash_pct,'capital':request.capital,'estimated_cost':cost,
             'post_cost_nav':post_nav,'reference_volatility_pct':ref_vol,'target_volatility_pct':vol,
             'observations':len(returns),'first_date':str(prices.index[0]),'last_date':str(prices.index[-1]),
             'method':'In-sample historical daily close returns; sample covariance; 252-day annualization; zero cash return.',

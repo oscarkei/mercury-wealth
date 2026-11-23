@@ -91,12 +91,14 @@ export async function executeExtended(name,raw,run,options={}){
   if(demo){title+=' · 示範';data.data_mode='demo';}
   const r=result(run,{kind,title,scope_key:origin?.scope_key,source_id:s.id,data,parent_id:origin?.id,classification:demo?'generated_demo_prices':origin?'hypothetical_model_on_observed_prices':'explicit_mock_simulation'});const numeric_facts=[];
   if(kind==='allocation'){
+   const correlation=data.pairwise_daily_correlation;
+   if(correlation)numeric_facts.push(fact(run,r,'correlation',`樣本內每日回報兩兩相關係數：平均 ${num(correlation.mean,3)}，範圍 ${num(correlation.min,3)} 至 ${num(correlation.max,3)}`));
    for(const row of data.rows)numeric_facts.push(fact(run,r,row.symbol,`${row.symbol}：等權參考 ${num(row.reference_pct)}% → 模型權重 ${num(row.target_pct)}%；波動風險貢獻 ${num(row.risk_contribution_pct)}%`));
    numeric_facts.push(fact(run,r,'summary',`模型現金 ${num(data.cash_pct)}%；樣本內年化波動 ${num(data.reference_volatility_pct)}% → ${num(data.target_volatility_pct)}%；估算成本 USD ${num(data.estimated_cost)}（${data.first_date} 至 ${data.last_date}）`));
   } else if(kind==='performance')for(const row of data.rows)numeric_facts.push(fact(run,r,row.symbol,`${row.symbol}：價格回報 ${num(row.return_pct)}%；最大回撤 ${num(row.max_drawdown_pct)}%；年化波動 ${num(row.volatility_pct)}%；Sharpe ${row.sharpe===null?'未定義':num(row.sharpe)}（${row.start} 至 ${row.end}，無風險利率零）`));
   else for(const row of data.strategies)numeric_facts.push(fact(run,r,row.id,`${({hold:'持有',periodic:'定期再平衡',band:'偏離再平衡'})[row.id]}：模擬回報 ${num(row.total_return_pct)}%；最大回撤 ${num(row.max_drawdown_pct)}%；成本 USD ${num(row.total_cost)}；期末 USD ${num(row.ending_nav)}（${data.date_range.start} 至 ${data.date_range.end}）`));
   const summary=structuredClone(data);if(summary.strategies)summary.strategies=summary.strategies.map(({series,events,...rest})=>rest);
-  return {result_id:r.id,kind,classification:r.classification,calculation:summary,numeric_facts,ui_available:true,note:'Use bound facts for all calculated numbers. Result is a hypothetical model or historical statistic, not a client holding, approved proposal or execution. Volatility risk contributions are NOT CVaR contributions.'};
+  return {result_id:r.id,kind,classification:r.classification,calculation:summary,numeric_facts,ui_available:true,note:'Use bound facts for all calculated numbers. Result is a hypothetical model or historical statistic, not a client holding, approved proposal or execution. Distinguish operating in the same sector from measured sample correlations. Label any default cash weight as a model assumption. Volatility ranks by annualized standard deviation; maximum drawdown is a separate loss measure. Volatility risk contributions are NOT CVaR contributions.'};
  }
  if(name==='get_bls_series'){
   if(args.start_year>args.end_year||args.end_year>Number(run.date.slice(0,4))||args.end_year-args.start_year>2)throw Error('BLS supports an ordered window of up to three years, no future years.');

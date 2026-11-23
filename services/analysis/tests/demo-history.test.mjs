@@ -28,3 +28,9 @@ test('locked whole-portfolio weight is preserved when other holdings fund cash',
  assert.ok(evidenceIssues('MSFT 在整體組合的權重上升。',state).some(i=>i.code==='locked_weight_change'));
  assert.deepEqual(evidenceIssues('MSFT 在整體組合的權重不變，但在股票類別佔比上升。',state),[]);
 });
+
+test('sector membership cannot establish high correlation in the generated sample', () => {
+ const run={results:[{kind:'allocation',data:{pairwise_daily_correlation:{min:-0.077,max:0.095}}}]};
+ assert.ok(evidenceIssues('五隻同屬科技股，樣本內相關性偏高。',run).some(i=>i.code==='unsupported_high_sample_correlation'));
+ assert.deepEqual(evidenceIssues('同屬科技股不代表樣本內相關性偏高。',run),[]);
+});

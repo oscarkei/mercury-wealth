@@ -26,6 +26,17 @@ export function evidenceIssues(answer,run){
   if(/(?:屬|全部|均為|：|:)\s*預測|forecasts? only/i.test(heading+line)&&used.some(f=>f.data_status?.startsWith('historical'))&&!/歷史|觀察|實際|historical|observed/i.test(line))issues.push({code:'observation_as_forecast',message:'A bound historical observation is presented as a forecast. Label each datum separately and separate historical data from forecast targets/vintages. '+line});
   if(/(?:第四季|第四季度|Q4|餘下|剩餘).{0,45}(?:必須|必然|一定|勢必|must)/i.test(clean)&&/(?:年|全年|年度).{0,25}(?:預測|目標)|預測.{0,25}(?:全年|年度)/.test(answer)&&!/不能|不可|不足以|無法|未能/.test(clean))issues.push({code:'unsupported_annual_bridge',message:'Do not infer the remaining quarter MUST accelerate from a weekly/annual comparison. A valid bridge requires comparable year-to-date actuals, day weighting and the same vintage; otherwise state a conditional scenario without necessity. '+line});
  }
+ const allocations = activeResults({...run,results:run.results || []}).filter(r=>r.kind==='allocation');
+ if(allocations.length && allocations.every(r=>{
+  const corr=r.data?.pairwise_daily_correlation;
+  return corr && Math.max(Math.abs(corr.min),Math.abs(corr.max)) < 0.1;
+ })){
+  const clauses=answer.split(/[。；;，,\n]/);
+  const claimsHigh=clauses.some(c=>
+   /相關性(?:偏高|很高|較高|高企)|相关性(?:偏高|很高|较高)|高度(?:正)?相[關关]|highly correlated|(?:strong|high) (?:positive )?correlations?/i.test(c) &&
+   !/不代表|並非|并非|未見|未见|未能|並無|不支持|not |no evidence|cannot infer/i.test(c));
+  if(claimsHigh)issues.push({code:'unsupported_high_sample_correlation',message:'Every measured pair of daily returns in the selected sample has absolute correlation below 0.1. Use the computed correlation fact or omit the claim. Keep sector concentration separate from sample correlation.'});
+ }
  if(contradictsLockedWeight(answer,run))issues.push({code:'locked_weight_change',message:'A locked position keeps its value and percentage of the unchanged total. Distinguish a share within its category from a whole-portfolio weight. Use the calculated rows.'});
  return issues;
 }
