@@ -42,6 +42,12 @@ export function evidenceIssues(answer,run){
   const corr=r.data?.pairwise_daily_correlation;
   return corr && Math.max(Math.abs(corr.min),Math.abs(corr.max)) < 0.1;
  })){
+  const sentences=answer.split(/[。！？\n]/);
+  for(const sentence of sentences){
+   const discussesCorrelation=/相[關关]|correlat/i.test(sentence) || [...sentence.matchAll(/\{\{(F\d+)\}\}/g)].some(m=>eligibleFacts.has(m[1]));
+   const limitsDiversification=/(?:分散(?:化|風險|风险)?(?:的)?(?:作用|效果|空間|空间|能力|效益|得益)|(?:可|能)分散的(?:空間|空间)).{0,10}(?:有限|狹窄|狭窄|不足|很小)|(?:limited|little|poor) diversification/i.test(sentence);
+   if(discussesCorrelation && limitsDiversification)issues.push({code:'confused_diversification_baseline',message:'Low correlation supports diversification. The measured small difference is the incremental volatility reduction versus an ALREADY diversified equal-weight basket at identical cash. Do not call diversification itself limited or attribute limited diversification to low correlation. Simply compare the two computed volatilities.'});
+  }
   const clauses=answer.split(/[。；;，,\n]/);
   const claimsHigh=clauses.some(c=>
    /相[關关]性(?:偏高|很高|[較较]高|高企|高|很[強强]|偏[強强])|高度(?:正)?相[關关]|highly correlated|(?:strong|high) (?:positive )?correlations?/i.test(c) &&

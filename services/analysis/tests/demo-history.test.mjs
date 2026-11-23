@@ -49,3 +49,9 @@ test('generated returns cannot demonstrate real-market correlation or independen
  assert.ok(evidenceIssues('五隻股票可視為彼此獨立。',run).some(i=>i.code==='correlation_extrapolation'));
  assert.deepEqual(evidenceIssues('樣本低相關不能證明彼此獨立。',run),[]);
 });
+
+test('distinguish the diversification benefit from incremental optimizer gains', () => {
+ const run={results:[{id:'R1',kind:'allocation',data:{pairwise_daily_correlation:{min:-.077,max:.095}}}]};
+ assert.ok(evidenceIssues('每日回報相關性極低，這表示模型可分散的空間本就有限。',run).some(i=>i.code==='confused_diversification_baseline'));
+ assert.deepEqual(evidenceIssues('等權配置已有分散效果；改用最低波動配置後的額外改善有限。',run),[]);
+});
