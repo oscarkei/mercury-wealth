@@ -31,15 +31,20 @@ def execute(name,args):
             p=pd.DataFrame({h['symbol']:{r['date']:r['close'] for r in h['points']} for h in history['histories']}).sort_index().dropna()
             if len(p)<20:raise ValueError('At least 20 common observations are required.')
             if (p.pct_change().abs()>0.5).any().any():raise ValueError('Price discontinuities require verified corporate-action adjustments.')
-            dataset={'id':'stored_demo_prices' if history.get('data_mode')=='demo' else 'observed-cboe-price-simulation','label':'Generated Mercury demo closes' if history.get('data_mode')=='demo' else 'Observed Cboe closes; hypothetical allocation, not a client account','assets':dict(zip(('equity','bonds','gold'),p.columns)), 'rows':[dict(date=d,**dict(zip(('equity','bonds','gold'),row))) for d,row in p.iterrows()]}
+            is_demo=history.get('data_mode')=='demo'
+            is_iex=all(h.get('basis')=='iex_regular_session_split_adjusted' for h in history['histories'])
+            dataset_id='stored_demo_prices' if is_demo else 'observed-iex-price-simulation' if is_iex else 'observed-cboe-price-simulation'
+            label='Generated Mercury demo closes' if is_demo else 'IEX-only reference prices; hypothetical allocation' if is_iex else 'Observed Cboe closes; hypothetical allocation, not a client account'
+            dataset={'id':dataset_id,'label':label,'assets':dict(zip(('equity','bonds','gold'),p.columns)), 'rows':[dict(date=d,**dict(zip(('equity','bonds','gold'),row))) for d,row in p.iterrows()]}
         out=compare_strategies(StrategyRequest(**args),dataset)
         if history:
-            out['parameters']['dataset']='observed-cboe-price-simulation'
+            out['parameters']['dataset']=dataset['id']
             out['assumptions'][0]='Observed provider close prices; split/dividend adjustments unverified. Price-only hypothetical backtest, not total return or client performance. Interest, tax and FX excluded.'
             out['input_histories']=[{'symbol':h['symbol'],'snapshot_id':h['snapshot_id']} for h in history['histories']]
-            if history.get('data_mode')=='demo':
-                out['parameters']['dataset']='stored_demo_prices'
+            if is_demo:
                 out['assumptions'][0]='Generated Mercury demo daily closes. Hypothetical simulation.'
+            elif is_iex:
+                out['assumptions'][0]='IEX-only historical reference prices. Split-adjusted as published; dividends excluded. Hypothetical backtest. Interest, tax and FX excluded.'
         return out
     if name=='metrics':
         import numpy as np,pandas as pd,quantstats as qs

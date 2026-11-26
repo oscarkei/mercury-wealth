@@ -1,3 +1,4 @@
+import {iexHistory,IEX_PROVIDER,IEX_TERMS_URL} from './iex-history.mjs';
 import {allocationCash} from './task-state.mjs';
 import {demoHistory, DEMO_PRICE_URL} from './demo-history.mjs';
 import {activeResults} from './conversation-policy.mjs';
@@ -73,9 +74,16 @@ export async function executeExtended(name,raw,run,options={}){
   return {history_result_id:bundle.id,histories:data.histories.map(({points,...meta})=>meta),dataset:'stored_demo_prices',warnings:data.warnings};
  }
  if(name==='market_history'){
-  const data=await financeCall('history',args,opts.signal);const source=addSource(run,{url:'https://www.cboe.com/us/equities/market_statistics/',title:'OpenBB / Cboe daily closes',publisher:'OpenBB / Cboe',coverage:'observed_series',published_at:null});
-  const bundle=result(run,{kind:'market_bundle',title:args.symbols.join(' / ')+' · Cboe',source_id:source.id,data});let numeric_facts=[];const charts=[];
-  for(const h of data.histories.filter(h=>h.status==='observed')){const out=addSeries(run,h.points.map(p=>({date:p.date,value:p.close})),{title:h.symbol+' 收市價',series_id:'CBOE:'+h.symbol,unit:'USD',frequency:'daily',provider:'OpenBB / Cboe',kind:'observed_price',basis:h.basis,stale:h.stale,parent_id:bundle.id},source);numeric_facts.push(...out.numeric_facts);charts.push(out.result.id);}
+  const data=await iexHistory(args,run.date,url=>publicData(url,{...opts,ttl:3600000}));
+  opts.signal?.throwIfAborted();
+  const source=addSource(run,{url:IEX_TERMS_URL,title:'IEX historical daily prices via Vibistic',publisher:IEX_PROVIDER,coverage:'observed_series',published_at:null});
+  const bundle=result(run,{kind:'market_bundle',title:args.symbols.join(' / ')+' · IEX',source_id:source.id,data});
+  const numeric_facts=[],charts=[];
+  for(const h of data.histories.filter(h=>h.status==='observed')){
+   const out=addSeries(run,h.points.map(p=>({date:p.date,value:p.close})),{title:h.symbol+' · IEX',series_id:'IEX:'+h.symbol,unit:'USD',frequency:'daily',provider:IEX_PROVIDER,kind:'observed_price',basis:h.basis,stale:h.stale,parent_id:bundle.id},source);
+   numeric_facts.push(...out.numeric_facts);
+   charts.push(out.result.id);
+  }
   return {history_result_id:bundle.id,chart_result_ids:charts,numeric_facts,histories:data.histories.map(({points,...r})=>r),warnings:data.warnings};
  }
  if(['optimize_allocation','strategy_backtest','financial_metrics'].includes(name)){
