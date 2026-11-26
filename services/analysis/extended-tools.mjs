@@ -1,3 +1,6 @@
+import {iexHistory,IEX_PROVIDER,IEX_TERMS_URL} from './iex-history.mjs';
+import {allocationCash} from './task-state.mjs';
+import {demoHistory, DEMO_PRICE_URL} from './demo-history.mjs';
 import {activeResults} from './conversation-policy.mjs';
 import {financeCall} from './finance-client.mjs';
 import {extendedSchemas} from './extended-catalog.mjs';
@@ -56,17 +59,31 @@ export function parseOutlook(html,asof){
  if(!rows.some(r=>/dry natural gas production/.test(r.measure))||!rows.some(r=>/LNG exports/.test(r.measure)))throw Error('Required EIA outlook measures missing.');return {release_date,forecast_vintage,rows,content:stripHtml(main[1]).slice(0,12000),classification_source:'EIA original table Forecast cell classes checked against projected column headers. Historical baselines can still be revised.'};
 }
 export async function executeExtended(name,raw,run,options={}){
- const args=extendedSchemas[name].parse(raw),opts={signal:options.signal,fetcher:options.fetcher||fetch};
+ const cash = name==='optimize_allocation' && run.task_state ? allocationCash(run.task_state) : null;
+ const args=extendedSchemas[name].parse(cash ? {...raw,cash_pct:cash.pct} : raw),opts={signal:options.signal,fetcher:options.fetcher||fetch};
  if(name==='get_eia_outlook'){
   const url='https://www.eia.gov/outlooks/steo/report/natgas.php',html=await publicData(url,{...opts,format:'text',ttl:3600000}),data=parseOutlook(html,run.date);const s=addSource(run,{url,title:'EIA STEO 天然氣展望',publisher:'EIA',coverage:'official_mixed_history_forecast',published_at:data.release_date,content:data.content});const r=result(run,{kind:'outlook',title:'EIA 天然氣 · 歷史與預測',source_id:s.id,data});
   const labels={'U.S. dry natural gas production':'美國乾氣產量','U.S. natural gas consumption':'美國天然氣消費','U.S. LNG exports':'美國 LNG 出口','Natural gas price at Henry Hub':'Henry Hub 年均價格','Natural gas share of electricity generation':'天然氣發電佔比'};
   const numeric_facts=data.rows.map(row=>fact(run,r,row.measure+':'+row.year,`${labels[row.measure]||row.measure} ${row.year} ${row.data_status==='forecast'?'年度預測':'歷史年度基數'}：${num(row.value)} ${row.unit}${row.unit==='Bcf/d'?'＝'+num(row.value*10)+' 億立方英尺／日':''}（STEO 發布 ${data.release_date}；預測版本 ${data.forecast_vintage}）`,{data_status:row.data_status,period:String(row.year),measure:row.measure,value:row.value,unit:row.unit}));
   return {result_id:r.id,...data,numeric_facts:[...numeric_facts,...sourceFacts(run,s,data.content)],note:'Keep historical baselines separate from forecast columns. Do not infer current-month realised volumes from annual forecasts. Do not infer price causality just by comparing production and LNG exports; total demand, weather and inventories also matter.'};
  }
+ if(name==='demo_price_history'){
+  const data=await demoHistory(args,run,opts);
+  const source=addSource(run,{url:DEMO_PRICE_URL,title:'Mercury · Supabase 示範日線',publisher:'Mercury',coverage:'generated_demo_prices',published_at:'2026-06-19'});
+  const bundle=result(run,{kind:'market_bundle',title:args.symbols.join(' / ')+' · 示範日線',source_id:source.id,scope_key:run.portfolio_scope?.key,data});
+  return {history_result_id:bundle.id,histories:data.histories.map(({points,...meta})=>meta),dataset:'stored_demo_prices',warnings:data.warnings};
+ }
  if(name==='market_history'){
-  const data=await financeCall('history',args,opts.signal);const source=addSource(run,{url:'https://www.cboe.com/us/equities/market_statistics/',title:'OpenBB / Cboe daily closes',publisher:'OpenBB / Cboe',coverage:'observed_series',published_at:null});
-  const bundle=result(run,{kind:'market_bundle',title:args.symbols.join(' / ')+' · Cboe',source_id:source.id,data});let numeric_facts=[];const charts=[];
-  for(const h of data.histories.filter(h=>h.status==='observed')){const out=addSeries(run,h.points.map(p=>({date:p.date,value:p.close})),{title:h.symbol+' 收市價',series_id:'CBOE:'+h.symbol,unit:'USD',frequency:'daily',provider:'OpenBB / Cboe',kind:'observed_price',basis:h.basis,stale:h.stale,parent_id:bundle.id},source);numeric_facts.push(...out.numeric_facts);charts.push(out.result.id);}
+  const data=await iexHistory(args,run.date,url=>publicData(url,{...opts,ttl:3600000}));
+  opts.signal?.throwIfAborted();
+  const source=addSource(run,{url:IEX_TERMS_URL,title:'IEX historical daily prices via Vibistic',publisher:IEX_PROVIDER,coverage:'observed_series',published_at:null});
+  const bundle=result(run,{kind:'market_bundle',title:args.symbols.join(' / ')+' · IEX',source_id:source.id,data});
+  const numeric_facts=[],charts=[];
+  for(const h of data.histories.filter(h=>h.status==='observed')){
+   const out=addSeries(run,h.points.map(p=>({date:p.date,value:p.close})),{title:h.symbol+' · IEX',series_id:'IEX:'+h.symbol,unit:'USD',frequency:'daily',provider:IEX_PROVIDER,kind:'observed_price',basis:h.basis,stale:h.stale,parent_id:bundle.id},source);
+   numeric_facts.push(...out.numeric_facts);
+   charts.push(out.result.id);
+  }
   return {history_result_id:bundle.id,chart_result_ids:charts,numeric_facts,histories:data.histories.map(({points,...r})=>r),warnings:data.warnings};
  }
  if(['optimize_allocation','strategy_backtest','financial_metrics'].includes(name)){
@@ -74,18 +91,26 @@ export async function executeExtended(name,raw,run,options={}){
   if(name==='optimize_allocation'){const {history_result_id,...params}=args;const requested=origin.data.requested;data=await financeCall('optimize',{...params,start_date:requested.start_date,end_date:requested.end_date,history:origin.data},opts.signal);kind='allocation';title=({min_variance:'最低波動配置',min_cvar:'最低 CVaR 配置',risk_parity:'風險平價配置'})[args.objective];}
   if(name==='financial_metrics'){data=await financeCall('metrics',{history:origin.data},opts.signal);kind='performance';title='歷史回報與風險';}
   if(name==='strategy_backtest'){
-   if(args.dataset==='observed_prices'&&!origin)throw Error('Observed backtest requires a market_history result.');if(args.dataset==='explicit_demo'&&origin)throw Error('Do not mix demo and observed data.');
+   if(args.dataset==='observed_prices'&&!origin)throw Error('Observed backtest requires a market_history result.');if(args.dataset==='stored_demo_prices'&&origin?.data.data_mode!=='demo')throw Error('Select the saved demo history.');
+   if(args.dataset==='observed_prices'&&origin?.data.data_mode==='demo')throw Error('Generated data requires stored_demo_prices.');
+   if(args.dataset==='explicit_demo'&&origin)throw Error('Do not mix demo and observed data.');
    const {history_result_id,dataset,...params}=args;data=await financeCall('backtest',{...params,...(origin?{history:origin.data}:{})},opts.signal);kind='backtest';title=origin?'再平衡策略 · 歷史價格試算':'再平衡策略 · 示範數據';
   }
   const s=origin?run.sources.find(s=>s.id===origin.source_id):addSource(run,{url:'https://pmorissette.github.io/bt/',title:'bt · local explicitly labelled mock price fixture',publisher:'Local demo / bt + QuantStats',coverage:'model_simulation',published_at:null});
-  const r=result(run,{kind,title,source_id:s.id,data,parent_id:origin?.id,classification:origin?'hypothetical_model_on_observed_prices':'explicit_mock_simulation'});const numeric_facts=[];
+  const demo=origin?.data.data_mode==='demo';
+  if(cash)data.cash_source=cash.source;
+  if(demo){title+=' · 示範';data.data_mode='demo';}
+  const r=result(run,{kind,title,scope_key:origin?.scope_key,source_id:s.id,data,parent_id:origin?.id,classification:demo?'generated_demo_prices':origin?'hypothetical_model_on_observed_prices':'explicit_mock_simulation'});const numeric_facts=[];
+  const correlation=data.pairwise_daily_correlation;
+  if(correlation)numeric_facts.push(fact(run,r,'correlation',`樣本內每日回報兩兩相關係數：平均 ${num(correlation.mean,3)}，範圍 ${num(correlation.min,3)} 至 ${num(correlation.max,3)}`,{measure:'pairwise_daily_correlation'}));
   if(kind==='allocation'){
+   const cashLabel=cash?.source==='assumption'?'試算假設：現金':cash?.source==='user'?'按你指定的現金比例':'模型現金';
    for(const row of data.rows)numeric_facts.push(fact(run,r,row.symbol,`${row.symbol}：等權參考 ${num(row.reference_pct)}% → 模型權重 ${num(row.target_pct)}%；波動風險貢獻 ${num(row.risk_contribution_pct)}%`));
-   numeric_facts.push(fact(run,r,'summary',`模型現金 ${num(data.cash_pct)}%；樣本內年化波動 ${num(data.reference_volatility_pct)}% → ${num(data.target_volatility_pct)}%；估算成本 USD ${num(data.estimated_cost)}（${data.first_date} 至 ${data.last_date}）`));
+   numeric_facts.push(fact(run,r,'summary',`${cashLabel} ${num(data.cash_pct)}%；樣本內年化波動 ${num(data.reference_volatility_pct)}% → ${num(data.target_volatility_pct)}%；估算成本 USD ${num(data.estimated_cost)}（${data.first_date} 至 ${data.last_date}）`));
   } else if(kind==='performance')for(const row of data.rows)numeric_facts.push(fact(run,r,row.symbol,`${row.symbol}：價格回報 ${num(row.return_pct)}%；最大回撤 ${num(row.max_drawdown_pct)}%；年化波動 ${num(row.volatility_pct)}%；Sharpe ${row.sharpe===null?'未定義':num(row.sharpe)}（${row.start} 至 ${row.end}，無風險利率零）`));
   else for(const row of data.strategies)numeric_facts.push(fact(run,r,row.id,`${({hold:'持有',periodic:'定期再平衡',band:'偏離再平衡'})[row.id]}：模擬回報 ${num(row.total_return_pct)}%；最大回撤 ${num(row.max_drawdown_pct)}%；成本 USD ${num(row.total_cost)}；期末 USD ${num(row.ending_nav)}（${data.date_range.start} 至 ${data.date_range.end}）`));
   const summary=structuredClone(data);if(summary.strategies)summary.strategies=summary.strategies.map(({series,events,...rest})=>rest);
-  return {result_id:r.id,kind,classification:r.classification,calculation:summary,numeric_facts,ui_available:true,note:'Use bound facts for all calculated numbers. Result is a hypothetical model or historical statistic, not a client holding, approved proposal or execution. Volatility risk contributions are NOT CVaR contributions.'};
+  return {result_id:r.id,kind,classification:r.classification,calculation:summary,numeric_facts,ui_available:true,note:'Use bound facts for all calculated numbers. Result is a hypothetical model or historical statistic, not a client holding, approved proposal or execution. For sample correlation use the returned correlation fact token in the same sentence, or omit the claim. Shared sector and similar individual volatility do not establish correlation. A generated sample cannot establish actual market correlation; near-zero correlation does not imply independence or weak diversification. A small improvement over an already diversified equal-weight basket describes only the effect of reweighting. Do not restate a fact numerically next to its token. Label any default cash weight as a model assumption. Volatility ranks by annualized standard deviation; maximum drawdown is a separate loss measure. Volatility risk contributions are NOT CVaR contributions.'};
  }
  if(name==='get_bls_series'){
   if(args.start_year>args.end_year||args.end_year>Number(run.date.slice(0,4))||args.end_year-args.start_year>2)throw Error('BLS supports an ordered window of up to three years, no future years.');

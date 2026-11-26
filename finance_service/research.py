@@ -171,11 +171,27 @@ def market_history(request:HistoryRequest,fetcher=None,cache_path=None):
             'histories':histories,'warnings':warnings,'storage':'local_sqlite','retrieved_at':stamp(),
             'trace':[{'tool':'market_history','library':'OpenBB','provider':'Cboe','status':'completed' if all(h['status']=='observed' for h in histories) else 'partial'}]}
 
+def pairwise_daily_correlation(returns):
+    import numpy as np
+    common = returns.dropna()
+    if len(common) < 20 or len(common.columns) < 2:
+        return None
+    matrix = common.corr().to_numpy()
+    pairs = matrix[np.triu_indices(len(matrix), k=1)]
+    if not np.isfinite(pairs).all():
+        return None
+    return dict(min=float(pairs.min()), mean=float(pairs.mean()), max=float(pairs.max()),
+                pairs=len(pairs), observations=len(common))
+
+
 def optimize_from_history(request:OptimizeRequest,history):
     import numpy as np
     import pandas as pd
     import riskfolio as rp
-    if any(h['status']!='observed' or h['stale'] for h in history['histories']):
+    is_demo = history.get('data_mode') == 'demo'
+    if is_demo and any(h.get('currency') != 'USD' for h in history['histories']):
+        raise ValueError('USD histories are required for this allocation model.')
+    if any(h['status'] != ('demo' if is_demo else 'observed') or h['stale'] for h in history['histories']):
         raise ValueError('Optimization requires fresh, usable history for every requested asset. Retry the missing sources.')
     prices=pd.DataFrame({h['symbol']:{p['date']:p['close'] for p in h['points']} for h in history['histories']}).sort_index().dropna()
     if len(prices)<90:
@@ -203,6 +219,7 @@ def optimize_from_history(request:OptimizeRequest,history):
     if (target>request.max_asset_pct/100+1e-5).any():
         raise ValueError('The optimizer could not satisfy the maximum asset weight. Relax it or choose another objective.')
     reference=np.repeat(invested/len(target),len(target))
+    correlation = pairwise_daily_correlation(returns)
     cov=returns.cov().to_numpy()*252
     variance=float(target@cov@target)
     contributions=target*(cov@target)/variance if variance>0 else np.zeros(len(target))
@@ -226,7 +243,7 @@ def optimize_from_history(request:OptimizeRequest,history):
     if abs(post_nav+cost-request.capital)>1e-5:raise ValueError('Model trade costs did not reconcile.')
     return {'objective':request.objective,'library':'Riskfolio-Lib','version':rp.__version__,
             'solver':'CLARABEL','reference':'Equal-weight model, not actual account holdings',
-            'rows':trades,'cash_pct':request.cash_pct,'capital':request.capital,'estimated_cost':cost,
+            'pairwise_daily_correlation':correlation, 'rows':trades,'cash_pct':request.cash_pct,'capital':request.capital,'estimated_cost':cost,
             'post_cost_nav':post_nav,'reference_volatility_pct':ref_vol,'target_volatility_pct':vol,
             'observations':len(returns),'first_date':str(prices.index[0]),'last_date':str(prices.index[-1]),
             'method':'In-sample historical daily close returns; sample covariance; 252-day annualization; zero cash return.',

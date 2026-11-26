@@ -11,7 +11,8 @@ export function selectContext(run,args){
  for(const id of sourceIds){const source=run.sources.find(s=>s.id===id);if(!source||source.access==='private_demo')throw Error('Retain portfolio evidence through its scoped result ID, not a bare source ID.');}
  run.context_selection={relation:args.relation||'new_topic',reuse_result_ids:ids,reuse_source_ids:sourceIds};
  const results=run.results.filter(r=>ids.includes(r.id)),sources=run.sources.filter(s=>results.some(r=>r.source_id===s.id)||sourceIds.includes(s.id));
- return {results,numeric_facts:run.facts.filter(f=>ids.includes(f.result_id)||(!f.result_id&&sourceIds.includes(f.source_id))),sources};
+ const summaries=results.map(r=>r.kind==='market_bundle' ? {...r,data:{...r.data,histories:r.data.histories.map(({points,...meta})=>meta)}} : r);
+ return {results:summaries,numeric_facts:run.facts.filter(f=>ids.includes(f.result_id)||(!f.result_id&&sourceIds.includes(f.source_id))),sources};
 }
 export function contextIssues(answer,run){
  const active=new Set(activeResults(run).map(r=>r.id));const cited=[...answer.matchAll(/\[(R\d+)\]/g)].map(m=>m[1]);

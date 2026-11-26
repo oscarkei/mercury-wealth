@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createCloudResearch} from '../cloud/research.mjs';
+import {research as engine} from '../engine.mjs';
+import {executePortfolio,portfolioSchemas} from '../portfolio-tools.mjs';
+import {publicPortfolio} from '../cloud/portfolio.mjs';
+const createCloudResearch=({key,providerFetch,publicToolExecutor=executeTool})=>args=>engine({...args,key,providerFetch,mode:'deepseek',selectUI:undefined,toolExecutor:(name,raw,run,options)=>Object.hasOwn(portfolioSchemas,name)?executePortfolio(name,raw,run,{...options,portfolioLoader:async scope=>publicPortfolio(scope)}):publicToolExecutor(name,raw,run,options)});
 import {executeTool} from '../research-tools.mjs';
 import {capability} from '../portfolio-bridge.mjs';
 

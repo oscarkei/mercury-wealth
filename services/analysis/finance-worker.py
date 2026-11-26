@@ -25,35 +25,47 @@ def execute(name,args):
         dataset=None
         if history:
             import pandas as pd
-            if any(h['stale'] or h['status']!='observed' for h in history['histories']):raise ValueError('Fresh observed prices are required.')
+            if any(h['stale'] or h['status']!=('demo' if history.get('data_mode')=='demo' else 'observed') for h in history['histories']):raise ValueError('Fresh observed prices are required.')
+            if len({h.get('currency') for h in history['histories']})!=1 or history['histories'][0].get('currency')!='USD':raise ValueError('USD histories required for this backtest.')
             if len(history['histories'])!=3:raise ValueError('This strategy comparison requires exactly three tickers.')
             p=pd.DataFrame({h['symbol']:{r['date']:r['close'] for r in h['points']} for h in history['histories']}).sort_index().dropna()
             if len(p)<20:raise ValueError('At least 20 common observations are required.')
             if (p.pct_change().abs()>0.5).any().any():raise ValueError('Price discontinuities require verified corporate-action adjustments.')
-            dataset={'id':'observed-cboe-price-simulation','label':'Observed Cboe closes; hypothetical allocation, not a client account','assets':dict(zip(('equity','bonds','gold'),p.columns)), 'rows':[dict(date=d,**dict(zip(('equity','bonds','gold'),row))) for d,row in p.iterrows()]}
+            is_demo=history.get('data_mode')=='demo'
+            is_iex=all(h.get('basis')=='iex_regular_session_split_adjusted' for h in history['histories'])
+            dataset_id='stored_demo_prices' if is_demo else 'observed-iex-price-simulation' if is_iex else 'observed-cboe-price-simulation'
+            label='Generated Mercury demo closes' if is_demo else 'IEX-only reference prices; hypothetical allocation' if is_iex else 'Observed Cboe closes; hypothetical allocation, not a client account'
+            dataset={'id':dataset_id,'label':label,'assets':dict(zip(('equity','bonds','gold'),p.columns)), 'rows':[dict(date=d,**dict(zip(('equity','bonds','gold'),row))) for d,row in p.iterrows()]}
         out=compare_strategies(StrategyRequest(**args),dataset)
         if history:
-            out['parameters']['dataset']='observed-cboe-price-simulation'
+            out['parameters']['dataset']=dataset['id']
             out['assumptions'][0]='Observed provider close prices; split/dividend adjustments unverified. Price-only hypothetical backtest, not total return or client performance. Interest, tax and FX excluded.'
             out['input_histories']=[{'symbol':h['symbol'],'snapshot_id':h['snapshot_id']} for h in history['histories']]
+            if is_demo:
+                out['assumptions'][0]='Generated Mercury demo daily closes. Hypothetical simulation.'
+            elif is_iex:
+                out['assumptions'][0]='IEX-only historical reference prices. Split-adjusted as published; dividends excluded. Hypothetical backtest. Interest, tax and FX excluded.'
         return out
     if name=='metrics':
         import numpy as np,pandas as pd,quantstats as qs
         from financetoolkit.performance import performance_model as perf
         from financetoolkit.risk import risk_model as risk
-        history=args['history'];rows=[]
+        history=args['history'];rows=[];price_series={}
         for h in history['histories']:
-            if h['status']!='observed' or h['stale']:raise ValueError('Fresh observed prices are required.')
+            if h['status']!=('demo' if history.get('data_mode')=='demo' else 'observed') or h['stale']:raise ValueError('Fresh observed prices are required.')
             p=pd.Series([r['close'] for r in h['points']],index=pd.to_datetime([r['date'] for r in h['points']]))
             if len(p)<20:raise ValueError('At least 20 price observations are required.')
             if (p.pct_change().abs()>0.5).any():raise ValueError('Corporate-action adjustment requires verification.')
+            price_series[h['symbol']] = p
             r=p.pct_change().fillna(0);groups=np.zeros(len(r),dtype=int)
             values={'return_pct':float(perf.get_returns(r,'yearly',groups=groups).iloc[0])*100,'max_drawdown_pct':float(risk.get_max_drawdown(r))*100,'volatility_pct':float(risk.get_volatility(r,'yearly',groups=groups).iloc[0])*100,'sharpe':float(perf.get_sharpe_ratio(r)*np.sqrt(252)) if r.std()>0 else None}
             expected=[qs.stats.comp(r)*100,qs.stats.max_drawdown(r)*100,qs.stats.volatility(r,periods=252)*100,qs.stats.sharpe(r,rf=0,periods=252) if r.std()>0 else None]
             for value,other in zip(values.values(),expected):
                 if value is not None and not math.isclose(value,float(other),rel_tol=1e-8,abs_tol=1e-8):raise ValueError('FinanceToolkit/QuantStats cross-check failed.')
             rows.append(dict(symbol=h['symbol'],start=h['first_date'],end=h['last_date'],observations=len(r),**values))
-        return {'library':'FinanceToolkit + QuantStats','rows':rows,'assumptions':['Price returns; corporate-action adjustment unverified; no total-return claim.','252-day annualization, risk-free rate zero; first return zero to include initial NAV in drawdown.','Historical statistics, not a forward forecast.']}
+        common_prices=pd.DataFrame(price_series).sort_index().dropna()
+        correlation=engine.pairwise_daily_correlation(common_prices.pct_change().dropna())
+        return {'pairwise_daily_correlation':correlation,'library':'FinanceToolkit + QuantStats','rows':rows,'assumptions':['Price returns; corporate-action adjustment unverified; no total-return claim.','252-day annualization, risk-free rate zero; first return zero to include initial NAV in drawdown.','Historical statistics, not a forward forecast.']}
     raise ValueError('Unsupported calculation.')
 
 print(json.dumps({'type':'ready','bridge':'existing-finance-libraries','isolated_cache':True}),flush=True)

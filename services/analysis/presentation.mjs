@@ -1,3 +1,4 @@
+import {IEX_PROVIDER} from './iex-history.mjs';
 import {activeResults} from './conversation-policy.mjs';
 import {schemas,validateComponents} from './catalog.mjs';
 const sourceIds=(text,run)=>[...new Set([...text.matchAll(/\[([SR]\d+)\]/g)].map(m=>m[1].startsWith('R')?run.results.find(r=>r.id===m[1])?.source_id:m[1]).filter(id=>run.sources.some(s=>s.id===id)))].slice(0,8);
@@ -12,7 +13,7 @@ export function preparePresentation(run){
  const viewResults=activeResults(run);
  let charts=viewResults.filter(r=>r.points?.length>=2).map(r=>({type:'chart',title:r.title,result_id:r.id}));
  const prices=viewResults.filter(r=>r.kind==='observed_price'&&r.points?.length>=2).slice(0,6);
- if(prices.length>=2){const ids=new Set(prices.map(r=>r.id));charts=[{type:'price_comparison',title:'股價表現比較',result_ids:[...ids]},...charts.filter(c=>!ids.has(c.result_id))];}
+ if(prices.length>=2){const ids=new Set(prices.map(r=>r.id));charts=[{type:'price_comparison',title:prices.every(r=>r.provider===IEX_PROVIDER)?'IEX 日終價走勢比較':'股價表現比較',result_ids:[...ids]},...charts.filter(c=>!ids.has(c.result_id))];}
  const summaries=sections.filter(s=>s.lines.some(l=>l.trim()&&!l.trim().startsWith('|'))).map(s=>({type:'research_section',title:s.title,text:s.lines.filter(l=>!l.trim().startsWith('|')).join('\n').trim(),source_ids:sourceIds(s.lines.join('\n'),run)})).filter(s=>s.text);
  const state={question:run.question,available:{charts:charts.length,comparison:tables.length,transmission:transmissions.length},research:summaries.slice(0,6).map(s=>({title:s.title,summary:s.text.slice(0,160)})),series:viewResults.map(r=>({id:r.id,title:r.title,unit:r.unit,observations:r.observations,first:r.first?.date,last:r.last?.date})),tables:tables.map(t=>({title:t.title,columns:t.headers,rows:t.rows.length})),instructions:'只選擇有現成內容及數據支持的畫面，不新增研究、數字或必填追問。'};
  const fundamentals=viewResults.filter(r=>r.kind==='sec_facts'&&r.data?.rows?.length).slice(0,8);

@@ -1,0 +1,8 @@
+{
+  "productionCommit": "9a6cc436235adcef6b5e3c0342ec952ed0619bef",
+  "branch": "next/v0.5-conversation",
+  "version": "0.5.0-alpha.1",
+  "automaticDeployment": false,
+  "productionModified": false,
+  "dataMigration": false
+}

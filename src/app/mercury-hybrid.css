@@ -56,3 +56,13 @@
 .hybrid-sources a,.hybrid-sources span{font-size:10px;text-decoration:none;color:var(--primary);background:var(--muted);border-radius:7px;padding:6px}
 .hybrid-original{border-top:1px solid var(--line)}
 @media(max-width:360px){.hybrid-allocation{gap:8px}.hybrid-donut{width:100px;height:100px}.hybrid-donut span{width:64px;height:64px}.hybrid-card{padding:14px}}
+
+/* Result actions expand only the relevant supported assumption. */
+.hybrid-followup-form{border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);max-width:100%}
+.hybrid-followup-form summary{padding:12px 14px;min-height:44px;cursor:pointer;font-size:13px}
+.hybrid-followup-form form{display:flex;flex-wrap:wrap;align-items:end;gap:12px;padding:4px 14px 14px}
+.hybrid-followup-form label{display:grid;gap:6px;font-size:12px}
+.hybrid-followup-form input{max-width:150px;min-height:44px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface);color:var(--ink);font-size:16px}
+.hybrid-followups :focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.hybrid-followups{align-items:flex-start}
+.hybrid-followup-form[open]{flex-basis:100%}
